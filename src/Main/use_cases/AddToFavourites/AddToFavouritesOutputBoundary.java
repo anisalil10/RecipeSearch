@@ -1,4 +1,4 @@
-package use_cases.AddToFavourites;
+package Main.use_cases.AddToFavourites;
 
 public interface AddToFavouritesOutputBoundary {
 

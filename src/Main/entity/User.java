@@ -1,4 +1,4 @@
-package entity;
+package Main.entity;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ public class User {
     private String password;
     private UserPreferences userpreferences;
     private UISettings uiSettings;
-    private ArrayList<Integer> favouriterecipes;
+    private ArrayList<Recipe> favouriterecipes;
 
     public User(String username, String password) {
         this.username = username;
@@ -17,7 +17,6 @@ public class User {
     }
 
     public void addtofavourites(Recipe recipe) {
-        Integer r_id = recipe.getRecipeID();
-        this.favouriterecipes.add(r_id);
+        this.favouriterecipes.add(recipe);
     }
 }
