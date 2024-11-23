@@ -67,8 +67,14 @@ public class Search {
         // Create an HTTP client and execute the GET request
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
-            String response = httpClient.execute(request, httpResponse ->
-                    EntityUtils.toString(httpResponse.getEntity()));
+            String response = httpClient.execute(request, httpResponse -> {
+                int statusCode = httpResponse.getStatusLine().getStatusCode();
+                if (statusCode != 200) {
+                    throw new IOException("Failed API call: HTTP " + statusCode + " - " + httpResponse.getStatusLine().getReasonPhrase());
+                }
+                return EntityUtils.toString(httpResponse.getEntity());
+            });
+
 
             // Parse and display the response
             parseAndDisplayRecipes(response, maxResults);
@@ -158,8 +164,14 @@ public class Search {
         List<String> recipeNames = new ArrayList<>();
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
-            String response = httpClient.execute(request, httpResponse ->
-                    EntityUtils.toString(httpResponse.getEntity()));
+            String response = httpClient.execute(request, httpResponse -> {
+                int statusCode = httpResponse.getStatusLine().getStatusCode();
+                if (statusCode != 200) {
+                    throw new IOException("Failed API call: HTTP " + statusCode + " - " + httpResponse.getStatusLine().getReasonPhrase());
+                }
+                return EntityUtils.toString(httpResponse.getEntity());
+            });
+
 
             Gson gson = new Gson();
             JsonObject jsonResponse = gson.fromJson(response, JsonObject.class);
