@@ -3,16 +3,16 @@ package Main.use_cases.AddToFavourites;
 import Main.entity.Recipe;
 
 public class AddToFavouritesInputData {
-    private final Recipe recipe;
+    private final int recipeId;
     private final String username;
 
-    public AddToFavouritesInputData(Recipe newRecipe, String username) {
-        this.recipe = newRecipe;
+    public AddToFavouritesInputData(int recipeId, String username) {
+        this.recipeId = recipeId;
         this.username = username;
     }
 
-    public Recipe getRecipe() {
-        return this.recipe;
+    public int getRecipeId() {
+        return this.recipeId;
     }
 
     public String getUsername() {

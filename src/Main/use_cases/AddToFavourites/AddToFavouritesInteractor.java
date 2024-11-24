@@ -15,8 +15,7 @@ public class AddToFavouritesInteractor implements AddToFavouritesInputBoundary {
     @Override
     public void execute(AddToFavouritesInputData addToFavouritesInputData) {
         User user = this.userDataAccessObject.finduser(addToFavouritesInputData.getUsername());
-        user.addtofavourites(addToFavouritesInputData.getRecipe());
-
+        user.addtofavourites(addToFavouritesInputData.getRecipeId());
 
     }
 }

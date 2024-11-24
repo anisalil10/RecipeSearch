@@ -1,3 +1,5 @@
+package Main.entity;
+
 import java.util.List;
 
 public class GlobalStats {
