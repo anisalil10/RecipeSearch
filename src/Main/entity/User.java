@@ -9,7 +9,7 @@ public class User {
     private String password;
     private UserPreferences userpreferences;
     private UISettings uiSettings;
-    private ArrayList<Integer> favouriterecipes;
+    private ArrayList<RecipeId> favouriterecipes;
 
     public User(String username, String password) {
         this.username = username;
@@ -20,7 +20,7 @@ public class User {
         return username;
     }
 
-    public void addtofavourites(int recipeId) {
+    public void addtofavourites(RecipeId recipeId) {
         this.favouriterecipes.add(recipeId);
     }
 }

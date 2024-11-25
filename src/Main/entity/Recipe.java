@@ -4,25 +4,25 @@ import java.util.List;
 
 
 public class Recipe {
-    private String recipeID;
+    private RecipeId recipeID;
     private String name;
     private String cuisine;
-    private String instructions;
-    private String nutritionalinfo;
+    //private String nutritionalinfo;
     private List<String> ingredients;
+    private int calories;
 
-    public Recipe(String recipeID, String name, String cuisine, String instructions, String nutritionalinfo,
-                  List<String> ingredients) {
+    public Recipe(RecipeId recipeID, String name, String cuisine, List<String> ingredients,
+                  int calories) {
         this.recipeID = recipeID;
         this.name = name;
         this.cuisine = cuisine;
-        this.instructions = instructions;
-        this.nutritionalinfo = nutritionalinfo;
+        //this.nutritionalinfo = nutritionalinfo;
         this.ingredients = ingredients;
+        this.calories = calories;
     }
 
 
-    public String getRecipeID() {
+    public RecipeId getRecipeID() {
         return recipeID;
     }
 
@@ -34,15 +34,11 @@ public class Recipe {
         return cuisine;
     }
 
-    public String getInstructions() {
-        return instructions;
-    }
-
-    public String getNutritionalinfo() {
-        return nutritionalinfo;
-    }
-
     public List<String> getIngredients() {
         return ingredients;
+    }
+
+    public int getCalories() {
+        return calories;
     }
 }

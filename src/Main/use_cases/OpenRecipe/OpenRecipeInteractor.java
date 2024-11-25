@@ -1,6 +1,6 @@
 package Main.use_cases.OpenRecipe;
 
-import Main.entity.Recipe;
+import Main.entity.RecipeId;
 
 public class OpenRecipeInteractor implements OpenRecipeInputBoundary{
 
@@ -15,6 +15,10 @@ public class OpenRecipeInteractor implements OpenRecipeInputBoundary{
 
     @Override
     public void execute(OpenRecipeInputData openRecipeInputData) {
+        final RecipeId recipeId = new RecipeId(openRecipeInputData.getRecipeId());
+
+        final OpenRecipeOutputData openRecipeOutputData = new OpenRecipeOutputData(recipeId);
+
 
     }
 }

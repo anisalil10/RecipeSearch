@@ -2,13 +2,13 @@ package Main.use_cases.OpenRecipe;
 
 public class OpenRecipeInputData {
 
-    private int recipeId;
+    private String recipeId;
 
-    public OpenRecipeInputData(int recipeId) {
+    public OpenRecipeInputData(String recipeId) {
         this.recipeId = recipeId;
     }
 
-    public int getRecipeId() {
+    public String getRecipeId() {
         return this.recipeId;
     }
 }

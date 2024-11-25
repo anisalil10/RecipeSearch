@@ -1,17 +1,18 @@
 package Main.use_cases.AddToFavourites;
 
 import Main.entity.Recipe;
+import Main.entity.RecipeId;
 
 public class AddToFavouritesInputData {
-    private final int recipeId;
+    private final RecipeId recipeId;
     private final String username;
 
-    public AddToFavouritesInputData(int recipeId, String username) {
+    public AddToFavouritesInputData(RecipeId recipeId, String username) {
         this.recipeId = recipeId;
         this.username = username;
     }
 
-    public int getRecipeId() {
+    public RecipeId getRecipeId() {
         return this.recipeId;
     }
 
