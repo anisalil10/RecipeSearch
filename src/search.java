@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Search - A simple application to fetch recipes from the Edamam Recipe Search API.
  */
-public class Search {
+public class search {
 
     // Edamam API credentials
     private static final String APP_ID = "c03d65b1";
