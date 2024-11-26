@@ -1,16 +1,16 @@
 package Main.use_cases.OpenRecipe;
 
-import Main.entity.RecipeId;
+import Main.entity.Recipe;
 
 public class OpenRecipeOutputData {
 
-    private RecipeId recipeId;
+    private Recipe recipe;
 
-    public OpenRecipeOutputData(RecipeId recipeId) {
-        this.recipeId = recipeId;
+    public OpenRecipeOutputData(Recipe recipe) {
+        this.recipe = recipe;
     }
 
-    public RecipeId getRecipeId() {
-        return this.recipeId;
+    public Recipe getRecipe() {
+        return this.recipe;
     }
 }

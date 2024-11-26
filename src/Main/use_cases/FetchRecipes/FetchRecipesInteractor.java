@@ -22,7 +22,7 @@ public class FetchRecipesInteractor implements FetchRecipesInputBoundary {
     public void execute(FetchRecipesInputData fetchRecipesInputData) {
         List<Recipe> recipeResults = recipesDataAccessInterface.getrecipes(fetchRecipesInputData.getSearchParameters());
 
-        final FetchRecipesOutputData outputData = new FetchRecipesOutputData();
+        final FetchRecipesOutputData outputData = new FetchRecipesOutputData(recipeResults);
 
     }
 }

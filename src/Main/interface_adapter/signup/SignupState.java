@@ -1,5 +1,7 @@
 package Main.interface_adapter.signup;
 
+import Main.entity.UserPreferences;
+
 /**
  * The state for the Signup View Model.
  */
@@ -10,6 +12,7 @@ public class SignupState {
     private String passwordError;
     private String repeatPassword = "";
     private String repeatPasswordError;
+    private String userPreferences;
 
     public String getUsername() {
         return username;
@@ -66,5 +69,13 @@ public class SignupState {
                 + ", password='" + password + '\''
                 + ", repeatPassword='" + repeatPassword + '\''
                 + '}';
+    }
+
+    public String getUserPreferences() {
+        return userPreferences;
+    }
+
+    public void setUserPreferences(String userPreferences) {
+        this.userPreferences = userPreferences;
     }
 }

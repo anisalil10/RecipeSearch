@@ -27,10 +27,19 @@ public class APIRecipeDataAccessObject implements FetchRecipesDataAccessInterfac
     private static final String BASE_URL = "https://api.edamam.com/api/recipes/v2";
     private static final String PARAMETERS = "%s?type=public&q=%s&app_id=%s&app_key=%s&cuisineType=%s&mealType=%s&diet=%s";
 
+    private final SearchParameters searchParameters;
+
+    public APIRecipeDataAccessObject(SearchParameters searchParameters) {
+        this.searchParameters = searchParameters;
+    }
+// Mallika's work!!!
     @Override
     public List<Recipe> getrecipes(SearchParameters searchParameters) {
-        String url = String.format(PARAMETERS, URLEncoder.encode(searchParameters.getQuery(), StandardCharsets.UTF_8),
-                APP_ID, APP_KEY,
+        String url = String.format(PARAMETERS,
+                BASE_URL,
+                URLEncoder.encode(searchParameters.getQuery(), StandardCharsets.UTF_8),
+                APP_ID,
+                APP_KEY,
                 URLEncoder.encode(searchParameters.getCuisineType(), StandardCharsets.UTF_8),
                 URLEncoder.encode(searchParameters.getMealType(), StandardCharsets.UTF_8),
                 URLEncoder.encode(searchParameters.getDiet(), StandardCharsets.UTF_8)
@@ -50,9 +59,7 @@ public class APIRecipeDataAccessObject implements FetchRecipesDataAccessInterfac
 
                 JsonObject recipe = hits.get(i).getAsJsonObject().getAsJsonObject("recipe");
                 String recipename = recipe.get("label").getAsString();
-                RecipeId recipeId = new RecipeId(recipe.get("foodId").getAsString());
-                String recipeurl = recipe.get("url").getAsString();
-                // String nutritionalInfo = recipe.get("totalNutrients").getAsString();
+                RecipeId recipeId = new RecipeId(recipe.get("url").getAsString());
                 List<String> ingredients = new ArrayList<>(List.of());
                 for (JsonElement ingredient : recipe.get("ingredientLines").getAsJsonArray()) {
                     ingredients.add(ingredient.getAsString());

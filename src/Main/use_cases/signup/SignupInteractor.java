@@ -3,24 +3,24 @@ package Main.use_cases.signup;
 import Main.entity.User;
 import Main.entity.UserFactory;
 
+import java.io.IOException;
+
 /**
  * The Signup Interactor.
  */
 public class SignupInteractor implements SignupInputBoundary {
+
     private final SignupUserDataAccessInterface userDataAccessObject;
     private final SignupOutputBoundary userPresenter;
-    private final UserFactory userFactory;
 
     public SignupInteractor(SignupUserDataAccessInterface signupDataAccessInterface,
-                            SignupOutputBoundary signupOutputBoundary,
-                            UserFactory userFactory) {
+                            SignupOutputBoundary signupOutputBoundary) {
         this.userDataAccessObject = signupDataAccessInterface;
         this.userPresenter = signupOutputBoundary;
-        this.userFactory = userFactory;
     }
 
     @Override
-    public void execute(SignupInputData signupInputData) {
+    public void execute(SignupInputData signupInputData) throws IOException {
         if (userDataAccessObject.existsByName(signupInputData.getUsername())) {
             userPresenter.prepareFailView("User already exists.");
         }
@@ -28,9 +28,10 @@ public class SignupInteractor implements SignupInputBoundary {
             userPresenter.prepareFailView("Passwords don't match.");
         }
         else {
-            final User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
-            userDataAccessObject.save(user);
+            final User user = new User(signupInputData.getUsername(), signupInputData.getPassword(),
+                    signupInputData.getUserPreferences());
 
+            userDataAccessObject.save(user);
             final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
             userPresenter.prepareSuccessView(signupOutputData);
         }
