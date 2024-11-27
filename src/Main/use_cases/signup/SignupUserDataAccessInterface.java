@@ -2,6 +2,7 @@ package Main.use_cases.signup;
 
 import Main.entity.User;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -20,5 +21,5 @@ public interface SignupUserDataAccessInterface {
      * Saves the user.
      * @param user the user to save
      */
-    void save(User user);
+    void save(User user) throws IOException;
 }

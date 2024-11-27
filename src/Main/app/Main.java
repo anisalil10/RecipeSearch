@@ -10,6 +10,7 @@ public class Main {
                 .addLoginView()
                 .addSignupView()
                 .addSignupUseCase()
+                .addLoginUseCase()
                 .build();
 
         application.pack();

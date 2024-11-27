@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -62,10 +63,14 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                         if (evt.getSource().equals(logIn)) {
                             final LoginState currentState = loginViewModel.getState();
 
-                            loginController.execute(
-                                    currentState.getUsername(),
-                                    currentState.getPassword()
-                            );
+                            try {
+                                loginController.execute(
+                                        currentState.getUsername(),
+                                        currentState.getPassword()
+                                );
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                 }

@@ -78,11 +78,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         );
 
         toLogin.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        signupController.switchToLoginView();
-                    }
-                }
+                evt -> signupController.switchToLoginView()
         );
 
         cancel.addActionListener(this);
@@ -90,6 +86,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         addUsernameListener();
         addPasswordListener();
         addRepeatPasswordListener();
+        addgetpreferencesListener();
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -97,6 +94,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
+        this.add(userpreferencesInfo);
         this.add(buttons);
     }
 
@@ -183,7 +181,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
             private void documentListenerHelper() {
                 final SignupState currentState = signupViewModel.getState();
-                currentState.setUserPreferences(userpreferencesInputField.getText());
+                currentState.setUserPreferences(new String(userpreferencesInputField.getText()));
                 signupViewModel.setState(currentState);
             }
 

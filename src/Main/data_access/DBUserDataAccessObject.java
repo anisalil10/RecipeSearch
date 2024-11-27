@@ -9,10 +9,7 @@ import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,22 +17,36 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface, Lo
         AddToFavouritesUserDataAccessInterface {
 
     private static final String FILE_PATH = "src/main/resources/users.csv";;
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
-    private static final String USER_PREFERENCES = "preferences";
-    private static final String FAVOURITE_RECIPES = "favourites";
-
+    private String currentUsername;
 
     @Override
-    public boolean existsByName(String username) {
+    public boolean existsByName(String username)  {
         List<String> updatedLines = new ArrayList<>();
 
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(FILE_PATH));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String line;
 
+        while (true) {
+            try {
+                if (!((line = reader.readLine()) != null)) break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            String[] columns = line.split(",");
+            if (columns[0].equals(username)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
-    public void save(User user) {
+    public void save(User user) throws IOException {
         String username = user.getUsername();
         String password = user.getPassword();
         String prefernces = user.getUserpreferences();
@@ -57,18 +68,13 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface, Lo
     }
 
     @Override
-    public User get(String username) {
-        return null;
-    }
-
-    @Override
     public String getCurrentUsername() {
         return "";
     }
 
     @Override
     public void setCurrentUsername(String username) {
-
+        this.currentUsername = username;
     }
 
     @Override
@@ -93,7 +99,7 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface, Lo
     }
 
     @Override
-    public void updatefavourites(User user) {
+    public void updatefavourites(String username, String recipeId) {
 
     }
 }

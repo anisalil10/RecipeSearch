@@ -9,7 +9,7 @@ public class User {
     private String username;
     private String password;
     private String userpreferences;
-    private List<RecipeId> favouriterecipes;
+    private List<String> favouriterecipes;
 
     public User(String username, String password, String userpreferences) {
         this.username = username;
@@ -21,11 +21,11 @@ public class User {
         return username;
     }
 
-    public List<RecipeId> getFavouriterecipes() {
+    public List<String> getFavouriterecipes() {
         return favouriterecipes;
     }
 
-    public void addtofavourites(RecipeId recipeId) {
+    public void addtofavourites(String recipeId) {
         this.favouriterecipes.add(recipeId);
     }
 
