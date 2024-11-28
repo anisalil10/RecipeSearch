@@ -5,5 +5,5 @@ import Main.entity.RecipeId;
 
 public interface OpenRecipeDataAccessInterface {
 
-    Recipe findrecipe(RecipeId recipeId);
+    Recipe findrecipe(String recipeId);
 }

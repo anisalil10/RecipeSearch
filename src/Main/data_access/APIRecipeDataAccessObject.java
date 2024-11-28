@@ -27,11 +27,6 @@ public class APIRecipeDataAccessObject implements FetchRecipesDataAccessInterfac
     private static final String BASE_URL = "https://api.edamam.com/api/recipes/v2";
     private static final String PARAMETERS = "%s?type=public&q=%s&app_id=%s&app_key=%s&cuisineType=%s&mealType=%s&diet=%s";
 
-    private final SearchParameters searchParameters;
-
-    public APIRecipeDataAccessObject(SearchParameters searchParameters) {
-        this.searchParameters = searchParameters;
-    }
 // Mallika's work!!!
     @Override
     public List<Recipe> getrecipes(SearchParameters searchParameters) {

@@ -7,7 +7,7 @@ public class FetchRecipesViewModel extends ViewModel<FetchRecipesState> {
     public static final String TITLE_LABEL = "Search Results";
     public static final String VIEW_RECIPE = "View Recipe";
 
-    public FetchRecipesViewModel(String viewName) {
+    public FetchRecipesViewModel() {
         super("search results");
         setState(new FetchRecipesState());
 

@@ -7,6 +7,11 @@ import java.util.List;
 
 public class FetchRecipesState {
     private SearchParameters searchParameters;
+
+    public List<Recipe> getRecipeList() {
+        return recipeList;
+    }
+
     private List<Recipe> recipeList;
     private String recipeError;
 

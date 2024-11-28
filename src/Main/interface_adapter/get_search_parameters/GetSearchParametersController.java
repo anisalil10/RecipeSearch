@@ -10,9 +10,9 @@ public class GetSearchParametersController {
         this.searchParametersInteractor = searchParametersInteractor;
     }
 
-    public void execute(String query, String cuisine, String mealType, String diet) {
+    public void execute(String query, String cuisine, String mealType, String username) {
         final GetSearchParametersInputData searchParametersInputData = new GetSearchParametersInputData(query, cuisine,
-                mealType, diet);
+                mealType, username);
 
         searchParametersInteractor.execute(searchParametersInputData);
     }

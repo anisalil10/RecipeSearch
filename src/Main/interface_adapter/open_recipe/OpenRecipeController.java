@@ -1,6 +1,5 @@
 package Main.interface_adapter.open_recipe;
 
-import Main.entity.RecipeId;
 import Main.use_cases.OpenRecipe.OpenRecipeInputBoundary;
 import Main.use_cases.OpenRecipe.OpenRecipeInputData;
 
@@ -12,7 +11,7 @@ public class OpenRecipeController {
         this.openRecipeInteractor = openRecipeInputBoundary;
     }
 
-    public void execute(RecipeId recipeId) {
+    public void execute(String recipeId) {
         final OpenRecipeInputData openRecipeInputData = new OpenRecipeInputData(recipeId);
 
         openRecipeInteractor.execute(openRecipeInputData);

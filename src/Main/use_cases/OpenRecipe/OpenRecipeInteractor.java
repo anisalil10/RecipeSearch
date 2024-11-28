@@ -16,7 +16,7 @@ public class OpenRecipeInteractor implements OpenRecipeInputBoundary{
 
     @Override
     public void execute(OpenRecipeInputData openRecipeInputData) {
-        final RecipeId recipeId = openRecipeInputData.getRecipeId();
+        final String recipeId = openRecipeInputData.getRecipeId();
 
         Recipe outputdata = recipeDataAccessInterface.findrecipe(recipeId);
 

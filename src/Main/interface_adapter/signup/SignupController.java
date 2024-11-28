@@ -22,6 +22,7 @@ public class SignupController {
      * @param username the username to sign up
      * @param password1 the password
      * @param password2 the password repeated
+     * @param userPreferences for the user's diet
      */
     public void execute(String username, String password1, String password2, String userPreferences) throws IOException {
         final SignupInputData signupInputData = new SignupInputData(

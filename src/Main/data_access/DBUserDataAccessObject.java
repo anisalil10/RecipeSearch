@@ -1,7 +1,9 @@
 package Main.data_access;
 
+import Main.entity.SearchParameters;
 import Main.entity.User;
 import Main.use_cases.AddToFavourites.AddToFavouritesUserDataAccessInterface;
+import Main.use_cases.GetSearchParameters.GetSearchParametersDataAccess;
 import Main.use_cases.login.LoginUserDataAccessInterface;
 import Main.use_cases.signup.DataAccessException;
 import Main.use_cases.signup.SignupUserDataAccessInterface;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface,
+        GetSearchParametersDataAccess,
         AddToFavouritesUserDataAccessInterface {
 
     private static final String FILE_PATH = "src/main/resources/users.csv";;
@@ -100,6 +103,11 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface, Lo
 
     @Override
     public void updatefavourites(String username, String recipeId) {
+
+    }
+
+    @Override
+    public void saveSearchParameters(SearchParameters searchParameters) {
 
     }
 }

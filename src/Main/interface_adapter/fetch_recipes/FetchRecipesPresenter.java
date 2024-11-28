@@ -18,6 +18,9 @@ public class FetchRecipesPresenter implements FetchRecipesOutputBoundary {
         final FetchRecipesState fetchRecipesState = fetchRecipesViewModel.getState();
         fetchRecipesState.setRecipeList(outputData.getRecipeList());
 
+        this.fetchRecipesViewModel.setState(fetchRecipesState);
+        this.fetchRecipesViewModel.firePropertyChanged();
+
         viewManagerModel.setState(fetchRecipesViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

@@ -18,7 +18,7 @@ import java.io.IOException;
  * The View for the Signup Use Case.
  */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "sign up";
+    private static final String viewName = "sign up";
 
     private final SignupViewModel signupViewModel;
     private final JTextField usernameInputField = new JTextField(15);
@@ -215,7 +215,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         }
     }
 
-    public String getViewName() {
+    public static String getViewName() {
         return viewName;
     }
 

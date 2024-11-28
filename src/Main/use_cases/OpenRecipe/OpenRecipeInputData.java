@@ -4,13 +4,13 @@ import Main.entity.RecipeId;
 
 public class OpenRecipeInputData {
 
-    private RecipeId recipeId;
+    private String recipeId;
 
-    public OpenRecipeInputData(RecipeId recipeId) {
+    public OpenRecipeInputData(String recipeId) {
         this.recipeId = recipeId;
     }
 
-    public RecipeId getRecipeId() {
+    public String getRecipeId() {
         return this.recipeId;
     }
 }
