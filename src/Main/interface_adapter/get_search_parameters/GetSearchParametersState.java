@@ -15,7 +15,7 @@ public class GetSearchParametersState {
         this.query = query;
     }
 
-    public String getQueryError(String queryError) {
+    public String getQueryError() {
         return this.queryError;
     }
 

@@ -35,6 +35,7 @@ public class GetSearchParametersPresenter implements GetSearchParametersOutputBo
     @Override
     public void prepareFailView(String errormessage) {
         final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
-        getSearchParametersState.getQueryError(errormessage);
+        getSearchParametersState.setQueryError(errormessage);
+        getSearchParametersViewModel.firePropertyChanged();
     }
 }

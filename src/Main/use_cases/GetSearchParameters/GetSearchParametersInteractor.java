@@ -15,16 +15,28 @@ public class GetSearchParametersInteractor implements GetSearchParametersInputBo
     }
 
     public void execute(GetSearchParametersInputData inputData) {
-        User user = searchParametersDataAccess.finduser(inputData.getUsername());
-        String diet = user.getUserpreferences();
         SearchParameters searchParameters = new SearchParameters(inputData.getQuery(),
                 inputData.getCuisineType(), inputData.getMealType(),
-                diet, inputData.getMaxResults());
+                inputData.getDiet(), inputData.getMaxResults());
 
-        searchParametersDataAccess.saveSearchParameters(searchParameters);
+        if(inputData.getQuery().isEmpty()) {
+            searchPresenter.prepareFailView("Enter a search");
+        }
+        else if(inputData.getCuisineType().isEmpty()) {
+            searchPresenter.prepareFailView("Enter a cuisine");
+        }
+        else if(inputData.getMealType().isEmpty()) {
+            searchPresenter.prepareFailView("Enter a meal time");
+        }
+        else if(searchParametersDataAccess.getrecipes(searchParameters).isEmpty()) {
+            searchPresenter.prepareFailView("No recipes found");
+        }
+        else {
+            searchParametersDataAccess.saveSearchParameters(searchParameters);
 
-        final GetSearchParametersOutputData outputData = new GetSearchParametersOutputData(searchParameters);
-        searchPresenter.prepareSuccessView(outputData);
+            final GetSearchParametersOutputData outputData = new GetSearchParametersOutputData(searchParameters);
+            searchPresenter.prepareSuccessView(outputData);
+        }
     }
 
 }

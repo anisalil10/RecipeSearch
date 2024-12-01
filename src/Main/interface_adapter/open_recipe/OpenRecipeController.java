@@ -11,8 +11,8 @@ public class OpenRecipeController {
         this.openRecipeInteractor = openRecipeInputBoundary;
     }
 
-    public void execute(String recipeId) {
-        final OpenRecipeInputData openRecipeInputData = new OpenRecipeInputData(recipeId);
+    public void execute(String recipeId, String username) {
+        final OpenRecipeInputData openRecipeInputData = new OpenRecipeInputData(recipeId, username);
 
         openRecipeInteractor.execute(openRecipeInputData);
     }

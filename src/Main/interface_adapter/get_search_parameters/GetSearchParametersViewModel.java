@@ -4,7 +4,7 @@ import Main.interface_adapter.ViewModel;
 import Main.interface_adapter.signup.SignupState;
 
 public class GetSearchParametersViewModel extends ViewModel<GetSearchParametersState> {
-    public static final String TITLE_LABEL = "Find Recipe";
+    public static final String TITLE_LABEL = "Search Recipes";
     public static final String SEARCH = "Enter Search";
     public static final String CUISINE_MENU = "Enter Cuisine";
     public static final String MEAL_TYPE_MENU = "Enter Meal Type";
@@ -12,7 +12,7 @@ public class GetSearchParametersViewModel extends ViewModel<GetSearchParametersS
     public static final String SEARCH_BUTTON_LABEL = "Search";
 
     public GetSearchParametersViewModel() {
-        super("find recipe");
+        super("Search Recipes");
         setState(new GetSearchParametersState());
     }
 

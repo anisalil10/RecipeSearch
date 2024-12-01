@@ -7,7 +7,7 @@ public class OpenRecipeViewModel extends ViewModel<OpenRecipeState> {
 
     private static OpenRecipeState openRecipeState;
 
-    public static final String TITLE_LABEL = openRecipeState.getRecipe().getName() + "Recipe";
+    public static final String TITLE_LABEL = openRecipeState.getRecipeId() + "Recipe";
     public static final String VIEW_RECIPE = "View Recipe";
 
     public OpenRecipeViewModel(String viewName) {

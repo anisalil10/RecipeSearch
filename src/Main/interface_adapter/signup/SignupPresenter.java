@@ -34,7 +34,6 @@ public class SignupPresenter implements SignupOutputBoundary {
         getSearchParametersState.setDiet(response.getUserpreferences());
         this.getSearchParametersViewModel.setState(getSearchParametersState);
         getSearchParametersViewModel.firePropertyChanged();
-
         viewManagerModel.setState(getSearchParametersViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

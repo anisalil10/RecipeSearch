@@ -16,7 +16,7 @@ public class OpenRecipePresenter implements OpenRecipeOutputBoundary {
     @Override
     public void prepareSuccessView(OpenRecipeOutputData openRecipeOutputData) {
         final OpenRecipeState openRecipeState = openRecipeViewModel.getState();
-        openRecipeState.setRecipe(openRecipeOutputData.getRecipe());
+        openRecipeState.setRecipeId(openRecipeState.getRecipeId());
 
         viewManagerModel.setState(openRecipeViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

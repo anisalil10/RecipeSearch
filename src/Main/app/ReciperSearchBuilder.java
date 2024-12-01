@@ -1,12 +1,10 @@
 package Main.app;
 
-import Main.data_access.APIRecipeDataAccessObject;
-import Main.data_access.DBUserDataAccessObject;
+import Main.data_access.DataAccessObject;
 import Main.interface_adapter.ViewManagerModel;
 import Main.interface_adapter.change_password.LoggedInViewModel;
 import Main.interface_adapter.fetch_recipes.FetchRecipesController;
 import Main.interface_adapter.fetch_recipes.FetchRecipesPresenter;
-import Main.interface_adapter.fetch_recipes.FetchRecipesState;
 import Main.interface_adapter.fetch_recipes.FetchRecipesViewModel;
 import Main.interface_adapter.get_search_parameters.GetSearchParametersController;
 import Main.interface_adapter.get_search_parameters.GetSearchParametersPresenter;
@@ -46,8 +44,8 @@ public class ReciperSearchBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    private final DBUserDataAccessObject userDataAccessObject = new DBUserDataAccessObject();
-    private final APIRecipeDataAccessObject recipeDataAccessObject = new APIRecipeDataAccessObject();
+    private final DataAccessObject userDataAccessObject = new DataAccessObject();
+    private final DataAccessObject dataAccessObject = new DataAccessObject();
 
 
     private SignupView signupView;
@@ -131,17 +129,17 @@ public class ReciperSearchBuilder {
         final FetchRecipesOutputBoundary outputBoundary = new FetchRecipesPresenter(
                 fetchRecipesViewModel, viewManagerModel);
         final FetchRecipesInputBoundary fetchRecipesInteractor = new FetchRecipesInteractor(
-                recipeDataAccessObject, outputBoundary);
-
+                dataAccessObject, outputBoundary);
         final FetchRecipesController fetchRecipesController = new FetchRecipesController(
                 fetchRecipesInteractor);
+
         recipeMenuView.setFetchRecipesController(fetchRecipesController);
         return this;
     }
 
     public ReciperSearchBuilder addLoginUseCase() {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                this.loggedInViewModel, loginViewModel);
+                this.getSearchParametersViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary);
 

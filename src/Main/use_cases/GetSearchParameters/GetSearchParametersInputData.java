@@ -4,15 +4,15 @@ public class GetSearchParametersInputData {
     private String query;
     private String cuisineType;
     private String mealType;
-    private String username;
+    private String diet;
     private final int maxResults = 10;
 
 
-    public GetSearchParametersInputData(String query, String cuisineType, String mealType, String username) {
+    public GetSearchParametersInputData(String query, String cuisineType, String mealType, String diet) {
         this.query = query;
         this.cuisineType = cuisineType;
         this.mealType = mealType;
-        this.username = username;
+        this.diet = diet;
     }
 
     public String getQuery() {
@@ -27,8 +27,8 @@ public class GetSearchParametersInputData {
         return mealType;
     }
 
-    public String getUsername() {
-        return username;
+    public String getDiet() {
+        return diet;
     }
 
     public int getMaxResults() {

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class RecipeMenuView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private final String viewName = "recipe menu";
+    private static final String viewName = "search results";
     private final FetchRecipesViewModel fetchRecipesViewModel;
 
     private final JButton viewRecipe;
@@ -35,20 +35,6 @@ public class RecipeMenuView extends JPanel implements ActionListener, PropertyCh
         viewRecipe = new JButton("view recipe");
         buttons.add(viewRecipe);
 
-        final JPanel recipes = new JPanel();
-
-
-        viewRecipe.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(viewRecipe)) {
-                            final FetchRecipesState currentState = fetchRecipesViewModel.getState();
-
-                            FetchRecipesController.execute(currentState.getSearchParameters());
-                        }
-                    }
-                }
-        );
 
 
     }
@@ -63,7 +49,7 @@ public class RecipeMenuView extends JPanel implements ActionListener, PropertyCh
         final FetchRecipesState state = (FetchRecipesState) evt.getNewValue();
     }
 
-    public String getViewName() {
+    public static String getViewName() {
         return viewName;
     }
 

@@ -15,7 +15,7 @@ public class FetchRecipesState {
     private List<Recipe> recipeList;
     private String recipeError;
 
-    public SearchParameters getSearchParameters() {return getSearchParameters(); }
+    public SearchParameters getSearchParameters() {return searchParameters; }
 
     public void setSearchParameters(SearchParameters searchParameters) {
         this.searchParameters = searchParameters;

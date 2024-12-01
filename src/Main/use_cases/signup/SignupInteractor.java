@@ -27,17 +27,31 @@ public class SignupInteractor implements SignupInputBoundary {
         else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.prepareFailView("Passwords don't match.");
         }
+        else if(signupInputData.getUsername().isEmpty()) {
+            userPresenter.prepareFailView("Username Blank");
+        }
+        else if(signupInputData.getPassword().isEmpty()) {
+            userPresenter.prepareFailView("Enter a Password");
+        }
+        else if(signupInputData.getRepeatPassword().isEmpty()) {
+            userPresenter.prepareFailView("Repeat Password");
+        }
+        else if(signupInputData.getUserPreferences().isEmpty()) {
+            userPresenter.prepareFailView("Enter a dietary preference");
+        }
         else {
             final User user = new User(signupInputData.getUsername(), signupInputData.getPassword(),
                     signupInputData.getUserPreferences());
 
             userDataAccessObject.save(user);
+
             final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(),
                     user.getUserpreferences(), false);
             userPresenter.prepareSuccessView(signupOutputData);
+
+
         }
     }
-
     @Override
     public void switchToLoginView() {
         userPresenter.switchToLoginView();

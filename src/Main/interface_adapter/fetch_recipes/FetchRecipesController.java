@@ -12,7 +12,7 @@ public class FetchRecipesController {
         FetchRecipesController.recipesInputInteractor = recipesInputInteractor;
 
     }
-    public static void execute(SearchParameters searchParameters) {
+    public void execute(SearchParameters searchParameters) {
         final FetchRecipesInputData fetchRecipesInputData = new FetchRecipesInputData(searchParameters);
 
         recipesInputInteractor.execute(fetchRecipesInputData);

@@ -75,6 +75,7 @@ public class RecipeSearchView extends JPanel implements ActionListener, Property
         this.add(searchInfo);
         this.add(cuisineInfo);
         this.add(mealTypeInfo);
+        this.add(buttons);
 
 
     }
@@ -168,6 +169,9 @@ public class RecipeSearchView extends JPanel implements ActionListener, Property
     public void propertyChange(PropertyChangeEvent evt) {
         final GetSearchParametersState state = (GetSearchParametersState) evt.getNewValue();
         setFields(state);
+        if (state.getQueryError() != null) {
+            JOptionPane.showMessageDialog(this, state.getQueryError());
+        }
     }
 
     private void setFields(GetSearchParametersState state) {

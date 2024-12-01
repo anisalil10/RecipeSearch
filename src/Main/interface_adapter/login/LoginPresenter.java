@@ -3,6 +3,8 @@ package Main.interface_adapter.login;
 import Main.interface_adapter.ViewManagerModel;
 import Main.interface_adapter.change_password.LoggedInState;
 import Main.interface_adapter.change_password.LoggedInViewModel;
+import Main.interface_adapter.get_search_parameters.GetSearchParametersState;
+import Main.interface_adapter.get_search_parameters.GetSearchParametersViewModel;
 import Main.use_cases.login.LoginOutputBoundary;
 import Main.use_cases.login.LoginOutputData;
 
@@ -12,27 +14,27 @@ import Main.use_cases.login.LoginOutputData;
 public class LoginPresenter implements LoginOutputBoundary {
 
     private final LoginViewModel loginViewModel;
-    private final LoggedInViewModel loggedInViewModel;
+    private final GetSearchParametersViewModel getSearchParametersViewModel;
     private final ViewManagerModel viewManagerModel;
 
     public LoginPresenter(ViewManagerModel viewManagerModel,
-                          LoggedInViewModel loggedInViewModel,
+                          GetSearchParametersViewModel getSearchParametersViewModel,
                           LoginViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.loggedInViewModel = loggedInViewModel;
         this.loginViewModel = loginViewModel;
+        this.getSearchParametersViewModel = getSearchParametersViewModel;
     }
 
     @Override
     public void prepareSuccessView(LoginOutputData response) {
-        // On success, switch to the logged in view.
+        // On success, switch to the menu view.
 
-        final LoggedInState loggedInState = loggedInViewModel.getState();
-        loggedInState.setUsername(response.getUsername());
-        this.loggedInViewModel.setState(loggedInState);
-        this.loggedInViewModel.firePropertyChanged();
+        final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
+        getSearchParametersState.setDiet(response.getUserpreferences());
+        this.getSearchParametersViewModel.setState(getSearchParametersState);
+        this.getSearchParametersViewModel.firePropertyChanged();
 
-        this.viewManagerModel.setState(loggedInViewModel.getViewName());
+        this.viewManagerModel.setState(getSearchParametersViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
 
