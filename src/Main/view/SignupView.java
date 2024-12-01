@@ -56,11 +56,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         final JPanel preferences = new JPanel();
         preferences.setLayout(new BoxLayout(preferences, BoxLayout.Y_AXIS));
 
-        JLabel lbl = new JLabel("Select one of the possible choices");
+        JLabel lbl = new JLabel(SignupViewModel.USER_PREFERENCE);
         lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
-        final JComboBox<String> choices = new JComboBox<String>(signupViewModel.PREFERENCES);
+        final JComboBox<String> choices = new JComboBox<>(SignupViewModel.PREFERENCES);
 
         choices.setMaximumSize(choices.getPreferredSize());
         choices.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -75,21 +75,19 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         signUp.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(signUp)) {
-                            final SignupState currentState = signupViewModel.getState();
+                evt -> {
+                    if (evt.getSource().equals(signUp)) {
+                        final SignupState currentState1 = signupViewModel.getState();
 
-                            try {
-                                signupController.execute(
-                                        currentState.getUsername(),
-                                        currentState.getPassword(),
-                                        currentState.getRepeatPassword(),
-                                        currentState.getUserPreferences()
-                                );
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
+                        try {
+                            signupController.execute(
+                                    currentState1.getUsername(),
+                                    currentState1.getPassword(),
+                                    currentState1.getRepeatPassword(),
+                                    currentState1.getUserPreferences()
+                            );
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 }
