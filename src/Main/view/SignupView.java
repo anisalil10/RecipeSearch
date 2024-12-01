@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * The View for the Signup Use Case.
@@ -24,7 +25,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JTextField usernameInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
-    private final JTextField userpreferencesInputField = new JTextField(15);
     private SignupController signupController;
 
     private final JButton signUp;
@@ -44,8 +44,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new JLabel(SignupViewModel.PASSWORD_LABEL), passwordInputField);
         final LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
-        final LabelTextPanel userpreferencesInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.USER_PREFERENCE), userpreferencesInputField);
 
         final JPanel buttons = new JPanel();
         toLogin = new JButton(SignupViewModel.TO_LOGIN_BUTTON_LABEL);
@@ -54,6 +52,26 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         buttons.add(signUp);
         cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
+
+        final JPanel preferences = new JPanel();
+        preferences.setLayout(new BoxLayout(preferences, BoxLayout.Y_AXIS));
+
+        JLabel lbl = new JLabel("Select one of the possible choices");
+        lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+        final JComboBox<String> choices = new JComboBox<String>(signupViewModel.PREFERENCES);
+
+        choices.setMaximumSize(choices.getPreferredSize());
+        choices.setAlignmentX(Component.CENTER_ALIGNMENT);
+        preferences.add(lbl);
+        preferences.add(choices);
+
+
+        SignupState currentState = signupViewModel.getState();
+        currentState.setUserPreferences(Objects.requireNonNull(choices.getSelectedItem()).toString());
+
+
 
         signUp.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -86,7 +104,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         addUsernameListener();
         addPasswordListener();
         addRepeatPasswordListener();
-        addgetpreferencesListener();
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -94,7 +111,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
-        this.add(userpreferencesInfo);
+        this.add(preferences);
         this.add(buttons);
     }
 
@@ -156,32 +173,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
             private void documentListenerHelper() {
                 final SignupState currentState = signupViewModel.getState();
                 currentState.setRepeatPassword(new String(repeatPasswordInputField.getPassword()));
-                signupViewModel.setState(currentState);
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-        });
-    }
-
-    private void addgetpreferencesListener() {
-        userpreferencesInputField.getDocument().addDocumentListener(new DocumentListener() {
-
-            private void documentListenerHelper() {
-                final SignupState currentState = signupViewModel.getState();
-                currentState.setUserPreferences(new String(userpreferencesInputField.getText()));
                 signupViewModel.setState(currentState);
             }
 
