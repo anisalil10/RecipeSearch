@@ -22,7 +22,14 @@ public class FetchRecipesInteractor implements FetchRecipesInputBoundary {
     public void execute(FetchRecipesInputData fetchRecipesInputData) {
         List<Recipe> recipeResults = recipesDataAccessInterface.getrecipes(fetchRecipesInputData.getSearchParameters());
 
-        final FetchRecipesOutputData outputData = new FetchRecipesOutputData();
+        final FetchRecipesOutputData outputData = new FetchRecipesOutputData(recipeResults);
+        if (recipeResults.isEmpty()) {
+            recipesPresenter.prepareFailView("Could not find any recipes :(");
+        }
+        else {
+
+            recipesPresenter.prepareSuccessView(outputData);
+        }
 
     }
 }

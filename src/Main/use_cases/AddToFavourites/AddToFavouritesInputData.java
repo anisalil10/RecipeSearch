@@ -4,15 +4,15 @@ import Main.entity.Recipe;
 import Main.entity.RecipeId;
 
 public class AddToFavouritesInputData {
-    private final RecipeId recipeId;
+    private final String recipeId;
     private final String username;
 
-    public AddToFavouritesInputData(RecipeId recipeId, String username) {
+    public AddToFavouritesInputData(String recipeId, String username) {
         this.recipeId = recipeId;
         this.username = username;
     }
 
-    public RecipeId getRecipeId() {
+    public String getRecipeId() {
         return this.recipeId;
     }
 

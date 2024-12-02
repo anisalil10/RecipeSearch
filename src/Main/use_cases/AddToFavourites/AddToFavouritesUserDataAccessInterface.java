@@ -4,7 +4,5 @@ import Main.entity.User;
 
 public interface AddToFavouritesUserDataAccessInterface {
 
-    User finduser(String username);
-
-    void updatefavourites(User user);
+    void updatefavourites(String username, String recipeId);
 }

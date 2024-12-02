@@ -13,7 +13,7 @@ public class AddToFavouritesController {
         this.userAddToFavouritesUseCaseInteractor = userAddToFavouritesUseCaseInteractor;
     }
 
-    public void execute(RecipeId recipeId, String username) {
+    public void execute(String recipeId, String username) {
         final AddToFavouritesInputData addToFavouritesInputData = new AddToFavouritesInputData(recipeId, username);
 
         userAddToFavouritesUseCaseInteractor.execute(addToFavouritesInputData);
