@@ -1,11 +1,8 @@
 package Main.view;
 
-import Main.entity.Recipe;
 import Main.interface_adapter.fetch_recipes.FetchRecipesController;
 import Main.interface_adapter.fetch_recipes.FetchRecipesState;
 import Main.interface_adapter.fetch_recipes.FetchRecipesViewModel;
-import Main.interface_adapter.login.LoginController;
-import Main.interface_adapter.login.LoginState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,12 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.util.List;
 
 public class RecipeMenuView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private static final String viewName = "search results";
+    private final String viewName = "search results";
     private final FetchRecipesViewModel fetchRecipesViewModel;
 
     private final JButton viewRecipe;
@@ -35,7 +30,16 @@ public class RecipeMenuView extends JPanel implements ActionListener, PropertyCh
         viewRecipe = new JButton("view recipe");
         buttons.add(viewRecipe);
 
+        String recipeId = "http://www.edamam.com/ontologies/edamam.owl#recipe_6dc325d44c7bc6c220f9e5a0dba2a333";
 
+        viewRecipe.addActionListener(
+                evt -> {
+                    final FetchRecipesState currentState = fetchRecipesViewModel.getState();
+
+                    fetchRecipesController.openRecipe(recipeId, currentState.getUsername());
+                }
+        );
+        this.add(buttons);
 
     }
 
@@ -49,7 +53,7 @@ public class RecipeMenuView extends JPanel implements ActionListener, PropertyCh
         final FetchRecipesState state = (FetchRecipesState) evt.getNewValue();
     }
 
-    public static String getViewName() {
+    public String getViewName() {
         return viewName;
     }
 

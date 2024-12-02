@@ -7,6 +7,7 @@ import java.util.List;
 
 public class FetchRecipesState {
     private SearchParameters searchParameters;
+    private String username;
 
     public List<Recipe> getRecipeList() {
         return recipeList;
@@ -21,19 +22,6 @@ public class FetchRecipesState {
         this.searchParameters = searchParameters;
     }
 
-    @Override
-    public String toString() {
-        int count = 1;
-        StringBuilder result = new StringBuilder();
-        result.append("Recipe List:" + '\'');
-        for (Recipe recipe : recipeList) {
-            result.append(count + ". " + recipe.getName() + '\'' + recipe.getCuisine() + '\'' + recipe.getCalories());
-            count += 1;
-        }
-
-        return result.toString();
-    }
-
     public String getRecipeError() {
         return recipeError;
     }
@@ -44,5 +32,13 @@ public class FetchRecipesState {
 
     public void setRecipeList(List<Recipe> recipeList) {
         this.recipeList = recipeList;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

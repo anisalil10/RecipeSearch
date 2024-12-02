@@ -32,6 +32,8 @@ public class SignupPresenter implements SignupOutputBoundary {
         // On success, switch to the RecipeSearch view.
         final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
         getSearchParametersState.setDiet(response.getUserpreferences());
+        getSearchParametersState.setUsername(response.getUsername());
+
         this.getSearchParametersViewModel.setState(getSearchParametersState);
         getSearchParametersViewModel.firePropertyChanged();
         viewManagerModel.setState(getSearchParametersViewModel.getViewName());

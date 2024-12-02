@@ -10,8 +10,5 @@ public class FetchRecipesViewModel extends ViewModel<FetchRecipesState> {
     public FetchRecipesViewModel() {
         super("search results");
         setState(new FetchRecipesState());
-
     }
-
-
 }

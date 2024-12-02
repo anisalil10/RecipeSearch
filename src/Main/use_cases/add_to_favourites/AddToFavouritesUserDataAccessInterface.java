@@ -1,6 +1,4 @@
-package Main.use_cases.AddToFavourites;
-
-import Main.entity.User;
+package Main.use_cases.add_to_favourites;
 
 public interface AddToFavouritesUserDataAccessInterface {
 

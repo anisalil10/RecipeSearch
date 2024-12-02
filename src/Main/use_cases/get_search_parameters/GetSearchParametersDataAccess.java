@@ -1,8 +1,7 @@
-package Main.use_cases.GetSearchParameters;
+package Main.use_cases.get_search_parameters;
 
 import Main.entity.Recipe;
 import Main.entity.SearchParameters;
-import Main.entity.User;
 
 import java.util.List;
 

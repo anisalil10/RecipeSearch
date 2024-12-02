@@ -1,7 +1,6 @@
-package Main.use_cases.GetSearchParameters;
+package Main.use_cases.get_search_parameters;
 
 import Main.entity.SearchParameters;
-import Main.entity.User;
 
 public class GetSearchParametersInteractor implements GetSearchParametersInputBoundary {
 

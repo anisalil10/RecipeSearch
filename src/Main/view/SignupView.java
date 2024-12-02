@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -45,6 +47,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         final LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
 
+        Map<String, String> map = new HashMap<>();
+
+        map.put("cheese", "string");
+
         final JPanel buttons = new JPanel();
         toLogin = new JButton(SignupViewModel.TO_LOGIN_BUTTON_LABEL);
         buttons.add(toLogin);
@@ -59,18 +65,16 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         JLabel lbl = new JLabel(SignupViewModel.USER_PREFERENCE);
         lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
         final JComboBox<String> choices = new JComboBox<>(SignupViewModel.PREFERENCES);
 
         choices.setMaximumSize(choices.getPreferredSize());
         choices.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         preferences.add(lbl);
         preferences.add(choices);
 
-
         SignupState currentState = signupViewModel.getState();
-        currentState.setUserPreferences(Objects.requireNonNull(choices.getSelectedItem()).toString());
-
+        currentState.setUserPreferences(Objects.requireNonNull(choices.getSelectedItem()).toString().toLowerCase());
 
 
         signUp.addActionListener(

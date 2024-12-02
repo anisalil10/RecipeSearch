@@ -1,8 +1,8 @@
 package Main.interface_adapter.open_recipe;
 
 import Main.interface_adapter.ViewManagerModel;
-import Main.use_cases.OpenRecipe.OpenRecipeOutputBoundary;
-import Main.use_cases.OpenRecipe.OpenRecipeOutputData;
+import Main.use_cases.open_recipe.OpenRecipeOutputBoundary;
+import Main.use_cases.open_recipe.OpenRecipeOutputData;
 
 public class OpenRecipePresenter implements OpenRecipeOutputBoundary {
     private final OpenRecipeViewModel openRecipeViewModel;
@@ -16,7 +16,11 @@ public class OpenRecipePresenter implements OpenRecipeOutputBoundary {
     @Override
     public void prepareSuccessView(OpenRecipeOutputData openRecipeOutputData) {
         final OpenRecipeState openRecipeState = openRecipeViewModel.getState();
-        openRecipeState.setRecipeId(openRecipeState.getRecipeId());
+        openRecipeState.setRecipeName(openRecipeState.getRecipeName());
+        openRecipeState.setIngredients(openRecipeState.getIngredients());
+        openRecipeState.setCuisine(openRecipeState.getCuisine());
+        openRecipeState.setMealType(openRecipeState.getMealType());
+        openRecipeState.setCalories(openRecipeState.getCalories());
 
         viewManagerModel.setState(openRecipeViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

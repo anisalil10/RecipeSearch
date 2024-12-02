@@ -1,9 +1,7 @@
-package Main.use_cases.FetchRecipes;
+package Main.use_cases.fetch_recipes;
 
 import Main.entity.Recipe;
-import Main.entity.SearchParameters;
 
-import java.awt.*;
 import java.util.List;
 
 public class FetchRecipesInteractor implements FetchRecipesInputBoundary {
@@ -31,5 +29,11 @@ public class FetchRecipesInteractor implements FetchRecipesInputBoundary {
             recipesPresenter.prepareSuccessView(outputData);
         }
 
+    }
+
+    @Override
+    public void openRecipe(String recipeId, String username) {
+        Recipe recipe = recipesDataAccessInterface.findrecipe(recipeId);
+        recipesPresenter.openRecipe(recipe, username);
     }
 }
