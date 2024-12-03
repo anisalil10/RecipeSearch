@@ -8,13 +8,9 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -33,6 +29,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton cancel;
     private final JButton toLogin;
 
+    private final JComboBox<String> choices;
+    private boolean darkMode = false; // Dark mode flag
+
     public SignupView(SignupViewModel signupViewModel) {
         this.signupViewModel = signupViewModel;
         signupViewModel.addPropertyChangeListener(this);
@@ -46,10 +45,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new JLabel(SignupViewModel.PASSWORD_LABEL), passwordInputField);
         final LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
-
-        Map<String, String> map = new HashMap<>();
-
-        map.put("cheese", "string");
 
         final JPanel buttons = new JPanel();
         toLogin = new JButton(SignupViewModel.TO_LOGIN_BUTTON_LABEL);
@@ -65,8 +60,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         JLabel lbl = new JLabel(SignupViewModel.USER_PREFERENCE);
         lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JComboBox<String> choices = new JComboBox<>(SignupViewModel.PREFERENCES);
-
+        choices = new JComboBox<>(SignupViewModel.PREFERENCES);
         choices.setMaximumSize(choices.getPreferredSize());
         choices.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -76,32 +70,31 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         SignupState currentState = signupViewModel.getState();
         currentState.setUserPreferences(Objects.requireNonNull(choices.getSelectedItem()).toString().toLowerCase());
 
+        signUp.addActionListener(evt -> {
+            if (evt.getSource().equals(signUp)) {
+                final SignupState currentState1 = signupViewModel.getState();
 
-        signUp.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                evt -> {
-                    if (evt.getSource().equals(signUp)) {
-                        final SignupState currentState1 = signupViewModel.getState();
-
-                        try {
-                            signupController.execute(
-                                    currentState1.getUsername(),
-                                    currentState1.getPassword(),
-                                    currentState1.getRepeatPassword(),
-                                    currentState1.getUserPreferences()
-                            );
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
+                try {
+                    signupController.execute(
+                            currentState1.getUsername(),
+                            currentState1.getPassword(),
+                            currentState1.getRepeatPassword(),
+                            currentState1.getUserPreferences()
+                    );
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-        );
+            }
+        });
 
-        toLogin.addActionListener(
-                evt -> signupController.switchToLoginView()
-        );
+        toLogin.addActionListener(evt -> signupController.switchToLoginView());
 
-        cancel.addActionListener(this);
+        cancel.addActionListener(evt -> {
+            usernameInputField.setText("");
+            passwordInputField.setText("");
+            repeatPasswordInputField.setText("");
+            choices.setSelectedIndex(0); // Reset preferences dropdown
+        });
 
         addUsernameListener();
         addPasswordListener();
@@ -115,11 +108,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(repeatPasswordInfo);
         this.add(preferences);
         this.add(buttons);
+
+        applyDarkMode(); // Apply initial dark mode styling
     }
 
     private void addUsernameListener() {
         usernameInputField.getDocument().addDocumentListener(new DocumentListener() {
-
             private void documentListenerHelper() {
                 final SignupState currentState = signupViewModel.getState();
                 currentState.setUsername(usernameInputField.getText());
@@ -145,7 +139,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     private void addPasswordListener() {
         passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
-
             private void documentListenerHelper() {
                 final SignupState currentState = signupViewModel.getState();
                 currentState.setPassword(new String(passwordInputField.getPassword()));
@@ -171,7 +164,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     private void addRepeatPasswordListener() {
         repeatPasswordInputField.getDocument().addDocumentListener(new DocumentListener() {
-
             private void documentListenerHelper() {
                 final SignupState currentState = signupViewModel.getState();
                 currentState.setRepeatPassword(new String(repeatPasswordInputField.getPassword()));
@@ -197,7 +189,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        JOptionPane.showMessageDialog(this, "Cancel not implemented yet.");
+        JOptionPane.showMessageDialog(this, "Action not implemented yet.");
     }
 
     @Override
@@ -214,5 +206,32 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     public void setSignupController(SignupController controller) {
         this.signupController = controller;
+    }
+
+    public void setDarkMode(boolean darkMode) {
+        this.darkMode = darkMode;
+        applyDarkMode();
+    }
+
+    private void applyDarkMode() {
+        Color background = darkMode ? Color.DARK_GRAY : Color.LIGHT_GRAY;
+        Color foreground = darkMode ? Color.WHITE : Color.BLACK;
+
+        setBackground(background);
+
+        for (Component comp : this.getComponents()) {
+            if (comp instanceof JLabel) {
+                comp.setForeground(foreground);
+            }
+            if (comp instanceof JPanel) {
+                comp.setBackground(background);
+                for (Component child : ((JPanel) comp).getComponents()) {
+                    child.setForeground(foreground);
+                }
+            }
+        }
+
+        repaint();
+        revalidate();
     }
 }

@@ -25,7 +25,7 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
         GetSearchParametersDataAccess, AddToFavouritesUserDataAccessInterface, FetchRecipesDataAccessInterface,
         OpenRecipeDataAccessInterface {
 
-    private static final String FILE_PATH = "src/main/resources/users.csv";;
+    private static final String FILE_PATH = "src/main/resources/users.csv";
     private static final String APP_ID = "c03d65b1";
     private static final String APP_KEY = "c3c27ee6dc05a7492855a611751fe8dc";
     private static final String BASE_URL = "https://api.edamam.com/api/recipes/v2";
@@ -40,7 +40,6 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
 
     @Override
     public boolean existsByName(String username)  {
-
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader(FILE_PATH));
@@ -69,7 +68,6 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
         String password = user.getPassword();
         String userpreferences = user.getUserpreferences();
 
-
         if (this.existsByName(user.getUsername())) {
             return;
         }
@@ -89,7 +87,7 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
 
     @Override
     public String getCurrentUsername() {
-        return "";
+        return currentUsername;
     }
 
     @Override
@@ -99,7 +97,6 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
 
     @Override
     public User finduser(String username) {
-
         User user = null;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
@@ -120,13 +117,14 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
 
     @Override
     public void updatefavourites(String username, String recipeId) {
-
+        // Method retained from original
     }
 
     @Override
     public void saveSearchParameters(SearchParameters searchParameters) {
-
+        // Method retained from original
     }
+
     @Override
     public List<Recipe> getrecipes(SearchParameters searchParameters) {
         String url = String.format(LIST_PARAMETERS,
@@ -150,26 +148,23 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
             JsonArray hits = jsonResponse.getAsJsonArray("hits");
 
             for (int i = 0; i < Math.min(searchParameters.getMaxResults(), hits.size()); i++) {
-
                 JsonObject recipe = hits.get(i).getAsJsonObject().getAsJsonObject("recipe");
 
                 String recipename = recipe.get("label").getAsString();
-                String recipeId = (recipe.get("uri").getAsString());
+                String recipeId = recipe.get("uri").getAsString();
                 List<String> ingredients = new ArrayList<>(List.of());
                 for (JsonElement ingredient : recipe.get("ingredientLines").getAsJsonArray()) {
                     ingredients.add(ingredient.getAsString());
                 }
                 String cuisineType = recipe.getAsJsonArray("cuisineType").get(0).getAsString();
                 int calories = (int) recipe.get("calories").getAsDouble();
-                String mealType = recipe.get("mealType").getAsString();
+                String mealType = recipe.getAsJsonArray("mealType").get(0).getAsString();
 
                 Recipe newrecipe = new Recipe(recipeId, recipename, cuisineType, mealType, ingredients, calories);
 
                 recipes.add(newrecipe);
             }
-        }
-
-        catch (RuntimeException | IOException e) {
+        } catch (RuntimeException | IOException e) {
             return recipes;
         }
         return recipes;
@@ -202,7 +197,7 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
 
             String recipename = recipe.get("label").getAsString();
             String cuisineType = recipe.getAsJsonArray("cuisineType").get(0).getAsString();
-            String mealtType = recipe.getAsJsonArray("mealType").getAsString();
+            String mealtType = recipe.getAsJsonArray("mealType").get(0).getAsString();
             int calories = (int) recipe.get("calories").getAsDouble();
 
             newrecipe = new Recipe(recipeId, recipename, cuisineType, mealtType, ingredients, calories);

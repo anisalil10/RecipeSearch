@@ -1,5 +1,6 @@
 package Main.view;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,8 +39,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JButton cancel;
     private LoginController loginController;
 
-    public LoginView(LoginViewModel loginViewModel) {
+    private boolean darkMode = false; // New field for dark mode
 
+    public LoginView(LoginViewModel loginViewModel) {
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
 
@@ -57,24 +59,19 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         cancel = new JButton("cancel");
         buttons.add(cancel);
 
-        logIn.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(logIn)) {
-                            final LoginState currentState = loginViewModel.getState();
-
-                            try {
-                                loginController.execute(
-                                        currentState.getUsername(),
-                                        currentState.getPassword()
-                                );
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    }
+        logIn.addActionListener(evt -> {
+            if (evt.getSource().equals(logIn)) {
+                final LoginState currentState = loginViewModel.getState();
+                try {
+                    loginController.execute(
+                            currentState.getUsername(),
+                            currentState.getPassword()
+                    );
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-        );
+            }
+        });
 
         cancel.addActionListener(this);
 
@@ -133,6 +130,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.add(usernameErrorField);
         this.add(passwordInfo);
         this.add(buttons);
+
+        applyDarkMode(); // Apply initial dark mode state
     }
 
     /**
@@ -161,5 +160,42 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
+    }
+
+    // New method to toggle dark mode
+    public void setDarkMode(boolean darkMode) {
+        this.darkMode = darkMode;
+        applyDarkMode();
+    }
+
+    // Apply dark mode styles dynamically
+    private void applyDarkMode() {
+        if (darkMode) {
+            setBackground(Color.DARK_GRAY);
+            usernameInputField.setBackground(Color.BLACK);
+            usernameInputField.setForeground(Color.WHITE);
+            passwordInputField.setBackground(Color.BLACK);
+            passwordInputField.setForeground(Color.WHITE);
+            usernameErrorField.setForeground(Color.RED);
+            passwordErrorField.setForeground(Color.RED);
+            logIn.setBackground(Color.GRAY);
+            logIn.setForeground(Color.WHITE);
+            cancel.setBackground(Color.GRAY);
+            cancel.setForeground(Color.WHITE);
+        } else {
+            setBackground(Color.LIGHT_GRAY);
+            usernameInputField.setBackground(Color.WHITE);
+            usernameInputField.setForeground(Color.BLACK);
+            passwordInputField.setBackground(Color.WHITE);
+            passwordInputField.setForeground(Color.BLACK);
+            usernameErrorField.setForeground(Color.BLACK);
+            passwordErrorField.setForeground(Color.BLACK);
+            logIn.setBackground(Color.WHITE);
+            logIn.setForeground(Color.BLACK);
+            cancel.setBackground(Color.WHITE);
+            cancel.setForeground(Color.BLACK);
+        }
+        repaint();
+        revalidate();
     }
 }

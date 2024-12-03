@@ -10,16 +10,16 @@ public class FetchRecipesController {
 
     public FetchRecipesController(FetchRecipesInputBoundary recipesInputInteractor) {
         this.recipesInputInteractor = recipesInputInteractor;
-
     }
-    public void execute(SearchParameters searchParameters) {
-        final FetchRecipesInputData fetchRecipesInputData = new FetchRecipesInputData(searchParameters);
 
+    // Fetch recipes using the given search parameters and username
+    public void execute(SearchParameters searchParameters, String username) {
+        final FetchRecipesInputData fetchRecipesInputData = new FetchRecipesInputData(searchParameters, username);
         recipesInputInteractor.execute(fetchRecipesInputData);
     }
 
+    // Open the selected recipe for viewing
     public void openRecipe(String recipeId, String username) {
         recipesInputInteractor.openRecipe(recipeId, username);
     }
-
 }

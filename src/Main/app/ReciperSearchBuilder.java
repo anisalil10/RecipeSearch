@@ -1,6 +1,7 @@
 package Main.app;
 
 import Main.data_access.DataAccessObject;
+import Main.entity.UISettingsState;
 import Main.interface_adapter.ViewManagerModel;
 import Main.interface_adapter.change_password.LoggedInViewModel;
 import Main.interface_adapter.fetch_recipes.FetchRecipesController;
@@ -18,7 +19,6 @@ import Main.interface_adapter.open_recipe.OpenRecipeViewModel;
 import Main.interface_adapter.signup.SignupController;
 import Main.interface_adapter.signup.SignupPresenter;
 import Main.interface_adapter.signup.SignupViewModel;
-
 
 import Main.use_cases.fetch_recipes.FetchRecipesInputBoundary;
 import Main.use_cases.fetch_recipes.FetchRecipesInteractor;
@@ -40,19 +40,18 @@ import Main.view.*;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class ReciperSearchBuilder {
 
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
-    // thought question: is the hard dependency below a problem?
-
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
-    private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
+
+    // Add UISettingsState for managing dark mode
+    private final UISettingsState uiSettingsState = new UISettingsState();
+    private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel, uiSettingsState);
 
     private final DataAccessObject userDataAccessObject = new DataAccessObject();
     private final DataAccessObject dataAccessObject = new DataAccessObject();
-
 
     private SignupView signupView;
     private RecipeSearchView recipeSearchView;
@@ -65,40 +64,41 @@ public class ReciperSearchBuilder {
     private FetchRecipesViewModel fetchRecipesViewModel;
     private OpenRecipeViewModel openRecipeViewModel;
 
-
-    public ReciperSearchBuilder() { cardPanel.setLayout(cardLayout); }
+    public ReciperSearchBuilder() {
+        cardPanel.setLayout(cardLayout);
+    }
 
     public ReciperSearchBuilder addSignupView() {
         signupViewModel = new SignupViewModel();
-        signupView = new SignupView(signupViewModel);
+        signupView = new SignupView(signupViewModel, uiSettingsState); // Pass dark mode state
         cardPanel.add(signupView, signupView.getViewName());
         return this;
     }
 
     public ReciperSearchBuilder addRecipeSearchView() {
         getSearchParametersViewModel = new GetSearchParametersViewModel();
-        recipeSearchView = new RecipeSearchView(getSearchParametersViewModel);
+        recipeSearchView = new RecipeSearchView(getSearchParametersViewModel, uiSettingsState); // Pass dark mode state
         cardPanel.add(recipeSearchView, recipeSearchView.getViewName());
         return this;
     }
 
     public ReciperSearchBuilder addRecipeMenuView() {
         fetchRecipesViewModel = new FetchRecipesViewModel();
-        recipeMenuView = new RecipeMenuView(fetchRecipesViewModel);
+        recipeMenuView = new RecipeMenuView(fetchRecipesViewModel, uiSettingsState); // Pass dark mode state
         cardPanel.add(recipeMenuView, recipeMenuView.getViewName());
         return this;
     }
 
     public ReciperSearchBuilder addLoginView() {
         loginViewModel = new LoginViewModel();
-        loginView = new LoginView(loginViewModel);
+        loginView = new LoginView(loginViewModel, uiSettingsState); // Pass dark mode state
         cardPanel.add(loginView, loginView.getViewName());
         return this;
     }
 
     public ReciperSearchBuilder addRecipeView() {
         openRecipeViewModel = new OpenRecipeViewModel();
-        recipeView = new RecipeView(openRecipeViewModel);
+        recipeView = new RecipeView(openRecipeViewModel, uiSettingsState); // Pass dark mode state
         cardPanel.add(recipeView, recipeView.getViewName());
         return this;
     }
@@ -171,5 +171,8 @@ public class ReciperSearchBuilder {
         return this;
     }
 
-
+    public ReciperSearchBuilder setUISettingsState(UISettingsState uiSettingsState) {
+        this.uiSettingsState.setDarkMode(uiSettingsState.isDarkMode());
+        return this;
+    }
 }
