@@ -1,7 +1,6 @@
 package Main.interface_adapter.get_search_parameters;
 
 import Main.interface_adapter.ViewModel;
-import Main.interface_adapter.signup.SignupState;
 
 public class GetSearchParametersViewModel extends ViewModel<GetSearchParametersState> {
     public static final String TITLE_LABEL = "Search Recipes";

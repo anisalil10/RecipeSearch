@@ -1,12 +1,12 @@
-package Main.use_cases.FetchRecipes;
+package Main.use_cases.fetch_recipes;
 
 import Main.entity.Recipe;
-
-import java.util.List;
 
 public interface FetchRecipesOutputBoundary {
 
     void prepareSuccessView(FetchRecipesOutputData outputData);
 
     void prepareFailView(String errorMessage);
+
+    void openRecipe(Recipe recipe, String username);
 }

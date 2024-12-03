@@ -9,53 +9,53 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class RecipeView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private final String viewName = "recipe";
+    private final static String viewName = "Recipe";
     private final OpenRecipeViewModel openRecipeViewModel;
 
-    private final JButton addToFavourites;
     private OpenRecipeController openRecipeController;
 
     public RecipeView(OpenRecipeViewModel openRecipeViewModel) {
         this.openRecipeViewModel = openRecipeViewModel;
         this.openRecipeViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel("Recipe View");
+        final JLabel title = new JLabel("Recipe");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
-        addToFavourites = new JButton("add to favourites");
-        buttons.add(addToFavourites);
 
-        addToFavourites.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(addToFavourites)) {
-                            final OpenRecipeState currentState = openRecipeViewModel.getState();
+        OpenRecipeState currentState = openRecipeViewModel.getState();
 
-                            openRecipeController.execute(currentState.getRecipeId(), currentState.getUsername());
+        final JLabel recipeName = new JLabel(currentState.getRecipeName());
+        final JLabel recipeCuisine = new JLabel(currentState.getCuisine());
+        final JLabel recipeMealType = new JLabel(currentState.getMealType());
 
-                        }
-                    }
-                }
-        );
+        this.add(recipeName);
+        this.add(recipeCuisine);
+        this.add(recipeMealType);
 
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        final OpenRecipeState state = (OpenRecipeState) evt.getNewValue();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("Click " + e.getActionCommand());
+    }
 
+    public static String getViewName() {
+        return viewName;
+    }
+
+    public void setOpenRecipeController(OpenRecipeController openRecipeController) {
+        this.openRecipeController = openRecipeController;
     }
 }

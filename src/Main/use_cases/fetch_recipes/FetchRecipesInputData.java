@@ -1,4 +1,4 @@
-package Main.use_cases.FetchRecipes;
+package Main.use_cases.fetch_recipes;
 
 import Main.entity.SearchParameters;
 

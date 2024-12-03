@@ -1,6 +1,4 @@
-package Main.use_cases.OpenRecipe;
-
-import Main.entity.RecipeId;
+package Main.use_cases.open_recipe;
 
 public class OpenRecipeInputData {
 

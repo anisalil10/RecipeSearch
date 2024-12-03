@@ -31,6 +31,8 @@ public class LoginPresenter implements LoginOutputBoundary {
 
         final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
         getSearchParametersState.setDiet(response.getUserpreferences());
+        getSearchParametersState.setUsername(response.getUsername());
+
         this.getSearchParametersViewModel.setState(getSearchParametersState);
         this.getSearchParametersViewModel.firePropertyChanged();
 

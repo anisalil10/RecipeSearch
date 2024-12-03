@@ -6,6 +6,7 @@ public class GetSearchParametersState {
     private String cuisine;
     private String mealType;
     private String diet;
+    private String username;
 
     public String getQuery() {
         return query;
@@ -55,5 +56,13 @@ public class GetSearchParametersState {
                 + ", mealType='" + mealType + '\''
                 + ", diet=" + diet + '\''
                 + '}';
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

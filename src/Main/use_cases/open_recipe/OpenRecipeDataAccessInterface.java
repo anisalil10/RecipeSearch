@@ -1,7 +1,6 @@
-package Main.use_cases.OpenRecipe;
+package Main.use_cases.open_recipe;
 
 import Main.entity.Recipe;
-import Main.entity.RecipeId;
 
 public interface OpenRecipeDataAccessInterface {
 

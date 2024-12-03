@@ -1,6 +1,4 @@
-package Main.use_cases.AddToFavourites;
-
-import Main.entity.RecipeId;
+package Main.use_cases.add_to_favourites;
 
 public class AddToFavouritesOutputData {
     private String username;

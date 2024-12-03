@@ -1,4 +1,4 @@
-package Main.use_cases.GetSearchParameters;
+package Main.use_cases.get_search_parameters;
 
 public interface GetSearchParametersInputBoundary {
 

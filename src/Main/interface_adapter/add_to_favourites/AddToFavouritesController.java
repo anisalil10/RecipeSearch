@@ -1,8 +1,7 @@
 package Main.interface_adapter.add_to_favourites;
 
-import Main.entity.RecipeId;
-import Main.use_cases.AddToFavourites.AddToFavouritesInputBoundary;
-import Main.use_cases.AddToFavourites.AddToFavouritesInputData;
+import Main.use_cases.add_to_favourites.AddToFavouritesInputBoundary;
+import Main.use_cases.add_to_favourites.AddToFavouritesInputData;
 
 public class AddToFavouritesController {
 

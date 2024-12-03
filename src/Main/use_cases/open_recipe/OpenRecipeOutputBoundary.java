@@ -1,4 +1,4 @@
-package Main.use_cases.OpenRecipe;
+package Main.use_cases.open_recipe;
 
 public interface OpenRecipeOutputBoundary {
 

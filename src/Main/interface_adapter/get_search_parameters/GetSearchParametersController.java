@@ -1,7 +1,7 @@
 package Main.interface_adapter.get_search_parameters;
 
-import Main.use_cases.GetSearchParameters.GetSearchParametersInputBoundary;
-import Main.use_cases.GetSearchParameters.GetSearchParametersInputData;
+import Main.use_cases.get_search_parameters.GetSearchParametersInputBoundary;
+import Main.use_cases.get_search_parameters.GetSearchParametersInputData;
 
 public class GetSearchParametersController {
     private final GetSearchParametersInputBoundary searchParametersInteractor;
