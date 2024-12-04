@@ -1,0 +1,25 @@
+package Main.app;
+
+import javax.swing.*;
+
+public class Main {
+    public static void main(String[] args) {
+        final ReciperSearchBuilder appBuilder = new ReciperSearchBuilder();
+        // Added logout use case to the app
+        final JFrame application = appBuilder
+                .addLoginView()
+                .addSignupView()
+                .addRecipeSearchView()
+                .addRecipeMenuView()
+                .addRecipeView()
+                .addRecipeMenuUseCase()
+                .addOpenRecipeUseCase()
+                .addSignupUseCase()
+                .addLoginUseCase()
+                .addRecipeSearchUseCase()
+                .build();
+
+        application.setSize(1000, 250);
+        application.setVisible(true);
+    }
+}
