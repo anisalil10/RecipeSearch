@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0901d6d8-e857-4983-8c43-4839f999079b" name="Changes" comment="All changes made for UI integration: &#10;Dark Mode:&#10;                                 Introduced UISettingsState to manage dark mode across the application.&#10;                                     Updated ViewManager to apply dark or light themes dynamically.&#10;                                     Enabled automatic theme updates across all views.&#10;                                     Dropdown Menus&#10;                                     Added dropdown menus for cuisine and meal type in RecipeSearchView.&#10;                                     Populated dropdowns with predefined API options.&#10;                                     Integrated dropdown selections with GetSearchParametersViewModel and FetchRecipesState.&#10;                                     Added cancel buttons to reset dropdown selections.&#10;                                     Scrolling:&#10;                                     Implemented scrolling functionality in RecipeMenuView using JScrollPane.&#10;                                     Enabled dynamic updates for scrollable lists based on fetched recipes.&#10;            &#10;                                     Cancel Button&#10;                                     Added cancel buttons in RecipeSearchView, SignupView, and LoginView.&#10;                                     Enabled resetting of text fields and dropdown selections to default states.&#10;                                     API Integration Updates&#10;                                     Enhanced DataAccessObject and FetchRecipesState to incorporate dropdown selections in API calls.&#10;                                     Improved dynamic recipe fetching based on user-selected filters.&#10;                                     Refined error handling and state management for API responses.&#10;                                     State Management:&#10;                                     Updated FetchRecipesState to store both recipeList and recipeIds.&#10;                                     Added property change listeners for better view synchronization.&#10;                                     Improved state classes (SignupState, LoginState, etc.) to support new features." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/main" />
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="Mallika" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="USECASE2" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ms-2004&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/anisalil10/RecipeSearch.git&quot;,
+    &quot;accountId&quot;: &quot;fd1d8952-968c-42c8-9220-d9019dca1f0d&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;anisalil10&quot;,
+    &quot;repository&quot;: &quot;RecipeSearch&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="jdkForImporter" value="corretto-17" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2ohBLCrPQrcjxklLk54vpyaNUK8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Recipe_Search.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Search.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;aniketh&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/malli/Downloads/RecipeSearch-main/RecipeSearch-main/src/Main/use_cases/FetchRecipes&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;database.data.csv.formats&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\malli\Downloads\RecipeSearch-main\RecipeSearch-main\src" />
+      <recent name="C:\Users\malli\Downloads\RecipeSearch-main\RecipeSearch-main\.idea" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main.app.Main" />
+      <module name="homework-5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Main.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Recipe_Search" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Recipe_Search" />
+      <module name="homework-5" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/Main/use_cases/FetchRecipes" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="RecipeSearch-main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="RecipeSearch-main" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0901d6d8-e857-4983-8c43-4839f999079b" name="Changes" comment="" />
+      <created>1731311868973</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731311868973</updated>
+      <workItem from="1731311871144" duration="715000" />
+      <workItem from="1731312607760" duration="284000" />
+      <workItem from="1731312902758" duration="1292000" />
+      <workItem from="1731971263102" duration="3903000" />
+      <workItem from="1732230512310" duration="15516000" />
+      <workItem from="1732563769311" duration="10398000" />
+      <workItem from="1733160207634" duration="874000" />
+      <workItem from="1733161102832" duration="3451000" />
+      <workItem from="1733230922283" duration="11001000" />
+      <workItem from="1733275170197" duration="97000" />
+      <workItem from="1733347046337" duration="525000" />
+    </task>
+    <task id="LOCAL-00001" summary="Code for basic recipe search in search.java, pom.xml file added for maven; will not run without dependencies installed">
+      <option name="closed" value="true" />
+      <created>1731314315026</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1731314315026</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Code for basic recipe search in search.java, pom.xml file added for maven; will not run without dependencies installed">
+      <option name="closed" value="true" />
+      <created>1731314538751</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731314538751</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Code for basic recipe search in search.java, pom.xml file added for maven; will not run without dependencies installed">
+      <option name="closed" value="true" />
+      <created>1731977749000</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731977749000</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added files to ensure user preferences work for the dietary restrictions use case">
+      <option name="closed" value="true" />
+      <created>1732332644724</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732332644724</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added files to ensure user preferences work for the dietary restrictions use case">
+      <option name="closed" value="true" />
+      <created>1732424429015</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732424429015</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Basic code for view models; API calls yet to be incorporates">
+      <option name="closed" value="true" />
+      <created>1732484967172</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1732484967172</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Refactoring all files prior to making database that stores user login and preferences">
+      <option name="closed" value="true" />
+      <created>1732582614724</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732582614724</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Created database, added necessary files to input new user and edit preferences for dietary restrictions and search cases; yet to be  tested">
+      <option name="closed" value="true" />
+      <created>1732583764924</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1732583764924</updated>
+    </task>
+    <task id="LOCAL-00009" summary="pushing user info csv file again so teammate can see it">
+      <option name="closed" value="true" />
+      <created>1732638781822</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1732638781822</updated>
+    </task>
+    <task id="LOCAL-00010" summary="All changes made for UI integration: &#10;Dark Mode:&#10;                                 Introduced UISettingsState to manage dark mode across the application.&#10;                                     Updated ViewManager to apply dark or light themes dynamically.&#10;                                     Enabled automatic theme updates across all views.&#10;                                     Dropdown Menus&#10;                                     Added dropdown menus for cuisine and meal type in RecipeSearchView.&#10;                                     Populated dropdowns with predefined API options.&#10;                                     Integrated dropdown selections with GetSearchParametersViewModel and FetchRecipesState.&#10;                                     Added cancel buttons to reset dropdown selections.&#10;                                     Scrolling:&#10;                                     Implemented scrolling functionality in RecipeMenuView using JScrollPane.&#10;                                     Enabled dynamic updates for scrollable lists based on fetched recipes.&#10;            &#10;                                     Cancel Button&#10;                                     Added cancel buttons in RecipeSearchView, SignupView, and LoginView.&#10;                                     Enabled resetting of text fields and dropdown selections to default states.&#10;                                     API Integration Updates&#10;                                     Enhanced DataAccessObject and FetchRecipesState to incorporate dropdown selections in API calls.&#10;                                     Improved dynamic recipe fetching based on user-selected filters.&#10;                                     Refined error handling and state management for API responses.&#10;                                     State Management:&#10;                                     Updated FetchRecipesState to store both recipeList and recipeIds.&#10;                                     Added property change listeners for better view synchronization.&#10;                                     Improved state classes (SignupState, LoginState, etc.) to support new features.">
+      <option name="closed" value="true" />
+      <created>1733262358958</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1733262358958</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="Mallika" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/USECASE2" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Code for basic recipe search in search.java, pom.xml file added for maven; will not run without dependencies installed" />
+    <MESSAGE value="Added files to ensure user preferences work for the dietary restrictions use case" />
+    <MESSAGE value="Basic code for view models; API calls yet to be incorporates" />
+    <MESSAGE value="Refactoring all files prior to making database that stores user login and preferences" />
+    <MESSAGE value="Created database, added necessary files to input new user and edit preferences for dietary restrictions and search cases; yet to be  tested" />
+    <MESSAGE value="pushing user info csv file again so teammate can see it" />
+    <MESSAGE value="All changes made for UI integration: &#10;Dark Mode:&#10;                                 Introduced UISettingsState to manage dark mode across the application.&#10;                                     Updated ViewManager to apply dark or light themes dynamically.&#10;                                     Enabled automatic theme updates across all views.&#10;                                     Dropdown Menus&#10;                                     Added dropdown menus for cuisine and meal type in RecipeSearchView.&#10;                                     Populated dropdowns with predefined API options.&#10;                                     Integrated dropdown selections with GetSearchParametersViewModel and FetchRecipesState.&#10;                                     Added cancel buttons to reset dropdown selections.&#10;                                     Scrolling:&#10;                                     Implemented scrolling functionality in RecipeMenuView using JScrollPane.&#10;                                     Enabled dynamic updates for scrollable lists based on fetched recipes.&#10;            &#10;                                     Cancel Button&#10;                                     Added cancel buttons in RecipeSearchView, SignupView, and LoginView.&#10;                                     Enabled resetting of text fields and dropdown selections to default states.&#10;                                     API Integration Updates&#10;                                     Enhanced DataAccessObject and FetchRecipesState to incorporate dropdown selections in API calls.&#10;                                     Improved dynamic recipe fetching based on user-selected filters.&#10;                                     Refined error handling and state management for API responses.&#10;                                     State Management:&#10;                                     Updated FetchRecipesState to store both recipeList and recipeIds.&#10;                                     Added property change listeners for better view synchronization.&#10;                                     Improved state classes (SignupState, LoginState, etc.) to support new features." />
+    <option name="LAST_COMMIT_MESSAGE" value="All changes made for UI integration: &#10;Dark Mode:&#10;                                 Introduced UISettingsState to manage dark mode across the application.&#10;                                     Updated ViewManager to apply dark or light themes dynamically.&#10;                                     Enabled automatic theme updates across all views.&#10;                                     Dropdown Menus&#10;                                     Added dropdown menus for cuisine and meal type in RecipeSearchView.&#10;                                     Populated dropdowns with predefined API options.&#10;                                     Integrated dropdown selections with GetSearchParametersViewModel and FetchRecipesState.&#10;                                     Added cancel buttons to reset dropdown selections.&#10;                                     Scrolling:&#10;                                     Implemented scrolling functionality in RecipeMenuView using JScrollPane.&#10;                                     Enabled dynamic updates for scrollable lists based on fetched recipes.&#10;            &#10;                                     Cancel Button&#10;                                     Added cancel buttons in RecipeSearchView, SignupView, and LoginView.&#10;                                     Enabled resetting of text fields and dropdown selections to default states.&#10;                                     API Integration Updates&#10;                                     Enhanced DataAccessObject and FetchRecipesState to incorporate dropdown selections in API calls.&#10;                                     Improved dynamic recipe fetching based on user-selected filters.&#10;                                     Refined error handling and state management for API responses.&#10;                                     State Management:&#10;                                     Updated FetchRecipesState to store both recipeList and recipeIds.&#10;                                     Added property change listeners for better view synchronization.&#10;                                     Improved state classes (SignupState, LoginState, etc.) to support new features." />
+  </component>
+</project>
