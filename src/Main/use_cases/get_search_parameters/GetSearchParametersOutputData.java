@@ -1,15 +1,18 @@
 package Main.use_cases.get_search_parameters;
 
-import Main.entity.SearchParameters;
+
+import Main.entity.Recipe;
+
+import java.util.List;
 
 public class GetSearchParametersOutputData {
-    private final SearchParameters searchParameters;
+    private final List<Recipe> recipeList;
 
-    public GetSearchParametersOutputData(SearchParameters searchParameters) {
-        this.searchParameters = searchParameters;
+    public GetSearchParametersOutputData(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
     }
 
-    public SearchParameters getSearchParameters() {
-        return searchParameters;
+    public List<Recipe> getRecipeList() {
+        return recipeList;
     }
 }

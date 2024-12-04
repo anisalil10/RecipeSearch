@@ -1,6 +1,9 @@
 package Main.use_cases.get_search_parameters;
 
+import Main.entity.Recipe;
 import Main.entity.SearchParameters;
+
+import java.util.List;
 
 public class GetSearchParametersInteractor implements GetSearchParametersInputBoundary {
 
@@ -31,9 +34,9 @@ public class GetSearchParametersInteractor implements GetSearchParametersInputBo
             searchPresenter.prepareFailView("No recipes found");
         }
         else {
-            searchParametersDataAccess.saveSearchParameters(searchParameters);
+            List<Recipe> recipes = searchParametersDataAccess.getrecipes(searchParameters);
 
-            final GetSearchParametersOutputData outputData = new GetSearchParametersOutputData(searchParameters);
+            final GetSearchParametersOutputData outputData = new GetSearchParametersOutputData(recipes);
             searchPresenter.prepareSuccessView(outputData);
         }
     }

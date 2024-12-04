@@ -19,7 +19,7 @@ public class Main {
                 .addRecipeSearchUseCase()
                 .build();
 
-        application.pack();
+        application.setSize(1000, 250);
         application.setVisible(true);
     }
 }

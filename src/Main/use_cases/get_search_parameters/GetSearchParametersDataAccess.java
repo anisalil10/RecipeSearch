@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface GetSearchParametersDataAccess {
 
-    void saveSearchParameters(SearchParameters searchParameters);
-
     public List<Recipe> getrecipes(SearchParameters searchParameters);
 
 }

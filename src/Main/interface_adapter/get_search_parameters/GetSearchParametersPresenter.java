@@ -22,17 +22,10 @@ public class GetSearchParametersPresenter implements GetSearchParametersOutputBo
 
     @Override
     public void prepareSuccessView(GetSearchParametersOutputData outputData) {
-        final FetchRecipesState fetchRecipesState = fetchRecipesViewModel.getState();
-        fetchRecipesState.setSearchParameters(outputData.getSearchParameters());
-        GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
-        fetchRecipesState.setUsername(getSearchParametersState.getUsername());
-
-        this.fetchRecipesViewModel.setState(fetchRecipesState);
-        fetchRecipesViewModel.firePropertyChanged();
-
-        viewManagerModel.setState(fetchRecipesViewModel.getViewName());
+        final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
+        getSearchParametersState.setRecipeList(outputData.getRecipeList());
+        getSearchParametersViewModel.firePropertyChanged();
         viewManagerModel.firePropertyChanged();
-
     }
 
     @Override

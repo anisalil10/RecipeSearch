@@ -9,13 +9,11 @@ import Main.use_cases.fetch_recipes.FetchRecipesOutputData;
 
 public class FetchRecipesPresenter implements FetchRecipesOutputBoundary {
     private final FetchRecipesViewModel fetchRecipesViewModel;
-    private final OpenRecipeViewModel openRecipeViewModel;
+//    private final OpenRecipeViewModel openRecipeViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public FetchRecipesPresenter(FetchRecipesViewModel fetchRecipesViewModel, OpenRecipeViewModel openRecipeViewModel,
-                                 ViewManagerModel viewManagerModel) {
+    public FetchRecipesPresenter(FetchRecipesViewModel fetchRecipesViewModel, ViewManagerModel viewManagerModel) {
         this.fetchRecipesViewModel = fetchRecipesViewModel;
-        this.openRecipeViewModel = openRecipeViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
@@ -40,14 +38,14 @@ public class FetchRecipesPresenter implements FetchRecipesOutputBoundary {
 
     @Override
     public void openRecipe(Recipe recipe, String username) {
-        final OpenRecipeState openRecipeState = openRecipeViewModel.getState();
-        openRecipeState.setRecipe(recipe);
-        openRecipeState.setUsername(username);
-
-        this.openRecipeViewModel.setState(openRecipeState);
-
-        viewManagerModel.setState(openRecipeViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+//        final OpenRecipeState openRecipeState = openRecipeViewModel.getState();
+//        openRecipeState.setRecipe(recipe);
+//        openRecipeState.setUsername(username);
+//
+//        this.openRecipeViewModel.setState(openRecipeState);
+//
+//        viewManagerModel.setState(openRecipeViewModel.getViewName());
+//        viewManagerModel.firePropertyChanged();
     }
 
 }

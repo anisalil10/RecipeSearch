@@ -124,10 +124,6 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
     }
 
     @Override
-    public void saveSearchParameters(SearchParameters searchParameters) {
-
-    }
-    @Override
     public List<Recipe> getrecipes(SearchParameters searchParameters) {
         String url = String.format(LIST_PARAMETERS,
                 BASE_URL,

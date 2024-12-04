@@ -1,5 +1,9 @@
 package Main.interface_adapter.get_search_parameters;
 
+import Main.entity.Recipe;
+
+import java.util.List;
+
 public class GetSearchParametersState {
     private String query = "";
     private String queryError;
@@ -7,6 +11,7 @@ public class GetSearchParametersState {
     private String mealType;
     private String diet;
     private String username;
+    private List<Recipe> recipeList;
 
     public String getQuery() {
         return query;
@@ -64,5 +69,13 @@ public class GetSearchParametersState {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<Recipe> getRecipeList() {
+        return recipeList;
+    }
+
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
     }
 }

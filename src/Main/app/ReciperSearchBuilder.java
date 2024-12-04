@@ -2,7 +2,6 @@ package Main.app;
 
 import Main.data_access.DataAccessObject;
 import Main.interface_adapter.ViewManagerModel;
-import Main.interface_adapter.change_password.LoggedInViewModel;
 import Main.interface_adapter.fetch_recipes.FetchRecipesController;
 import Main.interface_adapter.fetch_recipes.FetchRecipesPresenter;
 import Main.interface_adapter.fetch_recipes.FetchRecipesViewModel;
@@ -50,9 +49,7 @@ public class ReciperSearchBuilder {
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
-    private final DataAccessObject userDataAccessObject = new DataAccessObject();
     private final DataAccessObject dataAccessObject = new DataAccessObject();
-
 
     private SignupView signupView;
     private RecipeSearchView recipeSearchView;
@@ -77,15 +74,16 @@ public class ReciperSearchBuilder {
 
     public ReciperSearchBuilder addRecipeSearchView() {
         getSearchParametersViewModel = new GetSearchParametersViewModel();
+        fetchRecipesViewModel = new FetchRecipesViewModel();
         recipeSearchView = new RecipeSearchView(getSearchParametersViewModel);
         cardPanel.add(recipeSearchView, recipeSearchView.getViewName());
         return this;
     }
 
     public ReciperSearchBuilder addRecipeMenuView() {
-        fetchRecipesViewModel = new FetchRecipesViewModel();
-        recipeMenuView = new RecipeMenuView(fetchRecipesViewModel);
-        cardPanel.add(recipeMenuView, recipeMenuView.getViewName());
+//        fetchRecipesViewModel = new FetchRecipesViewModel();
+//        recipeMenuView = new RecipeMenuView(fetchRecipesViewModel);
+//        cardPanel.add(recipeMenuView, recipeMenuView.getViewName());
         return this;
     }
 
@@ -105,6 +103,8 @@ public class ReciperSearchBuilder {
 
     public JFrame build() {
         final JFrame application = new JFrame("Recipe Login");
+        Dimension d = new Dimension(300, 300);
+        application.setSize(d);
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         application.add(cardPanel);
@@ -119,7 +119,7 @@ public class ReciperSearchBuilder {
         final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
                 signupViewModel, loginViewModel, getSearchParametersViewModel);
         final SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                userDataAccessObject, signupOutputBoundary);
+                dataAccessObject, signupOutputBoundary);
 
         final SignupController controller = new SignupController(userSignupInteractor);
         signupView.setSignupController(controller);
@@ -130,7 +130,7 @@ public class ReciperSearchBuilder {
         final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
                 this.getSearchParametersViewModel, loginViewModel);
         final LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary);
+                dataAccessObject, loginOutputBoundary);
 
         final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
@@ -141,7 +141,7 @@ public class ReciperSearchBuilder {
         final GetSearchParametersOutputBoundary outputBoundary = new GetSearchParametersPresenter(
                 getSearchParametersViewModel, fetchRecipesViewModel, viewManagerModel);
         final GetSearchParametersInputBoundary getSearchParametersInteractor = new GetSearchParametersInteractor(
-                userDataAccessObject, outputBoundary);
+                dataAccessObject, outputBoundary);
 
         final GetSearchParametersController getSearchParametersController = new GetSearchParametersController(
                 getSearchParametersInteractor);
@@ -150,14 +150,14 @@ public class ReciperSearchBuilder {
     }
 
     public ReciperSearchBuilder addRecipeMenuUseCase() {
-        final FetchRecipesOutputBoundary outputBoundary = new FetchRecipesPresenter(
-                fetchRecipesViewModel, openRecipeViewModel, viewManagerModel);
-        final FetchRecipesInputBoundary fetchRecipesInteractor = new FetchRecipesInteractor(
-                dataAccessObject, outputBoundary);
-        final FetchRecipesController fetchRecipesController = new FetchRecipesController(
-                fetchRecipesInteractor);
-
-        recipeMenuView.setFetchRecipesController(fetchRecipesController);
+//        final FetchRecipesOutputBoundary outputBoundary = new FetchRecipesPresenter(
+//                fetchRecipesViewModel, openRecipeViewModel, viewManagerModel);
+//        final FetchRecipesInputBoundary fetchRecipesInteractor = new FetchRecipesInteractor(
+//                dataAccessObject, outputBoundary);
+//        final FetchRecipesController fetchRecipesController = new FetchRecipesController(
+//                fetchRecipesInteractor);
+//
+//        recipeMenuView.setFetchRecipesController(fetchRecipesController);
         return this;
     }
 
