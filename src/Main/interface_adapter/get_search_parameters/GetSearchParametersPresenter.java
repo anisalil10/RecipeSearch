@@ -58,4 +58,9 @@ public class GetSearchParametersPresenter implements GetSearchParametersOutputBo
         getSearchParametersState.setAddToFavouritesMessage(message);
         getSearchParametersViewModel.firePropertyChanged();
     }
+
+    @Override
+    public void viewPopularRecipes() {
+
+    }
 }

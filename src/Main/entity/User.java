@@ -36,4 +36,8 @@ public class User {
     public String getUserpreferences() {
         return userpreferences;
     }
+
+    public void setFavouriterecipes(List<String> favouriterecipes) {
+        this.favouriterecipes = favouriterecipes;
+    }
 }

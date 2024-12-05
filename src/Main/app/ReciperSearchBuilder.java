@@ -39,7 +39,12 @@ import Main.view.*;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ * The AppBuilder class is responsible for putting together the pieces of
+ * our CA architecture; piece by piece.
+ * <p/>
+ * This is done by adding each View and then adding related Use Cases.
+ */
 public class ReciperSearchBuilder {
 
     private final JPanel cardPanel = new JPanel();
@@ -65,6 +70,10 @@ public class ReciperSearchBuilder {
 
     public ReciperSearchBuilder() { cardPanel.setLayout(cardLayout); }
 
+    /**
+     * Adds the Signup View to the application.
+     * @return this builder
+     */
     public ReciperSearchBuilder addSignupView() {
         signupViewModel = new SignupViewModel();
         signupView = new SignupView(signupViewModel);
@@ -72,6 +81,10 @@ public class ReciperSearchBuilder {
         return this;
     }
 
+    /**
+     * Adds the Recipe Search View to the application.
+     * @return this builder
+     */
     public ReciperSearchBuilder addRecipeSearchView() {
         getSearchParametersViewModel = new GetSearchParametersViewModel();
         fetchRecipesViewModel = new FetchRecipesViewModel();
@@ -80,13 +93,10 @@ public class ReciperSearchBuilder {
         return this;
     }
 
-    public ReciperSearchBuilder addRecipeMenuView() {
-//        fetchRecipesViewModel = new FetchRecipesViewModel();
-//        recipeMenuView = new RecipeMenuView(fetchRecipesViewModel);
-//        cardPanel.add(recipeMenuView, recipeMenuView.getViewName());
-        return this;
-    }
-
+    /**
+     * Adds the Login View to the application.
+     * @return this builder
+     */
     public ReciperSearchBuilder addLoginView() {
         loginViewModel = new LoginViewModel();
         loginView = new LoginView(loginViewModel);
@@ -94,10 +104,49 @@ public class ReciperSearchBuilder {
         return this;
     }
 
-    public ReciperSearchBuilder addRecipeView() {
-        openRecipeViewModel = new OpenRecipeViewModel();
-        recipeView = new RecipeView(openRecipeViewModel);
-        cardPanel.add(recipeView, recipeView.getViewName());
+    /**
+     * Adds the Signup Use Case to the application.
+     * @return this builder
+     */
+    public ReciperSearchBuilder addSignupUseCase() {
+        final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
+                signupViewModel, loginViewModel, getSearchParametersViewModel);
+        final SignupInputBoundary userSignupInteractor = new SignupInteractor(
+                dataAccessObject, signupOutputBoundary);
+
+        final SignupController controller = new SignupController(userSignupInteractor);
+        signupView.setSignupController(controller);
+        return this;
+    }
+
+    /**
+     * Adds the Login Use Case to the application.
+     * @return this builder
+     */
+    public ReciperSearchBuilder addLoginUseCase() {
+        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
+                getSearchParametersViewModel, loginViewModel, signupViewModel);
+        final LoginInputBoundary loginInteractor = new LoginInteractor(
+                dataAccessObject, loginOutputBoundary);
+
+        final LoginController loginController = new LoginController(loginInteractor);
+        loginView.setLoginController(loginController);
+        return this;
+    }
+
+    /**
+     * Adds the Recipe Search Use Case to the application.
+     * @return this builder
+     */
+    public ReciperSearchBuilder addRecipeSearchUseCase() {
+        final GetSearchParametersOutputBoundary outputBoundary = new GetSearchParametersPresenter(
+                getSearchParametersViewModel, openRecipeViewModel, viewManagerModel);
+        final GetSearchParametersInputBoundary getSearchParametersInteractor = new GetSearchParametersInteractor(
+                dataAccessObject, outputBoundary);
+
+        final GetSearchParametersController getSearchParametersController = new GetSearchParametersController(
+                getSearchParametersInteractor);
+        recipeSearchView.setGetSearchParametersController(getSearchParametersController);
         return this;
     }
 
@@ -113,62 +162,6 @@ public class ReciperSearchBuilder {
         viewManagerModel.firePropertyChanged();
 
         return application;
-    }
-
-    public ReciperSearchBuilder addSignupUseCase() {
-        final SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel,
-                signupViewModel, loginViewModel, getSearchParametersViewModel);
-        final SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                dataAccessObject, signupOutputBoundary);
-
-        final SignupController controller = new SignupController(userSignupInteractor);
-        signupView.setSignupController(controller);
-        return this;
-    }
-
-    public ReciperSearchBuilder addLoginUseCase() {
-        final LoginOutputBoundary loginOutputBoundary = new LoginPresenter(viewManagerModel,
-                this.getSearchParametersViewModel, loginViewModel);
-        final LoginInputBoundary loginInteractor = new LoginInteractor(
-                dataAccessObject, loginOutputBoundary);
-
-        final LoginController loginController = new LoginController(loginInteractor);
-        loginView.setLoginController(loginController);
-        return this;
-    }
-
-    public ReciperSearchBuilder addRecipeSearchUseCase() {
-        final GetSearchParametersOutputBoundary outputBoundary = new GetSearchParametersPresenter(
-                getSearchParametersViewModel, openRecipeViewModel, viewManagerModel);
-        final GetSearchParametersInputBoundary getSearchParametersInteractor = new GetSearchParametersInteractor(
-                dataAccessObject, outputBoundary);
-
-        final GetSearchParametersController getSearchParametersController = new GetSearchParametersController(
-                getSearchParametersInteractor);
-        recipeSearchView.setGetSearchParametersController(getSearchParametersController);
-        return this;
-    }
-
-    public ReciperSearchBuilder addRecipeMenuUseCase() {
-//        final FetchRecipesOutputBoundary outputBoundary = new FetchRecipesPresenter(
-//                fetchRecipesViewModel, openRecipeViewModel, viewManagerModel);
-//        final FetchRecipesInputBoundary fetchRecipesInteractor = new FetchRecipesInteractor(
-//                dataAccessObject, outputBoundary);
-//        final FetchRecipesController fetchRecipesController = new FetchRecipesController(
-//                fetchRecipesInteractor);
-//
-//        recipeMenuView.setFetchRecipesController(fetchRecipesController);
-        return this;
-    }
-
-    public ReciperSearchBuilder addOpenRecipeUseCase() {
-        final OpenRecipeOutputBoundary outputBoundary = new OpenRecipePresenter(
-                openRecipeViewModel, viewManagerModel);
-        final OpenRecipeInputBoundary openRecipeInteractor = new OpenRecipeInteractor(dataAccessObject, outputBoundary);
-        final OpenRecipeController openRecipeController = new OpenRecipeController(openRecipeInteractor);
-
-        recipeView.setOpenRecipeController(openRecipeController);
-        return this;
     }
 
 

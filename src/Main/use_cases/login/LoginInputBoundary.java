@@ -12,4 +12,6 @@ public interface LoginInputBoundary {
      * @param loginInputData the input data
      */
     void execute(LoginInputData loginInputData) throws IOException;
+
+    void goToSignup();
 }

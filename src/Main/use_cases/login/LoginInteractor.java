@@ -39,4 +39,8 @@ public class LoginInteractor implements LoginInputBoundary {
             }
         }
     }
+
+    public void goToSignup() {
+        loginPresenter.goToSignUp();
+    }
 }

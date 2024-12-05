@@ -192,6 +192,7 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
             JOptionPane.showMessageDialog(this, state.getQueryError());
         } else if(state.getAddToFavouritesMessage() != "") {
             JOptionPane.showMessageDialog(this, state.getAddToFavouritesMessage());
+            state.setAddToFavouritesMessage("");
         } else if(state.getSelectedRecipe() != null){
             Recipe selectedRecipe = state.getSelectedRecipe();
             String message = "\nCuisine: " + selectedRecipe.getCuisine() + "\nMeal Type: " +
