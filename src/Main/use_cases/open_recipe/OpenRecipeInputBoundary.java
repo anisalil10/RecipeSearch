@@ -1,10 +1,8 @@
 package Main.use_cases.open_recipe;
 
-import java.io.IOException;
-
 public interface OpenRecipeInputBoundary {
 
-    void execute(OpenRecipeInputData openRecipeInputData) throws IOException;
+    void execute(OpenRecipeInputData openRecipeInputData);
 
     void addToFavourites(OpenRecipeInputData openRecipeInputData);
 }

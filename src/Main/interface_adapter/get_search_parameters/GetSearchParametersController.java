@@ -1,5 +1,6 @@
 package Main.interface_adapter.get_search_parameters;
 
+import Main.entity.Recipe;
 import Main.use_cases.get_search_parameters.GetSearchParametersInputBoundary;
 import Main.use_cases.get_search_parameters.GetSearchParametersInputData;
 
@@ -15,6 +16,10 @@ public class GetSearchParametersController {
                 mealType, username);
 
         searchParametersInteractor.execute(searchParametersInputData);
+    }
+
+    public void openRecipe(Recipe recipe, String username) {
+        searchParametersInteractor.openRecipe(recipe, username);
     }
 
 }

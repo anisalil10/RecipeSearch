@@ -12,6 +12,7 @@ public class GetSearchParametersState {
     private String diet;
     private String username;
     private List<Recipe> recipeList;
+    private Recipe selectedRecipe;
 
     public String getQuery() {
         return query;
@@ -77,5 +78,13 @@ public class GetSearchParametersState {
 
     public void setRecipeList(List<Recipe> recipeList) {
         this.recipeList = recipeList;
+    }
+
+    public Recipe getSelectedRecipe() {
+        return selectedRecipe;
+    }
+
+    public void setSelectedRecipe(Recipe selectedRecipe) {
+        this.selectedRecipe = selectedRecipe;
     }
 }

@@ -41,4 +41,8 @@ public class GetSearchParametersInteractor implements GetSearchParametersInputBo
         }
     }
 
+    @Override
+    public void openRecipe(Recipe recipe, String username) {
+        searchPresenter.openRecipe(recipe, username);
+    }
 }

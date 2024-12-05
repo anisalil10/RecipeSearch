@@ -139,7 +139,7 @@ public class ReciperSearchBuilder {
 
     public ReciperSearchBuilder addRecipeSearchUseCase() {
         final GetSearchParametersOutputBoundary outputBoundary = new GetSearchParametersPresenter(
-                getSearchParametersViewModel, fetchRecipesViewModel, viewManagerModel);
+                getSearchParametersViewModel, openRecipeViewModel, viewManagerModel);
         final GetSearchParametersInputBoundary getSearchParametersInteractor = new GetSearchParametersInteractor(
                 dataAccessObject, outputBoundary);
 

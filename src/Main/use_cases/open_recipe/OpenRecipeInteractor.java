@@ -1,7 +1,5 @@
 package Main.use_cases.open_recipe;
 
-import Main.entity.Recipe;
-
 public class OpenRecipeInteractor implements OpenRecipeInputBoundary{
 
     private final OpenRecipeDataAccessInterface recipeDataAccessInterface;
@@ -15,11 +13,7 @@ public class OpenRecipeInteractor implements OpenRecipeInputBoundary{
 
     @Override
     public void execute(OpenRecipeInputData openRecipeInputData) {
-        Recipe recipe;
-        recipe = recipeDataAccessInterface.findrecipe(openRecipeInputData.getRecipeId());
-
-        final OpenRecipeOutputData openRecipeOutputData = new OpenRecipeOutputData(recipe);
-
+        final OpenRecipeOutputData openRecipeOutputData = new OpenRecipeOutputData(openRecipeInputData.getRecipe());
         recipePresenter.prepareSuccessView(openRecipeOutputData);
     }
 
