@@ -7,4 +7,6 @@ public interface GetSearchParametersInputBoundary {
     void execute(GetSearchParametersInputData inputData);
 
     void openRecipe(Recipe recipe, String username);
+
+    void addToFavourites(Recipe recipe, String username);
 }

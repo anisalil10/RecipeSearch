@@ -55,7 +55,7 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            String[] columns = line.split(",");
+            String[] columns = line.split(";");
             if (columns[0].equals(username)) {
                 return true;
             }
@@ -78,9 +78,10 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
             String formattedPreferences = (userpreferences == null || userpreferences.isEmpty())
                     ? "null" : userpreferences;
 
-            writer.append(username).append(",")
-                    .append(password).append(",")
-                    .append(formattedPreferences).append("\n");
+            writer.append(username).append(";")
+                    .append(password).append(";")
+                    .append(formattedPreferences)
+                    .append(";").append(" ").append("\n");
             System.out.println("User added");
         } catch (IOException e) {
             System.err.println("Error while adding user: " + e.getMessage());
@@ -106,7 +107,7 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
             String line;
 
             while ((line = reader.readLine()) != null) {
-                String[] columns = line.split(",");
+                String[] columns = line.split(";");
                 if (columns[0].equals(username)) {
                     user = new User(username, columns[1], columns[2]);
                 }
@@ -120,8 +121,39 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
 
     @Override
     public void updatefavourites(String username, String recipeId) {
+        List<String> updatedLines = new ArrayList<>();
 
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(";");
+                if (columns[0].equals(username)) {
+                    if (columns[3].equals(" ")) {
+                        columns[3] = recipeId;
+                    } else {
+                        columns[3] += "," + recipeId;
+                    }
+                    updatedLines.add(String.join(";", columns));
+                }
+            }
+
+        } catch(IOException e) {
+            System.err.println("Error while reading CSV: " + e.getMessage());
+            return;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (String updatedLine : updatedLines) {
+                writer.write(updatedLine);
+                writer.newLine();
+            }
+            System.out.println("User updated successfully.");
+        } catch (IOException e) {
+            System.err.println("Error while writing to CSV: " + e.getMessage());
+        }
     }
+
 
     @Override
     public List<Recipe> getrecipes(SearchParameters searchParameters) {
@@ -169,6 +201,29 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
             return recipes;
         }
         return recipes;
+    }
+
+    @Override
+    public boolean recipeInFavourites(String username, String recipeId) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(";");
+                if (columns[0].equals(username)) {
+                    if(columns[3].equals(" ")) {
+                        return false;
+                    }
+                    List<String> favourites = List.of(columns[3].split(","));
+                    return favourites.contains(recipeId);
+                }
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error while reading CSV: " + e.getMessage());
+        }
+        return false;
     }
 
     @Override

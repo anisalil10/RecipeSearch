@@ -22,4 +22,7 @@ public class GetSearchParametersController {
         searchParametersInteractor.openRecipe(recipe, username);
     }
 
+    public void addToFavourites(Recipe recipe, String username) {
+        searchParametersInteractor.addToFavourites(recipe, username);
+    }
 }

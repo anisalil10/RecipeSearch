@@ -93,8 +93,8 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
         cancel = new JButton("Cancel");
         buttons.add(cancel);
 
-        toggleDarkMode = new JButton("Toggle Dark Mode");
-        buttons.add(toggleDarkMode);
+//        toggleDarkMode = new JButton("Toggle Dark Mode");
+//        buttons.add(toggleDarkMode);
 
         search.addActionListener(evt -> {
                 final GetSearchParametersState currentState = getSearchParametersViewModel.getState();
@@ -149,7 +149,6 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
                         getSearchParametersController.openRecipe(selectedRecipe[0], currentState.getUsername());
                         currentState.setSelectedRecipe(selectedRecipe[0]);
                     });
-
                     this.revalidate();
                 }
                 this.revalidate();
@@ -180,7 +179,7 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
         this.add(buttons);
         this.add(box);
 
-        applyDarkMode(); // Apply initial dark mode styling
+//        applyDarkMode(); // Apply initial dark mode styling
     }
 
     @Override
@@ -191,18 +190,23 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
         mealTypeDropdown.setSelectedItem(state.getMealType());
         if(state.getQueryError() != null) {
             JOptionPane.showMessageDialog(this, state.getQueryError());
-        }
-        else if(state.getSelectedRecipe() != null) {
+        } else if(state.getAddToFavouritesMessage() != "") {
+            JOptionPane.showMessageDialog(this, state.getAddToFavouritesMessage());
+        } else if(state.getSelectedRecipe() != null){
             Recipe selectedRecipe = state.getSelectedRecipe();
-            String message = "\nCuisine: " + selectedRecipe.getCuisine()
-                    + "\nCalories: " + selectedRecipe.getCalories() + "\nIngredients: "
-                    + selectedRecipe.getIngredients();
-            
-            int option = JOptionPane.showConfirmDialog(this, message,
+            String message = "\nCuisine: " + selectedRecipe.getCuisine() + "\nMeal Type: " +
+                    selectedRecipe.getMealType() + "\nCalories: " + selectedRecipe.getCalories() + "\nIngredients: "
+                    + selectedRecipe.getIngredientsToString();
+
+            JOptionPane jop = new JOptionPane();
+            int option = jop.showConfirmDialog(this, message,
                     selectedRecipe.getName(), 0, 3);
 
-
+            if(option == 0) {
+                getSearchParametersController.addToFavourites(state.getSelectedRecipe(), state.getUsername());
+            }
         }
+
     }
 
     public static String getViewName() {
@@ -212,41 +216,42 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
     public void setGetSearchParametersController(GetSearchParametersController controller) {
         this.getSearchParametersController = controller;
     }
+//
+//    // New method to toggle dark mode
+//    public void setDarkMode(boolean darkMode) {
+//        this.darkMode = darkMode;
+//        applyDarkMode();
+//    }
+//
+//    // Apply dark mode styles dynamically
+////    private void applyDarkMode() {
+////        if (darkMode) {
+////            setBackground(Color.DARK_GRAY);
+////            searchInputField.setBackground(Color.BLACK);
+////            searchInputField.setForeground(Color.WHITE);
+////            cuisineDropdown.setBackground(Color.BLACK);
+////            cuisineDropdown.setForeground(Color.WHITE);
+////            mealTypeDropdown.setBackground(Color.BLACK);
+////            mealTypeDropdown.setForeground(Color.WHITE);
+////            search.setBackground(Color.GRAY);
+////            search.setForeground(Color.WHITE);
+////            cancel.setBackground(Color.GRAY);
+////            cancel.setForeground(Color.WHITE);
+////        } else {
+////            setBackground(Color.WHITE);
+////            searchInputField.setBackground(Color.WHITE);
+////            searchInputField.setForeground(Color.BLACK);
+////            cuisineDropdown.setBackground(Color.WHITE);
+////            cuisineDropdown.setForeground(Color.BLACK);
+////            mealTypeDropdown.setBackground(Color.WHITE);
+////            mealTypeDropdown.setForeground(Color.BLACK);
+////            search.setBackground(Color.WHITE);
+////            search.setForeground(Color.BLACK);
+////            cancel.setBackground(Color.WHITE);
+////            cancel.setForeground(Color.BLACK);
+////        }
+////        repaint();
+////        revalidate();
+// }
 
-    // New method to toggle dark mode
-    public void setDarkMode(boolean darkMode) {
-        this.darkMode = darkMode;
-        applyDarkMode();
-    }
-
-    // Apply dark mode styles dynamically
-    private void applyDarkMode() {
-        if (darkMode) {
-            setBackground(Color.DARK_GRAY);
-            searchInputField.setBackground(Color.BLACK);
-            searchInputField.setForeground(Color.WHITE);
-            cuisineDropdown.setBackground(Color.BLACK);
-            cuisineDropdown.setForeground(Color.WHITE);
-            mealTypeDropdown.setBackground(Color.BLACK);
-            mealTypeDropdown.setForeground(Color.WHITE);
-            search.setBackground(Color.GRAY);
-            search.setForeground(Color.WHITE);
-            cancel.setBackground(Color.GRAY);
-            cancel.setForeground(Color.WHITE);
-        } else {
-            setBackground(Color.WHITE);
-            searchInputField.setBackground(Color.WHITE);
-            searchInputField.setForeground(Color.BLACK);
-            cuisineDropdown.setBackground(Color.WHITE);
-            cuisineDropdown.setForeground(Color.BLACK);
-            mealTypeDropdown.setBackground(Color.WHITE);
-            mealTypeDropdown.setForeground(Color.BLACK);
-            search.setBackground(Color.WHITE);
-            search.setForeground(Color.BLACK);
-            cancel.setBackground(Color.WHITE);
-            cancel.setForeground(Color.BLACK);
-        }
-        repaint();
-        revalidate();
-    }
 }

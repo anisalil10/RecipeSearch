@@ -2,10 +2,8 @@ package Main.interface_adapter.get_search_parameters;
 
 import Main.entity.Recipe;
 import Main.interface_adapter.ViewManagerModel;
-import Main.interface_adapter.fetch_recipes.FetchRecipesState;
-import Main.interface_adapter.fetch_recipes.FetchRecipesViewModel;
-import Main.interface_adapter.open_recipe.OpenRecipeState;
 import Main.interface_adapter.open_recipe.OpenRecipeViewModel;
+import Main.use_cases.get_search_parameters.GetSearchParametersInputData;
 import Main.use_cases.get_search_parameters.GetSearchParametersOutputBoundary;
 import Main.use_cases.get_search_parameters.GetSearchParametersOutputData;
 
@@ -45,6 +43,19 @@ public class GetSearchParametersPresenter implements GetSearchParametersOutputBo
         state.setSelectedRecipe(recipe);
         state.setUsername(username);
         getSearchParametersViewModel.firePropertyChanged();
+    }
 
+    @Override
+    public void addToFavouritesFail(String message) {
+        final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
+        getSearchParametersState.setAddToFavouritesMessage(message);
+        getSearchParametersViewModel.firePropertyChanged();
+    }
+
+    @Override
+    public void addToFavouritesSuccess(String message) {
+        final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
+        getSearchParametersState.setAddToFavouritesMessage(message);
+        getSearchParametersViewModel.firePropertyChanged();
     }
 }

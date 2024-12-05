@@ -9,4 +9,8 @@ public interface GetSearchParametersDataAccess {
 
     public List<Recipe> getrecipes(SearchParameters searchParameters);
 
+    public boolean recipeInFavourites(String username, String recipeId);
+
+    public void updatefavourites(String username, String recipeId);
+
 }

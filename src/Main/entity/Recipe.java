@@ -46,4 +46,12 @@ public class Recipe {
     public String getMealType() {
         return mealType;
     }
+
+    public String getIngredientsToString() {
+        StringBuilder ingredients = new StringBuilder();
+        for(String ingredient : this.ingredients) {
+            ingredients.append(ingredient + "\n");
+        }
+        return ingredients.toString();
+    }
 }

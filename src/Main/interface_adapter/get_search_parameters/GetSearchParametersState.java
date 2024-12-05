@@ -7,6 +7,7 @@ import java.util.List;
 public class GetSearchParametersState {
     private String query = "";
     private String queryError;
+    private String addToFavouritesMessage = "";
     private String cuisine;
     private String mealType;
     private String diet;
@@ -86,5 +87,13 @@ public class GetSearchParametersState {
 
     public void setSelectedRecipe(Recipe selectedRecipe) {
         this.selectedRecipe = selectedRecipe;
+    }
+
+    public String getAddToFavouritesMessage() {
+        return addToFavouritesMessage;
+    }
+
+    public void setAddToFavouritesMessage(String addToFavouritesMessage) {
+        this.addToFavouritesMessage = addToFavouritesMessage;
     }
 }

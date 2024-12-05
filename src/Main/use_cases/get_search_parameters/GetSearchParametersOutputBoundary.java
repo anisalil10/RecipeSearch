@@ -9,4 +9,9 @@ public interface GetSearchParametersOutputBoundary {
     void prepareFailView(String errormessage);
 
     void openRecipe(Recipe recipe, String username);
+
+    void addToFavouritesFail(String message);
+
+    void addToFavouritesSuccess(String message);
+
 }

@@ -45,4 +45,18 @@ public class GetSearchParametersInteractor implements GetSearchParametersInputBo
     public void openRecipe(Recipe recipe, String username) {
         searchPresenter.openRecipe(recipe, username);
     }
+
+    @Override
+    public void addToFavourites(Recipe recipe, String username) {
+
+        if(searchParametersDataAccess.recipeInFavourites(username, recipe.getRecipeID())) {
+            searchPresenter.addToFavouritesFail("recipe already in favourites");
+        }
+        else {
+            searchParametersDataAccess.updatefavourites(username, recipe.getRecipeID());
+            searchPresenter.addToFavouritesSuccess("");
+        }
+    }
+
+
 }
