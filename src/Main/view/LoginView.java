@@ -36,6 +36,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JLabel passwordErrorField = new JLabel();
 
     private final JButton logIn;
+    private final JButton goToSignUp;
     private final JButton cancel;
     private LoginController loginController;
 
@@ -54,9 +55,11 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 new JLabel("Password"), passwordInputField);
 
         final JPanel buttons = new JPanel();
-        logIn = new JButton("log in");
+        goToSignUp = new JButton("Go To Sign Up");
+        buttons.add(goToSignUp);
+        logIn = new JButton("Log In");
         buttons.add(logIn);
-        cancel = new JButton("cancel");
+        cancel = new JButton("Cancel");
         buttons.add(cancel);
 
         logIn.addActionListener(evt -> {
@@ -71,6 +74,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     throw new RuntimeException(e);
                 }
             }
+        });
+
+        goToSignUp.addActionListener(evt -> {
+            loginController.goToSignup();
         });
 
         cancel.addActionListener(this);

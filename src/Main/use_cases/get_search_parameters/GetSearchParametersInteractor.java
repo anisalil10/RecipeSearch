@@ -30,15 +30,40 @@ public class GetSearchParametersInteractor implements GetSearchParametersInputBo
         else if(inputData.getMealType().isEmpty()) {
             searchPresenter.prepareFailView("Enter a meal time");
         }
-        else if(searchParametersDataAccess.getrecipes(searchParameters).isEmpty()) {
+        else if(searchParametersDataAccess.getRecipes(searchParameters).isEmpty()) {
             searchPresenter.prepareFailView("No recipes found");
         }
         else {
-            List<Recipe> recipes = searchParametersDataAccess.getrecipes(searchParameters);
+            List<Recipe> recipes = searchParametersDataAccess.getRecipes(searchParameters);
 
             final GetSearchParametersOutputData outputData = new GetSearchParametersOutputData(recipes);
             searchPresenter.prepareSuccessView(outputData);
         }
     }
+
+    @Override
+    public void openRecipe(Recipe recipe, String username) {
+        searchPresenter.openRecipe(recipe, username);
+    }
+
+    @Override
+    public void addToFavourites(Recipe recipe, String username) {
+
+        if(searchParametersDataAccess.recipeInFavourites(username, recipe.getRecipeID())) {
+            searchPresenter.addToFavouritesFail("recipe already in favourites");
+        }
+        else {
+            searchParametersDataAccess.updateFavourites(username, recipe.getRecipeID());
+            searchPresenter.addToFavouritesSuccess("");
+
+        }
+    }
+
+    @Override
+    public void viewPopularRecipes(String username) {
+        List<Recipe> topRecipes = searchParametersDataAccess.getTopRecipes();
+        searchPresenter.viewPopularRecipes(username, topRecipes);
+    }
+
 
 }

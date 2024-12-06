@@ -7,6 +7,11 @@ import java.util.List;
 
 public interface GetSearchParametersDataAccess {
 
-    public List<Recipe> getrecipes(SearchParameters searchParameters);
+    public List<Recipe> getRecipes(SearchParameters searchParameters);
 
+    public boolean recipeInFavourites(String username, String recipeId);
+
+    public void updateFavourites(String username, String recipeId);
+
+    public List<Recipe> getTopRecipes();
 }

@@ -7,11 +7,13 @@ import java.util.List;
 public class GetSearchParametersState {
     private String query = "";
     private String queryError;
+    private String addToFavouritesMessage = "";
     private String cuisine;
     private String mealType;
     private String diet;
     private String username;
     private List<Recipe> recipeList;
+    private Recipe selectedRecipe;
 
     public String getQuery() {
         return query;
@@ -77,5 +79,21 @@ public class GetSearchParametersState {
 
     public void setRecipeList(List<Recipe> recipeList) {
         this.recipeList = recipeList;
+    }
+
+    public Recipe getSelectedRecipe() {
+        return selectedRecipe;
+    }
+
+    public void setSelectedRecipe(Recipe selectedRecipe) {
+        this.selectedRecipe = selectedRecipe;
+    }
+
+    public String getAddToFavouritesMessage() {
+        return addToFavouritesMessage;
+    }
+
+    public void setAddToFavouritesMessage(String addToFavouritesMessage) {
+        this.addToFavouritesMessage = addToFavouritesMessage;
     }
 }

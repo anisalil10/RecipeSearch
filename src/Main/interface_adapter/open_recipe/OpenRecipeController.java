@@ -1,9 +1,8 @@
 package Main.interface_adapter.open_recipe;
 
+import Main.entity.Recipe;
 import Main.use_cases.open_recipe.OpenRecipeInputBoundary;
 import Main.use_cases.open_recipe.OpenRecipeInputData;
-
-import java.io.IOException;
 
 public class OpenRecipeController {
 
@@ -13,8 +12,8 @@ public class OpenRecipeController {
         this.openRecipeInteractor = openRecipeInputBoundary;
     }
 
-    public void execute(String recipeId, String username) throws IOException {
-        final OpenRecipeInputData openRecipeInputData = new OpenRecipeInputData(recipeId, username);
+    public void execute(Recipe recipe, String username) {
+        final OpenRecipeInputData openRecipeInputData = new OpenRecipeInputData(recipe, username);
 
         openRecipeInteractor.execute(openRecipeInputData);
     }

@@ -3,11 +3,10 @@ package Main.data_access;
 import Main.entity.Recipe;
 import Main.entity.SearchParameters;
 import Main.entity.User;
-import Main.use_cases.add_to_favourites.AddToFavouritesUserDataAccessInterface;
 import Main.use_cases.fetch_recipes.FetchRecipesDataAccessInterface;
 import Main.use_cases.get_search_parameters.GetSearchParametersDataAccess;
 import Main.use_cases.login.LoginUserDataAccessInterface;
-import Main.use_cases.open_recipe.OpenRecipeDataAccessInterface;
+import Main.use_cases.popular_recipes.PopularRecipeDataAccess;
 import Main.use_cases.signup.SignupUserDataAccessInterface;
 import com.google.gson.*;
 import org.apache.http.client.methods.HttpGet;
@@ -18,14 +17,13 @@ import org.apache.http.util.EntityUtils;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface,
-        GetSearchParametersDataAccess, AddToFavouritesUserDataAccessInterface, FetchRecipesDataAccessInterface,
-        OpenRecipeDataAccessInterface {
+        GetSearchParametersDataAccess, FetchRecipesDataAccessInterface, PopularRecipeDataAccess {
 
-    private static final String FILE_PATH = "src/main/resources/users.csv";;
+    private static final String USERS_FILE_PATH = "src/main/resources/users.csv";
+    private static final String RECIPES_FILE_PATH = "src/main/resources/recipes.csv";
     private static final String APP_ID = "c03d65b1";
     private static final String APP_KEY = "c3c27ee6dc05a7492855a611751fe8dc";
     private static final String BASE_URL = "https://api.edamam.com/api/recipes/v2";
@@ -36,14 +34,19 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
             "&field=label&field=image&field=images&field=source&field=url&field=shareAs&field=yield&fi" +
             "eld=dietLabels&field=healthLabels&field=cautions&field=ingredientLines&field=ingredients&field=calories" +
             "&field=totalWeight&field=totalTime&field=cuisineType&field=mealType&field=dishType";
-    private String currentUsername;
 
+
+    /**
+     * Checks local CSV file for any users with the provided username.
+     * @param username the username to look for
+     * @return boolean for pre-existence of username
+     */
     @Override
     public boolean existsByName(String username)  {
 
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader(FILE_PATH));
+            reader = new BufferedReader(new FileReader(USERS_FILE_PATH));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -55,7 +58,7 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            String[] columns = line.split(",");
+            String[] columns = line.split(";");
             if (columns[0].equals(username)) {
                 return true;
             }
@@ -63,52 +66,52 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
         return false;
     }
 
+    /**
+     * Saves user entity into CSV file
+     * @param user the user to save
+     */
     @Override
-    public void save(User user) throws IOException {
+    public void save(User user) {
         String username = user.getUsername();
         String password = user.getPassword();
         String userpreferences = user.getUserpreferences();
-
 
         if (this.existsByName(user.getUsername())) {
             return;
         }
 
-        try (FileWriter writer = new FileWriter(FILE_PATH, true)) {
+        try (FileWriter writer = new FileWriter(USERS_FILE_PATH, true)) {
             String formattedPreferences = (userpreferences == null || userpreferences.isEmpty())
                     ? "null" : userpreferences;
 
-            writer.append(username).append(",")
-                    .append(password).append(",")
-                    .append(formattedPreferences).append("\n");
+            writer.append(username).append(";")
+                    .append(password).append(";")
+                    .append(formattedPreferences)
+                    .append(";").append("C").append("\n");
             System.out.println("User added");
         } catch (IOException e) {
             System.err.println("Error while adding user: " + e.getMessage());
         }
     }
 
-    @Override
-    public String getCurrentUsername() {
-        return "";
-    }
-
-    @Override
-    public void setCurrentUsername(String username) {
-        this.currentUsername = username;
-    }
-
+    /**
+     * Searches local CSV file for user with given username.
+     * @param username the username to look up
+     * @return User with given username
+     */
     @Override
     public User finduser(String username) {
 
         User user = null;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE_PATH))) {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                String[] columns = line.split(",");
+                String[] columns = line.split(";");
                 if (columns[0].equals(username)) {
                     user = new User(username, columns[1], columns[2]);
+                    return user;
                 }
             }
 
@@ -118,13 +121,93 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
         return user;
     }
 
+    /**
+     * Update favourites list in user database.
+     * @param username
+     * @param recipeId
+     */
     @Override
-    public void updatefavourites(String username, String recipeId) {
+    public void updateFavourites(String username, String recipeId) {
+        List<String> updatedLines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE_PATH))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(";");
+                if (columns[0].equals(username)) {
+                    if (columns[3].equals("C")) {
+                        columns[3] = recipeId;
+                    } else {
+                        columns[3] += "," + recipeId;
+                    }
+                }
+                updatedLines.add(String.join(";", columns));
+            }
+        } catch(IOException e) {
+            System.err.println("Error while reading CSV: " + e.getMessage());
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(USERS_FILE_PATH))) {
+            for (String updatedLine : updatedLines) {
+                writer.write(updatedLine);
+                writer.newLine();
+            }
+            System.out.println("Recipe updated successfully.");
+        } catch (IOException e) {
+            System.err.println("Error while writing to CSV: " + e.getMessage());
+        }
+        updateTally(recipeId);
+    }
+
+    public void updateTally(String recipeId) {
+        List<String> updatedLines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(RECIPES_FILE_PATH))) {
+            String line;
+            boolean flag = false;
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(";");
+                if (columns[0].equals(recipeId)) {
+                    columns[1] += "C";
+                    flag = true;
+                }
+                updatedLines.add(String.join(";", columns));
+            }
+            if(!flag) {
+                try (FileWriter writer = new FileWriter(RECIPES_FILE_PATH, true)) {
+                    writer.append(recipeId).append(";").append("C").append("\n");
+                    System.out.println("Recipe added");
+                } catch (IOException e) {
+                    System.err.println("Error while adding user: " + e.getMessage());
+                }
+            } else {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(RECIPES_FILE_PATH))) {
+                    for (String updatedLine : updatedLines) {
+                        writer.write(updatedLine);
+                        writer.newLine();
+                    }
+                    System.out.println("Recipe updated successfully.");
+                } catch (IOException e) {
+                    System.err.println("Error while writing to CSV: " + e.getMessage());
+                }
+            }
+        } catch(IOException e) {
+            System.err.println("Error while reading CSV: " + e.getMessage());
+            return;
+        }
+
 
     }
 
+
+    /**
+     * Calls Edemame API to return a list of recipes based on search parameters initialized by used input.
+     * @param searchParameters
+     * @return a List of recipes.
+     */
     @Override
-    public List<Recipe> getrecipes(SearchParameters searchParameters) {
+    public List<Recipe> getRecipes(SearchParameters searchParameters) {
         String url = String.format(LIST_PARAMETERS,
                 BASE_URL,
                 URLEncoder.encode(searchParameters.getQuery(), StandardCharsets.UTF_8),
@@ -171,6 +254,45 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
         return recipes;
     }
 
+    /**
+     * Checks a user's favourites to see if the given recipe is already added.
+     * @param username
+     * @param recipeId
+     * @return boolean to check if recipe is in list
+     */
+    @Override
+    public boolean recipeInFavourites(String username, String recipeId) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE_PATH))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(";");
+                if (columns[0].equals(username)) {
+                    if(columns[3].equals("C")) {
+                        return false;
+                    }
+                    List<String> favourites = List.of(columns[3].split(","));
+                    return favourites.contains(recipeId);
+                }
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error while reading CSV: " + e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public List<Recipe> getrecipes(SearchParameters searchParameters) {
+        return List.of();
+    }
+
+    /**
+     * Calls API to find return a single recipe based on a URI, which is used as a recipe's recipeID.
+     * @param recipeId
+     * @return Recipe given recipeID.
+     */
     @Override
     public Recipe findrecipe(String recipeId) {
         String url = String.format(
@@ -206,5 +328,27 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
             throw new RuntimeException(e);
         }
         return newrecipe;
+    }
+
+
+    @Override
+    public List<Recipe> getTopRecipes() {
+        List<Recipe> favouritedRecipes = new ArrayList<>(List.of());
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(RECIPES_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(";");
+                Recipe recipe = findrecipe(columns[0]);
+                recipe.setFavourties(columns[1].length());
+                favouritedRecipes.add(recipe);
+            }
+            favouritedRecipes.sort(Comparator.comparingInt(Recipe::getFavourties));
+            return favouritedRecipes;
+
+        } catch (IOException e) {
+            System.err.println("Error while reading CSV: " + e.getMessage());
+        }
+        return favouritedRecipes;
     }
 }
