@@ -16,9 +16,11 @@ public class Main {
                 .addLoginView()
                 .addSignupView()
                 .addRecipeSearchView()
+                .addPopularRecipesView()
                 .addSignupUseCase()
                 .addLoginUseCase()
                 .addRecipeSearchUseCase()
+                .addPopularRecipesUseCase()
                 .build();
 
         application.setSize(1000, 250);

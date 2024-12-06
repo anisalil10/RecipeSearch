@@ -10,5 +10,5 @@ public interface GetSearchParametersInputBoundary {
 
     void addToFavourites(Recipe recipe, String username);
 
-    void viewPopularRecipes();
+    void viewPopularRecipes(String username);
 }

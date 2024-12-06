@@ -6,6 +6,7 @@ import Main.entity.User;
 import Main.use_cases.fetch_recipes.FetchRecipesDataAccessInterface;
 import Main.use_cases.get_search_parameters.GetSearchParametersDataAccess;
 import Main.use_cases.login.LoginUserDataAccessInterface;
+import Main.use_cases.popular_recipes.PopularRecipeDataAccess;
 import Main.use_cases.signup.SignupUserDataAccessInterface;
 import com.google.gson.*;
 import org.apache.http.client.methods.HttpGet;
@@ -16,11 +17,10 @@ import org.apache.http.util.EntityUtils;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface,
-        GetSearchParametersDataAccess, FetchRecipesDataAccessInterface {
+        GetSearchParametersDataAccess, FetchRecipesDataAccessInterface, PopularRecipeDataAccess {
 
     private static final String USERS_FILE_PATH = "src/main/resources/users.csv";
     private static final String RECIPES_FILE_PATH = "src/main/resources/recipes.csv";
@@ -331,4 +331,24 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
     }
 
 
+    @Override
+    public List<Recipe> getTopRecipes() {
+        List<Recipe> favouritedRecipes = new ArrayList<>(List.of());
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(RECIPES_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(";");
+                Recipe recipe = findrecipe(columns[0]);
+                recipe.setFavourties(columns[1].length());
+                favouritedRecipes.add(recipe);
+            }
+            favouritedRecipes.sort(Comparator.comparingInt(Recipe::getFavourties));
+            return favouritedRecipes;
+
+        } catch (IOException e) {
+            System.err.println("Error while reading CSV: " + e.getMessage());
+        }
+        return favouritedRecipes;
+    }
 }

@@ -14,6 +14,9 @@ import Main.interface_adapter.login.LoginController;
 import Main.interface_adapter.open_recipe.OpenRecipeController;
 import Main.interface_adapter.open_recipe.OpenRecipePresenter;
 import Main.interface_adapter.open_recipe.OpenRecipeViewModel;
+import Main.interface_adapter.popular_recipes.PopularRecipesController;
+import Main.interface_adapter.popular_recipes.PopularRecipesPresenter;
+import Main.interface_adapter.popular_recipes.PopularRecipesViewModel;
 import Main.interface_adapter.signup.SignupController;
 import Main.interface_adapter.signup.SignupPresenter;
 import Main.interface_adapter.signup.SignupViewModel;
@@ -31,6 +34,9 @@ import Main.use_cases.login.LoginInteractor;
 import Main.use_cases.open_recipe.OpenRecipeInputBoundary;
 import Main.use_cases.open_recipe.OpenRecipeInteractor;
 import Main.use_cases.open_recipe.OpenRecipeOutputBoundary;
+import Main.use_cases.popular_recipes.PopularRecipesInputBoundary;
+import Main.use_cases.popular_recipes.PopularRecipesInteractor;
+import Main.use_cases.popular_recipes.PopularRecipesOutputBoundary;
 import Main.use_cases.signup.SignupInputBoundary;
 import Main.use_cases.signup.SignupInteractor;
 import Main.use_cases.signup.SignupOutputBoundary;
@@ -58,14 +64,12 @@ public class ReciperSearchBuilder {
 
     private SignupView signupView;
     private RecipeSearchView recipeSearchView;
-    private RecipeMenuView recipeMenuView;
+    private PopularRecipesView popularRecipesView;
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoginView loginView;
-    private RecipeView recipeView;
     private GetSearchParametersViewModel getSearchParametersViewModel;
-    private FetchRecipesViewModel fetchRecipesViewModel;
-    private OpenRecipeViewModel openRecipeViewModel;
+    private PopularRecipesViewModel popularRecipesViewModel;
 
 
     public ReciperSearchBuilder() { cardPanel.setLayout(cardLayout); }
@@ -87,9 +91,18 @@ public class ReciperSearchBuilder {
      */
     public ReciperSearchBuilder addRecipeSearchView() {
         getSearchParametersViewModel = new GetSearchParametersViewModel();
-        fetchRecipesViewModel = new FetchRecipesViewModel();
+        popularRecipesViewModel = new PopularRecipesViewModel();
+
         recipeSearchView = new RecipeSearchView(getSearchParametersViewModel);
         cardPanel.add(recipeSearchView, recipeSearchView.getViewName());
+        return this;
+    }
+
+    public ReciperSearchBuilder addPopularRecipesView() {
+        popularRecipesViewModel = new PopularRecipesViewModel();
+
+        popularRecipesView = new PopularRecipesView(popularRecipesViewModel);
+        cardPanel.add(popularRecipesView, popularRecipesView.getViewName());
         return this;
     }
 
@@ -140,13 +153,25 @@ public class ReciperSearchBuilder {
      */
     public ReciperSearchBuilder addRecipeSearchUseCase() {
         final GetSearchParametersOutputBoundary outputBoundary = new GetSearchParametersPresenter(
-                getSearchParametersViewModel, openRecipeViewModel, viewManagerModel);
+                getSearchParametersViewModel, popularRecipesViewModel, viewManagerModel);
         final GetSearchParametersInputBoundary getSearchParametersInteractor = new GetSearchParametersInteractor(
                 dataAccessObject, outputBoundary);
 
         final GetSearchParametersController getSearchParametersController = new GetSearchParametersController(
                 getSearchParametersInteractor);
         recipeSearchView.setGetSearchParametersController(getSearchParametersController);
+        return this;
+    }
+
+    public ReciperSearchBuilder addPopularRecipesUseCase() {
+        final PopularRecipesOutputBoundary outputBoundary = new PopularRecipesPresenter(popularRecipesViewModel,
+                viewManagerModel);
+        final PopularRecipesInputBoundary popularRecipesInteractor = new PopularRecipesInteractor(dataAccessObject,
+                outputBoundary);
+
+        final PopularRecipesController popularRecipesController =
+                new PopularRecipesController(popularRecipesInteractor);
+        popularRecipesView.setPopularRecipesController(popularRecipesController);
         return this;
     }
 

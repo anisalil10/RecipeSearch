@@ -60,8 +60,8 @@ public class GetSearchParametersInteractor implements GetSearchParametersInputBo
     }
 
     @Override
-    public void viewPopularRecipes() {
-
+    public void viewPopularRecipes(String username) {
+        searchPresenter.viewPopularRecipes(username);
     }
 
 

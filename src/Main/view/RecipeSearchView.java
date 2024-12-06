@@ -30,6 +30,7 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
     private DefaultListModel<String> recipeListModel; // Dynamic list model for recipes
 
     private final JButton search;
+    private final JButton popularRecipes;
     private final JButton cancel;
     private JButton toggleDarkMode;
 
@@ -90,6 +91,9 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
         search = new JButton(GetSearchParametersViewModel.SEARCH_BUTTON_LABEL);
         buttons.add(search);
 
+        popularRecipes = new JButton("View Popular Recipes");
+        buttons.add(popularRecipes);
+
         cancel = new JButton("Cancel");
         buttons.add(cancel);
 
@@ -122,8 +126,6 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
                         recipeNames.put(recipe.getName(), recipe);
                     }
 
-                    recipeListModel = new DefaultListModel<>();
-
                     JList<String> recipes = new JList<>(recipesList.toArray(new String[0]));
                     recipes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -152,6 +154,11 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
                     this.revalidate();
                 }
                 this.revalidate();
+        });
+
+        popularRecipes.addActionListener(e -> {
+            final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
+            getSearchParametersController.viewPopularRecipes(getSearchParametersState.getUsername());
         });
 
 
@@ -188,12 +195,15 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
         searchInputField.setText(state.getQuery());
         cuisineDropdown.setSelectedItem(state.getCuisine());
         mealTypeDropdown.setSelectedItem(state.getMealType());
+
         if(state.getQueryError() != null) {
             JOptionPane.showMessageDialog(this, state.getQueryError());
-        } else if(state.getAddToFavouritesMessage() != "") {
+        }
+        else if(state.getAddToFavouritesMessage() != "") {
             JOptionPane.showMessageDialog(this, state.getAddToFavouritesMessage());
             state.setAddToFavouritesMessage("");
-        } else if(state.getSelectedRecipe() != null){
+        }
+        else if(state.getSelectedRecipe() != null){
             Recipe selectedRecipe = state.getSelectedRecipe();
             String message = "\nCuisine: " + selectedRecipe.getCuisine() + "\nMeal Type: " +
                     selectedRecipe.getMealType() + "\nCalories: " + selectedRecipe.getCalories() + "\nIngredients: "
@@ -201,11 +211,12 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
 
             JOptionPane jop = new JOptionPane();
             int option = jop.showConfirmDialog(this, message,
-                    selectedRecipe.getName(), 0, 3);
+                    selectedRecipe.getName(), 1, 3);
 
             if(option == 0) {
                 getSearchParametersController.addToFavourites(state.getSelectedRecipe(), state.getUsername());
             }
+            state.setSelectedRecipe(null);
         }
 
     }

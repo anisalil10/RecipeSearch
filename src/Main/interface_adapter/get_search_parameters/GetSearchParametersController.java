@@ -25,4 +25,6 @@ public class GetSearchParametersController {
     public void addToFavourites(Recipe recipe, String username) {
         searchParametersInteractor.addToFavourites(recipe, username);
     }
+
+    public void viewPopularRecipes(String username) {searchParametersInteractor.viewPopularRecipes(username);}
 }

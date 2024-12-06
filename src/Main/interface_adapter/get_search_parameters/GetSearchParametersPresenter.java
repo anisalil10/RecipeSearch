@@ -2,21 +2,21 @@ package Main.interface_adapter.get_search_parameters;
 
 import Main.entity.Recipe;
 import Main.interface_adapter.ViewManagerModel;
-import Main.interface_adapter.open_recipe.OpenRecipeViewModel;
-import Main.use_cases.get_search_parameters.GetSearchParametersInputData;
+import Main.interface_adapter.popular_recipes.PopularRecipesState;
+import Main.interface_adapter.popular_recipes.PopularRecipesViewModel;
 import Main.use_cases.get_search_parameters.GetSearchParametersOutputBoundary;
 import Main.use_cases.get_search_parameters.GetSearchParametersOutputData;
 
 public class GetSearchParametersPresenter implements GetSearchParametersOutputBoundary {
 
     private final GetSearchParametersViewModel getSearchParametersViewModel;
-    private final OpenRecipeViewModel openRecipeViewModel;
+    private final PopularRecipesViewModel popularRecipesViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public GetSearchParametersPresenter(GetSearchParametersViewModel getSearchParametersViewModel, OpenRecipeViewModel openRecipeViewModel,
+    public GetSearchParametersPresenter(GetSearchParametersViewModel getSearchParametersViewModel, PopularRecipesViewModel popularRecipesViewModel,
                                         ViewManagerModel viewManagerModel) {
         this.getSearchParametersViewModel = getSearchParametersViewModel;
-        this.openRecipeViewModel = openRecipeViewModel;
+        this.popularRecipesViewModel = popularRecipesViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
@@ -60,7 +60,13 @@ public class GetSearchParametersPresenter implements GetSearchParametersOutputBo
     }
 
     @Override
-    public void viewPopularRecipes() {
+    public void viewPopularRecipes(String username) {
+        final PopularRecipesState popularRecipesState = popularRecipesViewModel.getState();
+        popularRecipesState.setUsername(username);
 
+        this.popularRecipesViewModel.setState(popularRecipesState);
+        popularRecipesViewModel.firePropertyChanged();
+        viewManagerModel.setState(popularRecipesViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }
