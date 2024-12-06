@@ -2,6 +2,8 @@ package Main.use_cases.get_search_parameters;
 
 import Main.entity.Recipe;
 
+import java.util.List;
+
 public interface GetSearchParametersInputBoundary {
 
     void execute(GetSearchParametersInputData inputData);

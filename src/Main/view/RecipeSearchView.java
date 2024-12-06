@@ -206,8 +206,8 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
         else if(state.getSelectedRecipe() != null){
             Recipe selectedRecipe = state.getSelectedRecipe();
             String message = "\nCuisine: " + selectedRecipe.getCuisine() + "\nMeal Type: " +
-                    selectedRecipe.getMealType() + "\nCalories: " + selectedRecipe.getCalories() + "\nIngredients: "
-                    + selectedRecipe.getIngredientsToString();
+                    selectedRecipe.getMealType() + "\nCalories: " + selectedRecipe.getCalories() + "\nIngredients:\n"
+                    + selectedRecipe.getIngredientsToString() + "\n\nAdd to Favourites?";
 
             JOptionPane jop = new JOptionPane();
             int option = jop.showConfirmDialog(this, message,

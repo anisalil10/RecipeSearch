@@ -61,7 +61,8 @@ public class GetSearchParametersInteractor implements GetSearchParametersInputBo
 
     @Override
     public void viewPopularRecipes(String username) {
-        searchPresenter.viewPopularRecipes(username);
+        List<Recipe> topRecipes = searchParametersDataAccess.getTopRecipes();
+        searchPresenter.viewPopularRecipes(username, topRecipes);
     }
 
 

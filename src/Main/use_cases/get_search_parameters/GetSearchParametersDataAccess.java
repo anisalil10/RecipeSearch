@@ -13,4 +13,5 @@ public interface GetSearchParametersDataAccess {
 
     public void updateFavourites(String username, String recipeId);
 
+    public List<Recipe> getTopRecipes();
 }

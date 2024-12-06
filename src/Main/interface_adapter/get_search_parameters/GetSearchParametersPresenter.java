@@ -7,6 +7,8 @@ import Main.interface_adapter.popular_recipes.PopularRecipesViewModel;
 import Main.use_cases.get_search_parameters.GetSearchParametersOutputBoundary;
 import Main.use_cases.get_search_parameters.GetSearchParametersOutputData;
 
+import java.util.List;
+
 public class GetSearchParametersPresenter implements GetSearchParametersOutputBoundary {
 
     private final GetSearchParametersViewModel getSearchParametersViewModel;
@@ -60,9 +62,11 @@ public class GetSearchParametersPresenter implements GetSearchParametersOutputBo
     }
 
     @Override
-    public void viewPopularRecipes(String username) {
+    public void viewPopularRecipes(String username, List<Recipe> topRecipes) {
         final PopularRecipesState popularRecipesState = popularRecipesViewModel.getState();
         popularRecipesState.setUsername(username);
+        popularRecipesState.setTopRecipes(topRecipes);
+
 
         this.popularRecipesViewModel.setState(popularRecipesState);
         popularRecipesViewModel.firePropertyChanged();
