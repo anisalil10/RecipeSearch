@@ -160,6 +160,42 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
         updateTally(recipeId);
     }
 
+
+    public List<String> getFavoriteRecipeNames(String username) {
+        List<String> favoriteRecipeNames = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE_PATH))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(";");
+
+                // Find the user and get their list of favorites
+                if (columns[0].equals(username) && !columns[3].equals("C")) {
+                    List<String> recipeIds = Arrays.asList(columns[3].split(","));
+
+                    // Use findrecipe to get the name of each recipe
+                    for (String recipeId : recipeIds) {
+                        try {
+                            Recipe recipe = findrecipe(recipeId); // Use existing findrecipe method
+                            if (recipe != null) {
+                                favoriteRecipeNames.add(recipe.getName());
+                            }
+                        } catch (RuntimeException e) {
+                            System.err.println("Error fetching recipe for ID: " + recipeId + " - " + e.getMessage());
+                        }
+                    }
+                    break; // Exit after processing the user
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading user file: " + e.getMessage());
+        }
+
+        return favoriteRecipeNames;
+    }
+
+
     public void updateTally(String recipeId) {
         List<String> updatedLines = new ArrayList<>();
 

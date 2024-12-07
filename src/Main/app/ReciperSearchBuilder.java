@@ -70,6 +70,8 @@ public class ReciperSearchBuilder {
     private LoginView loginView;
     private GetSearchParametersViewModel getSearchParametersViewModel;
     private PopularRecipesViewModel popularRecipesViewModel;
+    private ProfileView profileView;
+    private FavouritesView favouritesView;
 
 
     public ReciperSearchBuilder() { cardPanel.setLayout(cardLayout); }
@@ -145,7 +147,37 @@ public class ReciperSearchBuilder {
         final LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
         return this;
+
     }
+
+    /**
+     * Adds the Profile View to the application.
+     * @return this builder
+     */
+    public ReciperSearchBuilder addProfileView(String username) {
+        profileView = new ProfileView(username);
+
+        // Add action for navigating to favourites
+
+        return this;
+    }
+
+    /**
+     * Adds the Favourites View to the application.
+     * @return this builder
+     */
+
+    public ReciperSearchBuilder addFavouritesView(String username) {
+        favouritesView = new FavouritesView();
+
+        // Populate the favourites list with data from DataAccessObject
+        favouritesView.updateRecipeList(dataAccessObject.getFavoriteRecipeNames(username));
+
+        // Add action for navigating back to the profile view
+
+        return this;
+    }
+
 
     /**
      * Adds the Recipe Search Use Case to the application.

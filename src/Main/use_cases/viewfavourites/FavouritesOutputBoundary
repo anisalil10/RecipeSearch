@@ -1,0 +1,6 @@
+package Main.use_cases.viewfavourites;
+
+public interface FavouritesOutputBoundary {
+    void presentFavoriteRecipes(FavouritesOutputData outputData);
+    void presentError(String message);
+}
