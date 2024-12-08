@@ -1,8 +1,11 @@
-# RecipeSearch
+# Recipe Search App
 
 <font color="red">Team Members<font>:
   Aniketh Salil - anisalil10  
   Mallika Singh - ms-2004
+
+## Project Overview
+The main function of our app is that it returns recipes catered to a user's preferences. As a group of students originating from a multitude of intersectional identities, we found that the edamame API provided a database of recipes that supported all walks of life. It is difficult to find a centralized recipe search platform that supports the lifestyles of all cultures, which is why we tried to make an app that catered to this niche. A user can input their diet preferences and preferred cuisine to return a list of recipes that fit their needs.
 
 ## User Stories  
 
