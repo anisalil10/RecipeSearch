@@ -1,5 +1,6 @@
 package data_access;
 
+import com.google.gson.*;
 import entity.Recipe;
 import entity.SearchParameters;
 import entity.User;
@@ -7,7 +8,7 @@ import use_cases.get_search_parameters.GetSearchParametersDataAccess;
 import use_cases.login.LoginUserDataAccessInterface;
 import use_cases.popular_recipes.PopularRecipeDataAccess;
 import use_cases.signup.SignupUserDataAccessInterface;
-import com.google.gson.*;
+
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -17,6 +18,7 @@ import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+
 
 public class DataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface,
         GetSearchParametersDataAccess, PopularRecipeDataAccess {

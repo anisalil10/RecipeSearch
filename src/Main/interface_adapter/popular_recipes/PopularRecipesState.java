@@ -4,6 +4,9 @@ import entity.Recipe;
 
 import java.util.List;
 
+/**
+ * The state for the PopularRecipes View Model.
+ */
 public class PopularRecipesState {
 
     private List<Recipe> topRecipes;
@@ -46,7 +49,6 @@ public class PopularRecipesState {
     public void setAllNull() {
         this.topRecipes = null;
         this.selectedRecipe = null;
-        this.username = null;
         this.favouritesErrorMessage = null;
     }
 }

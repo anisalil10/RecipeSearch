@@ -8,6 +8,9 @@ import use_cases.popular_recipes.PopularRecipesOutputBoundary;
 
 import java.util.List;
 
+/**
+ * The Presenter for the PopularRecipes Use Case.
+ */
 public class PopularRecipesPresenter implements PopularRecipesOutputBoundary {
 
     private final PopularRecipesViewModel popularRecipesViewModel;
@@ -54,12 +57,14 @@ public class PopularRecipesPresenter implements PopularRecipesOutputBoundary {
     @Override
     public void back(String username, String diet) {
         final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
+
         getSearchParametersState.setUsername(username);
         getSearchParametersState.setDiet(diet);
         getSearchParametersState.setQuery(null);
         getSearchParametersState.setMealType(null);
         getSearchParametersState.setCuisine(null);
         getSearchParametersState.setRecipeList(null);
+        getSearchParametersState.setSelectedRecipe(null);
 
         this.getSearchParametersViewModel.setState(getSearchParametersState);
         getSearchParametersViewModel.firePropertyChanged();

@@ -2,6 +2,9 @@ package interface_adapter.get_search_parameters;
 
 import interface_adapter.ViewModel;
 
+/**
+ * The ViewModel for the GetSearchParameters View.
+ */
 public class GetSearchParametersViewModel extends ViewModel<GetSearchParametersState> {
     public static final String TITLE_LABEL = "Search Recipes";
     public static final String SEARCH = "Enter Search";

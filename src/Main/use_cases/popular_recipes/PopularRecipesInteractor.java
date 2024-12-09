@@ -30,7 +30,7 @@ public class PopularRecipesInteractor implements PopularRecipesInputBoundary{
         }
         else {
             popularRecipeDataAccess.updateFavourites(username, recipe.getRecipeID());
-            recipesPresenter.addToFavouritesSuccess("");
+            recipesPresenter.addToFavouritesSuccess(null);
         }
     }
 
