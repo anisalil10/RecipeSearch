@@ -11,6 +11,9 @@ import use_cases.get_search_parameters.GetSearchParametersOutputData;
 
 import java.util.List;
 
+/**
+ * The Presenter for the GetSearchParameters Use Case.
+ */
 public class GetSearchParametersPresenter implements GetSearchParametersOutputBoundary {
 
     private final GetSearchParametersViewModel getSearchParametersViewModel;

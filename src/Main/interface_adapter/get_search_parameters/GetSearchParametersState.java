@@ -4,6 +4,9 @@ import entity.Recipe;
 
 import java.util.List;
 
+/**
+ * The state for the GetSearchParameters View Model.
+ */
 public class GetSearchParametersState {
     private String query = "";
     private String queryError;

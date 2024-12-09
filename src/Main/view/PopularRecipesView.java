@@ -59,6 +59,8 @@ public class PopularRecipesView extends JPanel implements ActionListener, Proper
         final PopularRecipesState state = (PopularRecipesState) evt.getNewValue();
 
         if(state.getTopRecipes() != null) {
+            display.removeAll();
+            display.revalidate();
             final PopularRecipesState currentState = popularRecipesViewModel.getState();
 
             List<String> recipesList = new ArrayList<>(List.of());
@@ -96,6 +98,11 @@ public class PopularRecipesView extends JPanel implements ActionListener, Proper
             state.setTopRecipes(null);
         }
 
+        if(state.getFavouritesErrorMessage() != null) {
+            JOptionPane.showMessageDialog(this, state.getFavouritesErrorMessage());
+            state.setFavouritesErrorMessage(null);
+        }
+
         else if(state.getSelectedRecipe() != null & state.getFavouritesErrorMessage() == null){
             Recipe selectedRecipe = state.getSelectedRecipe();
             String message = "\nCuisine: " + selectedRecipe.getCuisine() + "\nMeal Type: " +
@@ -109,10 +116,6 @@ public class PopularRecipesView extends JPanel implements ActionListener, Proper
                 popularRecipesController.addToFavourites(state.getSelectedRecipe(), state.getUsername());
             }
             state.setSelectedRecipe(null);
-        }
-        else if(!Objects.equals(state.getFavouritesErrorMessage(), "")) {
-            JOptionPane.showMessageDialog(this, state.getFavouritesErrorMessage());
-            state.setFavouritesErrorMessage("");
         }
     }
 

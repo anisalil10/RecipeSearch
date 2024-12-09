@@ -40,7 +40,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The AppBuilder class is responsible for putting together the pieces of
+ * The RecipeSearchBuilder class is responsible for putting together the pieces of
  * our CA architecture; piece by piece.
  * <p/>
  * This is done by adding each View and then adding related Use Cases.
@@ -82,7 +82,7 @@ public class ReciperSearchBuilder {
     }
 
     /**
-     * Adds the Recipe Search View to the application.
+     * Adds the RecipeSearch View to the application.
      * @return this builder
      */
     public ReciperSearchBuilder addRecipeSearchView() {
@@ -93,6 +93,10 @@ public class ReciperSearchBuilder {
         return this;
     }
 
+    /**
+     * Adds the PopularRecipes View to the application.
+     * @return this builder
+     */
     public ReciperSearchBuilder addPopularRecipesView() {
         popularRecipesViewModel = new PopularRecipesViewModel();
 
@@ -112,6 +116,10 @@ public class ReciperSearchBuilder {
         return this;
     }
 
+    /**
+     * Adds the Favourites View to the application.
+     * @return this builder
+     */
     public ReciperSearchBuilder addFavouritesView() {
         favouritesViewModel = new FavouritesViewModel();
 
@@ -151,7 +159,6 @@ public class ReciperSearchBuilder {
 
     }
 
-
     /**
      * Adds the Recipe Search Use Case to the application.
      * @return this builder
@@ -168,6 +175,10 @@ public class ReciperSearchBuilder {
         return this;
     }
 
+    /**
+     * Adds the Popular Recipes Use Case to the application.
+     * @return this builder
+     */
     public ReciperSearchBuilder addPopularRecipesUseCase() {
         final PopularRecipesOutputBoundary outputBoundary = new PopularRecipesPresenter(popularRecipesViewModel,
                 getSearchParametersViewModel, viewManagerModel);
@@ -180,6 +191,10 @@ public class ReciperSearchBuilder {
         return this;
     }
 
+    /**
+     * Adds the Favourites Use Case to the application.
+     * @return this builder
+     */
     public ReciperSearchBuilder addFavouritesUseCase() {
         final FavouritesOutputBoundary outputBoundary = new FavouritesPresenter(favouritesViewModel,
                 viewManagerModel);
@@ -192,6 +207,10 @@ public class ReciperSearchBuilder {
         return this;
     }
 
+    /**
+     * Creates the JFrame for the application and initially sets the LoginView to be displayed.
+     * @return the application
+     */
     public JFrame build() {
         final JFrame application = new JFrame("Recipe Search");
         Dimension d = new Dimension(300, 300);
