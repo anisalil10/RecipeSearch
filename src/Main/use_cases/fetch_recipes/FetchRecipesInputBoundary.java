@@ -1,4 +1,4 @@
-package Main.use_cases.fetch_recipes;
+package use_cases.fetch_recipes;
 
 public interface FetchRecipesInputBoundary {
 

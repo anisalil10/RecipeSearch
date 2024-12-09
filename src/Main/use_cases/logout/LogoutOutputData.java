@@ -1,4 +1,4 @@
-package Main.use_cases.logout;
+package use_cases.logout;
 
 /**
  * Output Data for the Logout Use Case.

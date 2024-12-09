@@ -1,4 +1,4 @@
-package Main.use_cases.logout;
+package use_cases.logout;
 
 /**
  * Input Boundary for actions which are related to logging in.

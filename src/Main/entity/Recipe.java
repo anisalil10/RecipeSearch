@@ -1,18 +1,16 @@
-package Main.entity;
+package entity;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class Recipe implements Comparator<Recipe> {
-    private String recipeID;
-    private String name;
-    private String cuisine;
-    private String mealType;
-    //private String nutritionalinfo;
-    private List<String> ingredients;
-    private int calories;
+    private final String recipeID;
+    private final String name;
+    private final String cuisine;
+    private final String mealType;
+    private final List<String> ingredients;
+    private final int calories;
     private int favourties = 0;
 
     public Recipe(String recipeID, String name, String cuisine, String mealType, List<String> ingredients,
@@ -21,7 +19,6 @@ public class Recipe implements Comparator<Recipe> {
         this.name = name;
         this.cuisine = cuisine;
         this.mealType = mealType;
-        //this.nutritionalinfo = nutritionalinfo;
         this.ingredients = ingredients;
         this.calories = calories;
     }
@@ -54,7 +51,7 @@ public class Recipe implements Comparator<Recipe> {
     public String getIngredientsToString() {
         StringBuilder ingredients = new StringBuilder();
         for(String ingredient : this.ingredients) {
-            ingredients.append(ingredient + "\n");
+            ingredients.append(ingredient).append("\n");
         }
         return ingredients.toString();
     }
@@ -69,14 +66,6 @@ public class Recipe implements Comparator<Recipe> {
 
     @Override
     public int compare(Recipe o1, Recipe o2) {
-        if(o1.getFavourties() < o2.getFavourties()) {
-            return -1;
-        }
-        else if (o1.getFavourties() > o2.getFavourties()) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
+        return Integer.compare(o1.getFavourties(), o2.getFavourties());
     }
 }

@@ -1,4 +1,4 @@
-package Main.view;
+package view;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -17,9 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import Main.interface_adapter.login.LoginController;
-import Main.interface_adapter.login.LoginState;
-import Main.interface_adapter.login.LoginViewModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
 
 /**
  * The View for when the user is logging into the program.

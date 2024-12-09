@@ -1,9 +1,9 @@
-package Main.view;
+package view;
 
-import Main.entity.Recipe;
-import Main.interface_adapter.get_search_parameters.GetSearchParametersController;
-import Main.interface_adapter.get_search_parameters.GetSearchParametersState;
-import Main.interface_adapter.get_search_parameters.GetSearchParametersViewModel;
+import entity.Recipe;
+import interface_adapter.get_search_parameters.GetSearchParametersController;
+import interface_adapter.get_search_parameters.GetSearchParametersState;
+import interface_adapter.get_search_parameters.GetSearchParametersViewModel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -30,6 +30,7 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
     private DefaultListModel<String> recipeListModel; // Dynamic list model for recipes
 
     private final JButton search;
+    private final JButton favouriteRecipes;
     private final JButton popularRecipes;
     private final JButton cancel;
     private JButton toggleDarkMode;
@@ -90,6 +91,9 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
 
         search = new JButton(GetSearchParametersViewModel.SEARCH_BUTTON_LABEL);
         buttons.add(search);
+
+        favouriteRecipes = new JButton("Your Favourite Recipes");
+        buttons.add(favouriteRecipes);
 
         popularRecipes = new JButton("View Popular Recipes");
         buttons.add(popularRecipes);
@@ -161,6 +165,11 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
             getSearchParametersController.viewPopularRecipes(getSearchParametersState.getUsername());
         });
 
+        favouriteRecipes.addActionListener(e -> {
+            final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
+            getSearchParametersController.openFavourites(getSearchParametersState.getUsername());
+        });
+
 
 
 //        toggleDarkMode = new JButton("Toggle Dark Mode");
@@ -185,8 +194,6 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
         this.add(mealType);
         this.add(buttons);
         this.add(box);
-
-//        applyDarkMode(); // Apply initial dark mode styling
     }
 
     @Override
@@ -228,42 +235,5 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
     public void setGetSearchParametersController(GetSearchParametersController controller) {
         this.getSearchParametersController = controller;
     }
-//
-//    // New method to toggle dark mode
-//    public void setDarkMode(boolean darkMode) {
-//        this.darkMode = darkMode;
-//        applyDarkMode();
-//    }
-//
-//    // Apply dark mode styles dynamically
-////    private void applyDarkMode() {
-////        if (darkMode) {
-////            setBackground(Color.DARK_GRAY);
-////            searchInputField.setBackground(Color.BLACK);
-////            searchInputField.setForeground(Color.WHITE);
-////            cuisineDropdown.setBackground(Color.BLACK);
-////            cuisineDropdown.setForeground(Color.WHITE);
-////            mealTypeDropdown.setBackground(Color.BLACK);
-////            mealTypeDropdown.setForeground(Color.WHITE);
-////            search.setBackground(Color.GRAY);
-////            search.setForeground(Color.WHITE);
-////            cancel.setBackground(Color.GRAY);
-////            cancel.setForeground(Color.WHITE);
-////        } else {
-////            setBackground(Color.WHITE);
-////            searchInputField.setBackground(Color.WHITE);
-////            searchInputField.setForeground(Color.BLACK);
-////            cuisineDropdown.setBackground(Color.WHITE);
-////            cuisineDropdown.setForeground(Color.BLACK);
-////            mealTypeDropdown.setBackground(Color.WHITE);
-////            mealTypeDropdown.setForeground(Color.BLACK);
-////            search.setBackground(Color.WHITE);
-////            search.setForeground(Color.BLACK);
-////            cancel.setBackground(Color.WHITE);
-////            cancel.setForeground(Color.BLACK);
-////        }
-////        repaint();
-////        revalidate();
-// }
 
 }

@@ -1,6 +1,6 @@
-package Main.use_cases.get_search_parameters;
+package use_cases.get_search_parameters;
 
-import Main.entity.Recipe;
+import entity.Recipe;
 
 import java.util.List;
 
@@ -17,5 +17,7 @@ public interface GetSearchParametersOutputBoundary {
     void addToFavouritesSuccess(String message);
 
     void viewPopularRecipes(String username, List<Recipe> topRecipes);
+
+    void openfavouriteRecipes(String username);
 
 }

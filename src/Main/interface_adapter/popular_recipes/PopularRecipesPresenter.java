@@ -1,9 +1,9 @@
-package Main.interface_adapter.popular_recipes;
+package interface_adapter.popular_recipes;
 
-import Main.entity.Recipe;
-import Main.interface_adapter.ViewManagerModel;
-import Main.interface_adapter.get_search_parameters.GetSearchParametersState;
-import Main.use_cases.popular_recipes.PopularRecipesOutputBoundary;
+import entity.Recipe;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.get_search_parameters.GetSearchParametersState;
+import use_cases.popular_recipes.PopularRecipesOutputBoundary;
 
 import java.util.List;
 

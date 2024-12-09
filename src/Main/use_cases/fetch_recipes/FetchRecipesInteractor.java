@@ -1,6 +1,6 @@
-package Main.use_cases.fetch_recipes;
+package use_cases.fetch_recipes;
 
-import Main.entity.Recipe;
+import entity.Recipe;
 
 import java.util.List;
 

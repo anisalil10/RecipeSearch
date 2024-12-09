@@ -1,5 +1,0 @@
-package Main.use_cases.viewfavourites;
-
-public interface FavouritesInputBoundary {
-    void fetchFavoriteRecipes(FavouritesInputData inputData);
-}

@@ -1,13 +1,13 @@
-package Main.data_access;
+package data_access;
 
-import Main.entity.Recipe;
-import Main.entity.SearchParameters;
-import Main.entity.User;
-import Main.use_cases.fetch_recipes.FetchRecipesDataAccessInterface;
-import Main.use_cases.get_search_parameters.GetSearchParametersDataAccess;
-import Main.use_cases.login.LoginUserDataAccessInterface;
-import Main.use_cases.popular_recipes.PopularRecipeDataAccess;
-import Main.use_cases.signup.SignupUserDataAccessInterface;
+import entity.Recipe;
+import entity.SearchParameters;
+import entity.User;
+import use_cases.fetch_recipes.FetchRecipesDataAccessInterface;
+import use_cases.get_search_parameters.GetSearchParametersDataAccess;
+import use_cases.login.LoginUserDataAccessInterface;
+import use_cases.popular_recipes.PopularRecipeDataAccess;
+import use_cases.signup.SignupUserDataAccessInterface;
 import com.google.gson.*;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -161,8 +161,8 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
     }
 
 
-    public List<String> getFavoriteRecipeNames(String username) {
-        List<String> favoriteRecipeNames = new ArrayList<>();
+    public List<Recipe> getFavoriteRecipeNames(String username) {
+        List<Recipe> favoriteRecipeNames = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE_PATH))) {
             String line;
@@ -179,7 +179,7 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
                         try {
                             Recipe recipe = findrecipe(recipeId); // Use existing findrecipe method
                             if (recipe != null) {
-                                favoriteRecipeNames.add(recipe.getName());
+                                favoriteRecipeNames.add(recipe);
                             }
                         } catch (RuntimeException e) {
                             System.err.println("Error fetching recipe for ID: " + recipeId + " - " + e.getMessage());

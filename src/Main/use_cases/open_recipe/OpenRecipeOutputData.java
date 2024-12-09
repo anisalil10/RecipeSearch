@@ -1,6 +1,6 @@
-package Main.use_cases.open_recipe;
+package use_cases.open_recipe;
 
-import Main.entity.Recipe;
+import entity.Recipe;
 
 public class OpenRecipeOutputData {
 

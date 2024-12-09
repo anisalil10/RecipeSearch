@@ -1,4 +1,4 @@
-package Main.use_cases.login;
+package use_cases.login;
 
 /**
  * Output Data for the Login Use Case.

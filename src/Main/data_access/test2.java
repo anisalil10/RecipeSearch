@@ -1,6 +1,6 @@
-package Main.data_access;
+package data_access;
 
-import Main.entity.Recipe;
+import entity.Recipe;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

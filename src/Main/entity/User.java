@@ -1,14 +1,12 @@
-package Main.entity;
+package entity;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class User {
 
-    private String username;
-    private String password;
-    private String userpreferences;
+    private final String username;
+    private final String password;
+    private final String userpreferences;
     private List<String> favouriterecipes;
 
     public User(String username, String password, String userpreferences) {

@@ -1,4 +1,4 @@
-package Main.use_cases.add_to_favourites;
+package use_cases.add_to_favourites;
 
 public interface AddToFavouritesUserDataAccessInterface {
 

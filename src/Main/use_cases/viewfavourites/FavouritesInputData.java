@@ -1,4 +1,4 @@
-package Main.use_cases.viewfavourites;
+package use_cases.viewfavourites;
 
 public class FavouritesInputData {
     private final String username;

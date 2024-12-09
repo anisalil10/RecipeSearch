@@ -1,11 +1,9 @@
-package Main.view;
+package view;
 
-
-
-import Main.entity.Recipe;
-import Main.interface_adapter.popular_recipes.PopularRecipesController;
-import Main.interface_adapter.popular_recipes.PopularRecipesState;
-import Main.interface_adapter.popular_recipes.PopularRecipesViewModel;
+import entity.Recipe;
+import interface_adapter.popular_recipes.PopularRecipesController;
+import interface_adapter.popular_recipes.PopularRecipesState;
+import interface_adapter.popular_recipes.PopularRecipesViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,8 +33,6 @@ public class PopularRecipesView extends JPanel implements ActionListener, Proper
 
         final JPanel buttons = new JPanel();
         display = new JPanel();
-
-
         this.add(buttons);
 
     }
@@ -89,8 +85,7 @@ public class PopularRecipesView extends JPanel implements ActionListener, Proper
             this.revalidate();
             state.setTopRecipes(null);
         }
-
-        if(state.getSelectedRecipe() != null){
+        else if(state.getSelectedRecipe() != null & state.getFavouritesErrorMessage() == null){
             Recipe selectedRecipe = state.getSelectedRecipe();
             String message = "\nCuisine: " + selectedRecipe.getCuisine() + "\nMeal Type: " +
                     selectedRecipe.getMealType() + "\nCalories: " + selectedRecipe.getCalories() + "\nIngredients: "
@@ -105,9 +100,10 @@ public class PopularRecipesView extends JPanel implements ActionListener, Proper
             }
             state.setSelectedRecipe(null);
         }
+        else if(state.getFavouritesErrorMessage() != null) {
+            JOptionPane.showMessageDialog(this, state.getFavouritesErrorMessage());
+        }
 
-        this.add(display);
-        this.revalidate();
     }
 
     public static String getViewName() {

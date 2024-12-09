@@ -1,6 +1,6 @@
-package Main.use_cases.popular_recipes;
+package use_cases.popular_recipes;
 
-import Main.entity.Recipe;
+import entity.Recipe;
 
 public interface PopularRecipesInputBoundary {
 

@@ -1,7 +1,7 @@
-package Main.interface_adapter.open_recipe;
+package interface_adapter.open_recipe;
 
-import Main.entity.Recipe;
-import Main.entity.RecipeId;
+import entity.Recipe;
+import entity.RecipeId;
 
 import java.util.ArrayList;
 import java.util.List;

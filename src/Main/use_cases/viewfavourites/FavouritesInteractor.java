@@ -1,4 +1,9 @@
-package Main.use_cases.viewfavourites;
+package use_cases.viewfavourites;
+
+import data_access.DataAccessObject;
+import entity.Recipe;
+
+import java.util.List;
 
 public class FavouritesInteractor implements FavouritesInputBoundary {
     private final DataAccessObject dataAccessObject;
@@ -9,24 +14,22 @@ public class FavouritesInteractor implements FavouritesInputBoundary {
         this.outputBoundary = outputBoundary;
     }
 
+    public void openRecipe(Recipe recipe, String username) {
+        outputBoundary.openRecipe(recipe, username);
+    }
+
     @Override
     public void fetchFavoriteRecipes(FavouritesInputData inputData) {
         String username = inputData.getUsername();
 
-        // Validate input
-        if (username == null || username.isEmpty()) {
-            outputBoundary.presentError("Username cannot be null or empty.");
-            return;
-        }
-
         // Fetch favorite recipe names
-        List<String> favoriteRecipeNames = dataAccessObject.getFavoriteRecipeNames(username);
+        List<Recipe> favoriteRecipes = dataAccessObject.getFavoriteRecipeNames(username);
 
         // Prepare output data
-        if (favoriteRecipeNames.isEmpty()) {
+        if (favoriteRecipes.isEmpty()) {
             outputBoundary.presentError("No favorite recipes found for user: " + username);
         } else {
-            FavouritesOutputData outputData = new FavouritesOutputData(favoriteRecipeNames);
+            FavouritesOutputData outputData = new FavouritesOutputData(favoriteRecipes);
             outputBoundary.presentFavoriteRecipes(outputData);
         }
     }

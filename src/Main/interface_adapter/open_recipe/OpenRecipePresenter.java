@@ -1,8 +1,8 @@
-package Main.interface_adapter.open_recipe;
+package interface_adapter.open_recipe;
 
-import Main.interface_adapter.ViewManagerModel;
-import Main.use_cases.open_recipe.OpenRecipeOutputBoundary;
-import Main.use_cases.open_recipe.OpenRecipeOutputData;
+import interface_adapter.ViewManagerModel;
+import use_cases.open_recipe.OpenRecipeOutputBoundary;
+import use_cases.open_recipe.OpenRecipeOutputData;
 
 public class OpenRecipePresenter implements OpenRecipeOutputBoundary {
     private final OpenRecipeViewModel openRecipeViewModel;

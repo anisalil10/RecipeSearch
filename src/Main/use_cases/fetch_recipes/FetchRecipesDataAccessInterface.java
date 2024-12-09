@@ -1,7 +1,7 @@
-package Main.use_cases.fetch_recipes;
+package use_cases.fetch_recipes;
 
-import Main.entity.Recipe;
-import Main.entity.SearchParameters;
+import entity.Recipe;
+import entity.SearchParameters;
 
 import java.util.List;
 

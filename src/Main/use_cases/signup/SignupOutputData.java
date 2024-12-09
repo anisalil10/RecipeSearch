@@ -1,4 +1,4 @@
-package Main.use_cases.signup;
+package use_cases.signup;
 
 /**
  * Output Data for the Signup Use Case.

@@ -1,6 +1,6 @@
-package Main.interface_adapter.signup;
+package interface_adapter.signup;
 
-import Main.entity.UserPreferences;
+import entity.UserPreferences;
 
 /**
  * The state for the Signup View Model.

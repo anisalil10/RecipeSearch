@@ -1,46 +1,40 @@
-package Main.app;
+package app;
 
-import Main.data_access.DataAccessObject;
-import Main.interface_adapter.ViewManagerModel;
-import Main.interface_adapter.fetch_recipes.FetchRecipesController;
-import Main.interface_adapter.fetch_recipes.FetchRecipesPresenter;
-import Main.interface_adapter.fetch_recipes.FetchRecipesViewModel;
-import Main.interface_adapter.get_search_parameters.GetSearchParametersController;
-import Main.interface_adapter.get_search_parameters.GetSearchParametersPresenter;
-import Main.interface_adapter.get_search_parameters.GetSearchParametersViewModel;
-import Main.interface_adapter.login.LoginPresenter;
-import Main.interface_adapter.login.LoginViewModel;
-import Main.interface_adapter.login.LoginController;
-import Main.interface_adapter.open_recipe.OpenRecipeController;
-import Main.interface_adapter.open_recipe.OpenRecipePresenter;
-import Main.interface_adapter.open_recipe.OpenRecipeViewModel;
-import Main.interface_adapter.popular_recipes.PopularRecipesController;
-import Main.interface_adapter.popular_recipes.PopularRecipesPresenter;
-import Main.interface_adapter.popular_recipes.PopularRecipesViewModel;
-import Main.interface_adapter.signup.SignupController;
-import Main.interface_adapter.signup.SignupPresenter;
-import Main.interface_adapter.signup.SignupViewModel;
+import data_access.DataAccessObject;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.get_search_parameters.GetSearchParametersController;
+import interface_adapter.get_search_parameters.GetSearchParametersPresenter;
+import interface_adapter.get_search_parameters.GetSearchParametersViewModel;
+import interface_adapter.login.LoginPresenter;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.popular_recipes.PopularRecipesController;
+import interface_adapter.popular_recipes.PopularRecipesPresenter;
+import interface_adapter.popular_recipes.PopularRecipesViewModel;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupPresenter;
+import interface_adapter.signup.SignupViewModel;
 
 
-import Main.use_cases.fetch_recipes.FetchRecipesInputBoundary;
-import Main.use_cases.fetch_recipes.FetchRecipesInteractor;
-import Main.use_cases.fetch_recipes.FetchRecipesOutputBoundary;
-import Main.use_cases.get_search_parameters.GetSearchParametersInputBoundary;
-import Main.use_cases.get_search_parameters.GetSearchParametersInteractor;
-import Main.use_cases.get_search_parameters.GetSearchParametersOutputBoundary;
-import Main.use_cases.login.LoginOutputBoundary;
-import Main.use_cases.login.LoginInputBoundary;
-import Main.use_cases.login.LoginInteractor;
-import Main.use_cases.open_recipe.OpenRecipeInputBoundary;
-import Main.use_cases.open_recipe.OpenRecipeInteractor;
-import Main.use_cases.open_recipe.OpenRecipeOutputBoundary;
-import Main.use_cases.popular_recipes.PopularRecipesInputBoundary;
-import Main.use_cases.popular_recipes.PopularRecipesInteractor;
-import Main.use_cases.popular_recipes.PopularRecipesOutputBoundary;
-import Main.use_cases.signup.SignupInputBoundary;
-import Main.use_cases.signup.SignupInteractor;
-import Main.use_cases.signup.SignupOutputBoundary;
-import Main.view.*;
+import interface_adapter.viewfavourites.FavouritesController;
+import interface_adapter.viewfavourites.FavouritesPresenter;
+import interface_adapter.viewfavourites.FavouritesViewModel;
+import use_cases.get_search_parameters.GetSearchParametersInputBoundary;
+import use_cases.get_search_parameters.GetSearchParametersInteractor;
+import use_cases.get_search_parameters.GetSearchParametersOutputBoundary;
+import use_cases.login.LoginOutputBoundary;
+import use_cases.login.LoginInputBoundary;
+import use_cases.login.LoginInteractor;
+import use_cases.popular_recipes.PopularRecipesInputBoundary;
+import use_cases.popular_recipes.PopularRecipesInteractor;
+import use_cases.popular_recipes.PopularRecipesOutputBoundary;
+import use_cases.signup.SignupInputBoundary;
+import use_cases.signup.SignupInteractor;
+import use_cases.signup.SignupOutputBoundary;
+import use_cases.viewfavourites.FavouritesInputBoundary;
+import use_cases.viewfavourites.FavouritesInteractor;
+import use_cases.viewfavourites.FavouritesOutputBoundary;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,14 +59,14 @@ public class ReciperSearchBuilder {
     private SignupView signupView;
     private RecipeSearchView recipeSearchView;
     private PopularRecipesView popularRecipesView;
+    private FavouritesView favouritesView;
+    private LoginView loginView;
+
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
-    private LoginView loginView;
     private GetSearchParametersViewModel getSearchParametersViewModel;
     private PopularRecipesViewModel popularRecipesViewModel;
-    private ProfileView profileView;
-    private FavouritesView favouritesView;
-
+    private FavouritesViewModel favouritesViewModel;
 
     public ReciperSearchBuilder() { cardPanel.setLayout(cardLayout); }
 
@@ -119,6 +113,13 @@ public class ReciperSearchBuilder {
         return this;
     }
 
+    public ReciperSearchBuilder addFavouritesView() {
+        favouritesViewModel = new FavouritesViewModel();
+        favouritesView = new FavouritesView(favouritesViewModel);
+        cardPanel.add(favouritesView, favouritesView.getName());
+        return this;
+    }
+
     /**
      * Adds the Signup Use Case to the application.
      * @return this builder
@@ -150,33 +151,24 @@ public class ReciperSearchBuilder {
 
     }
 
+
+
     /**
      * Adds the Profile View to the application.
      * @return this builder
      */
-    public ReciperSearchBuilder addProfileView(String username) {
-        profileView = new ProfileView(username);
-
-        // Add action for navigating to favourites
-
-        return this;
-    }
-
-    /**
-     * Adds the Favourites View to the application.
-     * @return this builder
-     */
-
-    public ReciperSearchBuilder addFavouritesView(String username) {
-        favouritesView = new FavouritesView();
-
-        // Populate the favourites list with data from DataAccessObject
-        favouritesView.updateRecipeList(dataAccessObject.getFavoriteRecipeNames(username));
-
-        // Add action for navigating back to the profile view
-
-        return this;
-    }
+//    public ReciperSearchBuilder addProfileView(String username) {
+//        profileView = new ProfileView(username);
+//
+//        // Add action for navigating to favourites
+//
+//        return this;
+//    }
+//
+//    /**
+//     * Adds the Favourites View to the application.
+//     * @return this builder
+//     */
 
 
     /**
@@ -185,7 +177,7 @@ public class ReciperSearchBuilder {
      */
     public ReciperSearchBuilder addRecipeSearchUseCase() {
         final GetSearchParametersOutputBoundary outputBoundary = new GetSearchParametersPresenter(
-                getSearchParametersViewModel, popularRecipesViewModel, viewManagerModel);
+                getSearchParametersViewModel, popularRecipesViewModel, favouritesViewModel, viewManagerModel);
         final GetSearchParametersInputBoundary getSearchParametersInteractor = new GetSearchParametersInteractor(
                 dataAccessObject, outputBoundary);
 
@@ -204,6 +196,18 @@ public class ReciperSearchBuilder {
         final PopularRecipesController popularRecipesController =
                 new PopularRecipesController(popularRecipesInteractor);
         popularRecipesView.setPopularRecipesController(popularRecipesController);
+        return this;
+    }
+
+    public ReciperSearchBuilder addFavouritesUseCase() {
+        final FavouritesOutputBoundary outputBoundary = new FavouritesPresenter(favouritesViewModel,
+                viewManagerModel);
+        final FavouritesInputBoundary favouritesInteractor = new FavouritesInteractor(dataAccessObject,
+                outputBoundary);
+
+        final FavouritesController favouritesController =
+                new FavouritesController(favouritesInteractor);
+        favouritesView.setFavouritesController(favouritesController);
         return this;
     }
 

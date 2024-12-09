@@ -1,8 +1,8 @@
-package Main.interface_adapter.open_recipe;
+package interface_adapter.open_recipe;
 
-import Main.entity.Recipe;
-import Main.use_cases.open_recipe.OpenRecipeInputBoundary;
-import Main.use_cases.open_recipe.OpenRecipeInputData;
+import entity.Recipe;
+import use_cases.open_recipe.OpenRecipeInputBoundary;
+import use_cases.open_recipe.OpenRecipeInputData;
 
 public class OpenRecipeController {
 

@@ -1,8 +1,7 @@
-package Main.interface_adapter.signup;
+package interface_adapter.signup;
 
-import Main.entity.UserPreferences;
-import Main.use_cases.signup.SignupInputBoundary;
-import Main.use_cases.signup.SignupInputData;
+import use_cases.signup.SignupInputBoundary;
+import use_cases.signup.SignupInputData;
 
 import java.io.IOException;
 

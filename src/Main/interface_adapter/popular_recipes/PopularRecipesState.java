@@ -1,6 +1,6 @@
-package Main.interface_adapter.popular_recipes;
+package interface_adapter.popular_recipes;
 
-import Main.entity.Recipe;
+import entity.Recipe;
 
 import java.util.List;
 

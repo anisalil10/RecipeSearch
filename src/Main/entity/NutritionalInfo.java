@@ -1,4 +1,4 @@
-package Main.entity;
+package entity;
 
 public class NutritionalInfo {
     private NutritionalInfo nutritionalInfo;

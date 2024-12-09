@@ -1,6 +1,6 @@
-package Main.interface_adapter.open_recipe;
+package interface_adapter.open_recipe;
 
-import Main.interface_adapter.ViewModel;
+import interface_adapter.ViewModel;
 
 import javax.swing.*;
 

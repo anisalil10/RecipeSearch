@@ -1,6 +1,6 @@
-package Main.interface_adapter.popular_recipes;
+package interface_adapter.popular_recipes;
 
-import Main.interface_adapter.ViewModel;
+import interface_adapter.ViewModel;
 
 public class PopularRecipesViewModel extends ViewModel<PopularRecipesState> {
 

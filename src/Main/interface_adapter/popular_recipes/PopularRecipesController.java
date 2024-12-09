@@ -1,7 +1,8 @@
-package Main.interface_adapter.popular_recipes;
+package interface_adapter.popular_recipes;
 
-import Main.entity.Recipe;
-import Main.use_cases.popular_recipes.PopularRecipesInputBoundary;
+import entity.Recipe;
+import use_cases.popular_recipes.PopularRecipesInputBoundary;
+import use_cases.popular_recipes.PopularRecipesInputData;
 
 public class PopularRecipesController {
 
@@ -16,10 +17,14 @@ public class PopularRecipesController {
     }
 
     public void openRecipe(Recipe recipe, String username) {
-        popularRecipesInteractor.openRecipe(recipe, username);
+        PopularRecipesInputData inputData = new PopularRecipesInputData(recipe, username);
+
+        popularRecipesInteractor.openRecipe(inputData.getRecipe(), inputData.getUsername());
     }
 
     public void addToFavourites(Recipe recipe, String username) {
-        popularRecipesInteractor.addToFavourites(recipe, username);
+        PopularRecipesInputData inputData = new PopularRecipesInputData(recipe, username);
+
+        popularRecipesInteractor.addToFavourites(inputData.getRecipe(), inputData.getUsername());
     }
 }
