@@ -1,6 +1,6 @@
-package Main.use_cases.login;
+package use_cases.login;
 
-import Main.entity.User;
+import entity.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

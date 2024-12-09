@@ -1,4 +1,4 @@
-package Main.app;
+package app;
 
 import javax.swing.*;
 
@@ -17,10 +17,12 @@ public class Main {
                 .addSignupView()
                 .addRecipeSearchView()
                 .addPopularRecipesView()
+                .addFavouritesView()
                 .addSignupUseCase()
                 .addLoginUseCase()
                 .addRecipeSearchUseCase()
                 .addPopularRecipesUseCase()
+                .addFavouritesUseCase()
                 .build();
 
         application.setSize(1000, 250);

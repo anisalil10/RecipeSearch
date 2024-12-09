@@ -1,4 +1,9 @@
-package Main.view;
+package view;
+
+import entity.Recipe;
+import interface_adapter.viewfavourites.FavouritesController;
+import interface_adapter.viewfavourites.FavouritesState;
+import interface_adapter.viewfavourites.FavouritesViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,91 +11,114 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.*;
 import java.util.List;
 
-public class FavouritesView extends JFrame implements ActionListener, PropertyChangeListener {
-    private final JList<String> recipeList;
-    private final JButton backButton;
+public class FavouritesView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public FavouritesView() {
-        // Set up the JFrame
-        setTitle("Favorite Recipes");
-        setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+    private static final String viewName = "Favourite Recipes";
 
-        // Create a JList to display recipes
-        recipeList = new JList<>();
-        recipeList.setFont(new Font("Arial", Font.PLAIN, 14));
-        JScrollPane scrollPane = new JScrollPane(recipeList);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        add(scrollPane, BorderLayout.CENTER);
+    private final FavouritesViewModel favouritesViewModel;
+    private FavouritesController favouritesController;
 
-        // Create a Back button
-        backButton = new JButton("Back");
-        backButton.setFont(new Font("Arial", Font.BOLD, 14));
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(backButton);
-        add(buttonPanel, BorderLayout.SOUTH);
+    private final JPanel display;
 
+    public FavouritesView(FavouritesViewModel favouritesViewModel) {
+        this.favouritesViewModel = favouritesViewModel;
+        this.favouritesViewModel.addPropertyChangeListener(this);
+
+        final JLabel title = new JLabel("Favourite Recipes");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        display = new JPanel();
         // Add action listener for the Back button
-        backButton.addActionListener(this);
-    }
 
-    /**
-     * Updates the recipe list displayed in the view.
-     *
-     * @param recipes List of recipe names to display.
-     */
-    public void updateRecipeList(List<String> recipes) {
-        recipeList.setListData(recipes.toArray(new String[0]));
-    }
-
-    /**
-     * Adds an ActionListener to the Back button.
-     *
-     * @param listener ActionListener for the Back button.
-     */
-    public void addBackButtonListener(ActionListener listener) {
-        backButton.addActionListener(listener);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(title);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Handle Back button action
-        if (e.getSource() == backButton) {
-            System.out.println("Back button clicked! Returning to profile...");
-            dispose(); // Close the current window
-        }
+        System.out.println("Click " + e.getActionCommand());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         // Handle property change events if needed
-        if ("recipeList".equals(evt.getPropertyName())) {
-            @SuppressWarnings("unchecked")
-            List<String> recipes = (List<String>) evt.getNewValue();
-            updateRecipeList(recipes);
+        final FavouritesState state = (FavouritesState) evt.getNewValue();
+
+        if(state.isOpenFavourites()) {
+            favouritesController.getFavoriteRecipes(state.getUsername());
         }
+
+        else if(state.getFavoriteRecipes() != null) {
+            final FavouritesState currentState = favouritesViewModel.getState();
+
+            List<String> recipesList = new ArrayList<>(List.of());
+            Map<String, Recipe> recipeNames = new HashMap<>();
+
+            for(Recipe recipe : currentState.getFavoriteRecipes()) {
+                recipesList.add(recipe.getName());
+                recipeNames.put(recipe.getName(), recipe);
+            }
+
+            JList<String> recipes = new JList<>(recipesList.toArray(new String[0]));
+            recipes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+            final Recipe[] selectedRecipe = new Recipe[1];
+
+            recipes.addListSelectionListener(e -> selectedRecipe[0] = recipeNames.get(recipes.getSelectedValue()));
+
+            JButton selectRecipe = new JButton("select recipe");
+
+            display.add(recipes);
+            display.add(selectRecipe);
+
+            JScrollPane scrollPane = new JScrollPane(display);
+            recipes.setFont(new Font("Arial", Font.PLAIN, 14));
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            add(scrollPane, BorderLayout.CENTER);
+            this.add(scrollPane);
+
+            display.revalidate();
+
+            selectRecipe.addActionListener(e -> {
+                favouritesController.openRecipe(selectedRecipe[0], currentState.getUsername());
+                currentState.setSelectedRecipe(selectedRecipe[0]);
+            });
+            this.revalidate();
+            state.setFavoriteRecipes(null);
+        }
+
+        else if(state.getSelectedRecipe() != null & state.getFavouritesErrorMessage() == null){
+            Recipe selectedRecipe = state.getSelectedRecipe();
+            String message = "\nCuisine: " + selectedRecipe.getCuisine() + "\nMeal Type: " +
+                    selectedRecipe.getMealType() + "\nCalories: " + selectedRecipe.getCalories() + "\nIngredients: "
+                    + selectedRecipe.getIngredientsToString();
+
+            int option = JOptionPane.showConfirmDialog(this, message,
+                    selectedRecipe.getName(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if(option == 0) {
+                favouritesController.addToFavourites(state.getSelectedRecipe(), state.getUsername());
+            }
+            state.setSelectedRecipe(null);
+        }
+        else if(!Objects.equals(state.getFavouritesErrorMessage(), "")) {
+            JOptionPane.showMessageDialog(this, state.getFavouritesErrorMessage());
+            state.setFavouritesErrorMessage("");
+        }
+
     }
 
-    public static void main(String[] args) {
-        // Test the FavouritesView
-        FavouritesView favouritesView = new FavouritesView();
+    public void setFavouritesController(FavouritesController favouritesController) {
+        this.favouritesController = favouritesController;
+    }
 
-        // Simulate some recipes
-        List<String> recipes = List.of("Pasta", "Salad", "Pizza", "Soup", "Burger");
-
-        // Update the recipe list
-        favouritesView.updateRecipeList(recipes);
-
-        // Simulate Back button action
-        favouritesView.addBackButtonListener(e -> {
-            System.out.println("Back button clicked! Returning to profile...");
-            favouritesView.dispose(); // Close the current window
-        });
-
-        favouritesView.setVisible(true);
+    public static String getViewName() {
+        return viewName;
     }
 }

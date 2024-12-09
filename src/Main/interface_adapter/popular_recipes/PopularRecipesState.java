@@ -1,6 +1,6 @@
-package Main.interface_adapter.popular_recipes;
+package interface_adapter.popular_recipes;
 
-import Main.entity.Recipe;
+import entity.Recipe;
 
 import java.util.List;
 
@@ -41,5 +41,12 @@ public class PopularRecipesState {
 
     public void setFavouritesErrorMessage(String favouritesErrorMessage) {
         this.favouritesErrorMessage = favouritesErrorMessage;
+    }
+
+    public void setAllNull() {
+        this.topRecipes = null;
+        this.selectedRecipe = null;
+        this.username = null;
+        this.favouritesErrorMessage = null;
     }
 }

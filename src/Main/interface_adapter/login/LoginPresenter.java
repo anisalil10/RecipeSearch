@@ -1,12 +1,12 @@
-package Main.interface_adapter.login;
+package interface_adapter.login;
 
-import Main.interface_adapter.ViewManagerModel;
-import Main.interface_adapter.get_search_parameters.GetSearchParametersState;
-import Main.interface_adapter.get_search_parameters.GetSearchParametersViewModel;
-import Main.interface_adapter.signup.SignupState;
-import Main.interface_adapter.signup.SignupViewModel;
-import Main.use_cases.login.LoginOutputBoundary;
-import Main.use_cases.login.LoginOutputData;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.get_search_parameters.GetSearchParametersState;
+import interface_adapter.get_search_parameters.GetSearchParametersViewModel;
+import interface_adapter.signup.SignupState;
+import interface_adapter.signup.SignupViewModel;
+import use_cases.login.LoginOutputBoundary;
+import use_cases.login.LoginOutputData;
 
 /**
  * The Presenter for the Login Use Case.

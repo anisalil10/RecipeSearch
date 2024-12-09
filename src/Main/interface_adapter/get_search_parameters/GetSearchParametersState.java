@@ -1,6 +1,6 @@
-package Main.interface_adapter.get_search_parameters;
+package interface_adapter.get_search_parameters;
 
-import Main.entity.Recipe;
+import entity.Recipe;
 
 import java.util.List;
 

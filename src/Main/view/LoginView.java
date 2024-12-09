@@ -1,6 +1,5 @@
-package Main.view;
+package view;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,30 +16,27 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import Main.interface_adapter.login.LoginController;
-import Main.interface_adapter.login.LoginState;
-import Main.interface_adapter.login.LoginViewModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
 
 /**
  * The View for when the user is logging into the program.
  */
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private final String viewName = "log in";
+    private static final String viewName = "log in";
     private final LoginViewModel loginViewModel;
 
     private final JTextField usernameInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
 
     private final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JLabel passwordErrorField = new JLabel();
 
     private final JButton logIn;
     private final JButton goToSignUp;
     private final JButton cancel;
     private LoginController loginController;
-
-    private boolean darkMode = false; // New field for dark mode
 
     public LoginView(LoginViewModel loginViewModel) {
         this.loginViewModel = loginViewModel;
@@ -76,9 +72,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             }
         });
 
-        goToSignUp.addActionListener(evt -> {
-            loginController.goToSignup();
-        });
+        goToSignUp.addActionListener(evt -> loginController.goToSignup());
 
         cancel.addActionListener(this);
 
@@ -137,8 +131,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.add(usernameErrorField);
         this.add(passwordInfo);
         this.add(buttons);
-
-        applyDarkMode(); // Apply initial dark mode state
     }
 
     /**
@@ -161,7 +153,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         passwordInputField.setText(state.getPassword());
     }
 
-    public String getViewName() {
+    public static String getViewName() {
         return viewName;
     }
 
@@ -169,40 +161,5 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginController = loginController;
     }
 
-    // New method to toggle dark mode
-    public void setDarkMode(boolean darkMode) {
-        this.darkMode = darkMode;
-        applyDarkMode();
-    }
 
-    // Apply dark mode styles dynamically
-    private void applyDarkMode() {
-        if (darkMode) {
-            setBackground(Color.DARK_GRAY);
-            usernameInputField.setBackground(Color.BLACK);
-            usernameInputField.setForeground(Color.WHITE);
-            passwordInputField.setBackground(Color.BLACK);
-            passwordInputField.setForeground(Color.WHITE);
-            usernameErrorField.setForeground(Color.RED);
-            passwordErrorField.setForeground(Color.RED);
-            logIn.setBackground(Color.GRAY);
-            logIn.setForeground(Color.WHITE);
-            cancel.setBackground(Color.GRAY);
-            cancel.setForeground(Color.WHITE);
-        } else {
-            setBackground(Color.LIGHT_GRAY);
-            usernameInputField.setBackground(Color.WHITE);
-            usernameInputField.setForeground(Color.BLACK);
-            passwordInputField.setBackground(Color.WHITE);
-            passwordInputField.setForeground(Color.BLACK);
-            usernameErrorField.setForeground(Color.BLACK);
-            passwordErrorField.setForeground(Color.BLACK);
-            logIn.setBackground(Color.WHITE);
-            logIn.setForeground(Color.BLACK);
-            cancel.setBackground(Color.WHITE);
-            cancel.setForeground(Color.BLACK);
-        }
-        repaint();
-        revalidate();
-    }
 }

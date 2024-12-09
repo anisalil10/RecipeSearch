@@ -1,6 +1,6 @@
-package Main.use_cases.popular_recipes;
+package use_cases.popular_recipes;
 
-import Main.entity.Recipe;
+import entity.Recipe;
 
 public class PopularRecipesInteractor implements PopularRecipesInputBoundary{
 
@@ -32,5 +32,12 @@ public class PopularRecipesInteractor implements PopularRecipesInputBoundary{
             popularRecipeDataAccess.updateFavourites(username, recipe.getRecipeID());
             recipesPresenter.addToFavouritesSuccess("");
         }
+    }
+
+    @Override
+    public void back(String username) {
+        String diet = popularRecipeDataAccess.getDiet(username);
+
+        recipesPresenter.back(username, diet);
     }
 }

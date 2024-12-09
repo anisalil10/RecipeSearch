@@ -1,6 +1,4 @@
-package Main.use_cases.signup;
-
-import Main.entity.UserPreferences;
+package use_cases.signup;
 
 /**
  * The Input Data for the Signup Use Case.

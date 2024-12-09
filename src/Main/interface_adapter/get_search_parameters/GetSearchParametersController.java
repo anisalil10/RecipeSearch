@@ -1,8 +1,8 @@
-package Main.interface_adapter.get_search_parameters;
+package interface_adapter.get_search_parameters;
 
-import Main.entity.Recipe;
-import Main.use_cases.get_search_parameters.GetSearchParametersInputBoundary;
-import Main.use_cases.get_search_parameters.GetSearchParametersInputData;
+import entity.Recipe;
+import use_cases.get_search_parameters.GetSearchParametersInputBoundary;
+import use_cases.get_search_parameters.GetSearchParametersInputData;
 
 public class GetSearchParametersController {
     private final GetSearchParametersInputBoundary searchParametersInteractor;
@@ -26,5 +26,10 @@ public class GetSearchParametersController {
         searchParametersInteractor.addToFavourites(recipe, username);
     }
 
-    public void viewPopularRecipes(String username) {searchParametersInteractor.viewPopularRecipes(username);}
+    public void viewPopularRecipes(String username) {
+        searchParametersInteractor.viewPopularRecipes(username);}
+
+    public void openFavourites(String username) {
+        searchParametersInteractor.openFavourites(username);
+    }
 }

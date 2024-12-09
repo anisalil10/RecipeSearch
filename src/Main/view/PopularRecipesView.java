@@ -1,11 +1,9 @@
-package Main.view;
+package view;
 
-
-
-import Main.entity.Recipe;
-import Main.interface_adapter.popular_recipes.PopularRecipesController;
-import Main.interface_adapter.popular_recipes.PopularRecipesState;
-import Main.interface_adapter.popular_recipes.PopularRecipesViewModel;
+import entity.Recipe;
+import interface_adapter.popular_recipes.PopularRecipesController;
+import interface_adapter.popular_recipes.PopularRecipesState;
+import interface_adapter.popular_recipes.PopularRecipesViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,16 +11,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class PopularRecipesView extends JPanel implements ActionListener, PropertyChangeListener {
     private static final String viewName = "Popular Recipes";
     private final PopularRecipesViewModel popularRecipesViewModel;
 
     private final JPanel display;
+    private final JButton back;
 
     private PopularRecipesController popularRecipesController;
 
@@ -33,12 +30,23 @@ public class PopularRecipesView extends JPanel implements ActionListener, Proper
         final JLabel title = new JLabel("Recipe Menu");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JPanel buttons = new JPanel();
         display = new JPanel();
 
+        final JPanel buttons = new JPanel();
+
+        back = new JButton("Back");
+        buttons.add(back);
+
+        back.addActionListener(e -> {
+            final PopularRecipesState popularRecipesState = popularRecipesViewModel.getState();
+
+            display.removeAll();
+            display.revalidate();
+            popularRecipesState.setAllNull();
+            popularRecipesController.back(popularRecipesState.getUsername());
+        });
 
         this.add(buttons);
-
     }
 
     @Override
@@ -66,9 +74,7 @@ public class PopularRecipesView extends JPanel implements ActionListener, Proper
 
             final Recipe[] selectedRecipe = new Recipe[1];
 
-            recipes.addListSelectionListener(e -> {
-                selectedRecipe[0] = recipeNames.get(recipes.getSelectedValue());
-            });
+            recipes.addListSelectionListener(e -> selectedRecipe[0] = recipeNames.get(recipes.getSelectedValue()));
 
             JButton selectRecipe = new JButton("select recipe");
 
@@ -90,24 +96,24 @@ public class PopularRecipesView extends JPanel implements ActionListener, Proper
             state.setTopRecipes(null);
         }
 
-        if(state.getSelectedRecipe() != null){
+        else if(state.getSelectedRecipe() != null & state.getFavouritesErrorMessage() == null){
             Recipe selectedRecipe = state.getSelectedRecipe();
             String message = "\nCuisine: " + selectedRecipe.getCuisine() + "\nMeal Type: " +
                     selectedRecipe.getMealType() + "\nCalories: " + selectedRecipe.getCalories() + "\nIngredients: "
                     + selectedRecipe.getIngredientsToString();
 
-            JOptionPane jop = new JOptionPane();
-            int option = jop.showConfirmDialog(this, message,
-                    selectedRecipe.getName(), 1, 3);
+            int option = JOptionPane.showConfirmDialog(this, message,
+                    selectedRecipe.getName(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if(option == 0) {
                 popularRecipesController.addToFavourites(state.getSelectedRecipe(), state.getUsername());
             }
             state.setSelectedRecipe(null);
         }
-
-        this.add(display);
-        this.revalidate();
+        else if(!Objects.equals(state.getFavouritesErrorMessage(), "")) {
+            JOptionPane.showMessageDialog(this, state.getFavouritesErrorMessage());
+            state.setFavouritesErrorMessage("");
+        }
     }
 
     public static String getViewName() {

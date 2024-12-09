@@ -1,7 +1,6 @@
-package Main.use_cases.signup;
+package use_cases.signup;
 
-import Main.entity.User;
-import Main.entity.UserFactory;
+import entity.User;
 
 import java.io.IOException;
 

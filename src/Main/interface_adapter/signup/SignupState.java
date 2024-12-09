@@ -1,6 +1,4 @@
-package Main.interface_adapter.signup;
-
-import Main.entity.UserPreferences;
+package interface_adapter.signup;
 
 /**
  * The state for the Signup View Model.
@@ -9,9 +7,7 @@ public class SignupState {
     private String username = "";
     private String usernameError;
     private String password = "";
-    private String passwordError;
     private String repeatPassword = "";
-    private String repeatPasswordError;
     private String userPreferences;
 
     public String getUsername() {
@@ -26,16 +22,8 @@ public class SignupState {
         return password;
     }
 
-    public String getPasswordError() {
-        return passwordError;
-    }
-
     public String getRepeatPassword() {
         return repeatPassword;
-    }
-
-    public String getRepeatPasswordError() {
-        return repeatPasswordError;
     }
 
     public void setUsername(String username) {
@@ -50,16 +38,8 @@ public class SignupState {
         this.password = password;
     }
 
-    public void setPasswordError(String passwordError) {
-        this.passwordError = passwordError;
-    }
-
     public void setRepeatPassword(String repeatPassword) {
         this.repeatPassword = repeatPassword;
-    }
-
-    public void setRepeatPasswordError(String repeatPasswordError) {
-        this.repeatPasswordError = repeatPasswordError;
     }
 
     @Override

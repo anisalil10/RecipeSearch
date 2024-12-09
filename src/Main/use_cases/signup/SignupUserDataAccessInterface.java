@@ -1,6 +1,6 @@
-package Main.use_cases.signup;
+package use_cases.signup;
 
-import Main.entity.User;
+import entity.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package Main.view;
+package view;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

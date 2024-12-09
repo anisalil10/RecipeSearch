@@ -1,6 +1,6 @@
-package Main.use_cases.popular_recipes;
+package use_cases.popular_recipes;
 
-import Main.entity.Recipe;
+import entity.Recipe;
 
 public interface PopularRecipesInputBoundary {
 
@@ -9,4 +9,6 @@ public interface PopularRecipesInputBoundary {
     void openRecipe(Recipe recipe, String username);
 
     void addToFavourites(Recipe recipe, String username);
+
+    void back(String username);
 }
