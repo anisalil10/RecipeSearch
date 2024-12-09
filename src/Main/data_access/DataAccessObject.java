@@ -3,7 +3,6 @@ package data_access;
 import entity.Recipe;
 import entity.SearchParameters;
 import entity.User;
-import use_cases.fetch_recipes.FetchRecipesDataAccessInterface;
 import use_cases.get_search_parameters.GetSearchParametersDataAccess;
 import use_cases.login.LoginUserDataAccessInterface;
 import use_cases.popular_recipes.PopularRecipeDataAccess;
@@ -20,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class DataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface,
-        GetSearchParametersDataAccess, FetchRecipesDataAccessInterface, PopularRecipeDataAccess {
+        GetSearchParametersDataAccess, PopularRecipeDataAccess {
 
     private static final String USERS_FILE_PATH = "src/main/resources/users.csv";
     private static final String RECIPES_FILE_PATH = "src/main/resources/recipes.csv";
@@ -54,7 +53,7 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
 
         while (true) {
             try {
-                if (!((line = reader.readLine()) != null)) break;
+                if ((line = reader.readLine()) == null) break;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -123,8 +122,6 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
 
     /**
      * Update favourites list in user database.
-     * @param username
-     * @param recipeId
      */
     @Override
     public void updateFavourites(String username, String recipeId) {
@@ -172,7 +169,7 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
 
                 // Find the user and get their list of favorites
                 if (columns[0].equals(username) && !columns[3].equals("C")) {
-                    List<String> recipeIds = Arrays.asList(columns[3].split(","));
+                    String[] recipeIds = columns[3].split(",");
 
                     // Use findrecipe to get the name of each recipe
                     for (String recipeId : recipeIds) {
@@ -230,7 +227,6 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
             }
         } catch(IOException e) {
             System.err.println("Error while reading CSV: " + e.getMessage());
-            return;
         }
 
 
@@ -239,7 +235,6 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
 
     /**
      * Calls Edemame API to return a list of recipes based on search parameters initialized by used input.
-     * @param searchParameters
      * @return a List of recipes.
      */
     @Override
@@ -292,8 +287,6 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
 
     /**
      * Checks a user's favourites to see if the given recipe is already added.
-     * @param username
-     * @param recipeId
      * @return boolean to check if recipe is in list
      */
     @Override
@@ -320,16 +313,28 @@ public class DataAccessObject implements SignupUserDataAccessInterface, LoginUse
     }
 
     @Override
-    public List<Recipe> getrecipes(SearchParameters searchParameters) {
-        return List.of();
+    public String getDiet(String username) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE_PATH))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(";");
+
+                // Find the user and get their diet
+                if (columns[0].equals(username)) {
+                    return columns[2];
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading user file: " + e.getMessage());
+        }
+        return "";
     }
 
     /**
      * Calls API to find return a single recipe based on a URI, which is used as a recipe's recipeID.
-     * @param recipeId
      * @return Recipe given recipeID.
      */
-    @Override
     public Recipe findrecipe(String recipeId) {
         String url = String.format(
                 URI_PARAMETERS, BASE_URI, URLEncoder.encode(recipeId, StandardCharsets.UTF_8), APP_ID, APP_KEY

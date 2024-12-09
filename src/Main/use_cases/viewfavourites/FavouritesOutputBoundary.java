@@ -8,5 +8,9 @@ public interface FavouritesOutputBoundary {
 
     void openRecipe(Recipe recipe, String username);
 
+    void addToFavouritesFail(String message);
+
+    void addToFavouritesSuccess(String s);
+
     void presentError(String errorMessage);
 }

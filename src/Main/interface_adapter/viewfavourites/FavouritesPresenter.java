@@ -2,7 +2,6 @@ package interface_adapter.viewfavourites;
 
 import entity.Recipe;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.popular_recipes.PopularRecipesState;
 import use_cases.viewfavourites.FavouritesOutputBoundary;
 import use_cases.viewfavourites.FavouritesOutputData;
 
@@ -36,6 +35,20 @@ public class FavouritesPresenter implements FavouritesOutputBoundary {
         final FavouritesState state = favouritesViewModel.getState();
         state.setSelectedRecipe(recipe);
         state.setUsername(username);
+        favouritesViewModel.firePropertyChanged();
+    }
+
+    @Override
+    public void addToFavouritesFail(String message) {
+        final FavouritesState favouritesState = favouritesViewModel.getState();
+        favouritesState.setFavouritesErrorMessage(message);
+        favouritesViewModel.firePropertyChanged();
+    }
+
+    @Override
+    public void addToFavouritesSuccess(String s) {
+        final FavouritesState favouritesState = favouritesViewModel.getState();
+        favouritesState.setFavouritesErrorMessage(s);
         favouritesViewModel.firePropertyChanged();
     }
 

@@ -77,7 +77,7 @@ public class ReciperSearchBuilder {
     public ReciperSearchBuilder addSignupView() {
         signupViewModel = new SignupViewModel();
         signupView = new SignupView(signupViewModel);
-        cardPanel.add(signupView, signupView.getViewName());
+        cardPanel.add(signupView, SignupView.getViewName());
         return this;
     }
 
@@ -87,10 +87,9 @@ public class ReciperSearchBuilder {
      */
     public ReciperSearchBuilder addRecipeSearchView() {
         getSearchParametersViewModel = new GetSearchParametersViewModel();
-        popularRecipesViewModel = new PopularRecipesViewModel();
 
         recipeSearchView = new RecipeSearchView(getSearchParametersViewModel);
-        cardPanel.add(recipeSearchView, recipeSearchView.getViewName());
+        cardPanel.add(recipeSearchView, RecipeSearchView.getViewName());
         return this;
     }
 
@@ -98,7 +97,7 @@ public class ReciperSearchBuilder {
         popularRecipesViewModel = new PopularRecipesViewModel();
 
         popularRecipesView = new PopularRecipesView(popularRecipesViewModel);
-        cardPanel.add(popularRecipesView, popularRecipesView.getViewName());
+        cardPanel.add(popularRecipesView, PopularRecipesView.getViewName());
         return this;
     }
 
@@ -109,14 +108,15 @@ public class ReciperSearchBuilder {
     public ReciperSearchBuilder addLoginView() {
         loginViewModel = new LoginViewModel();
         loginView = new LoginView(loginViewModel);
-        cardPanel.add(loginView, loginView.getViewName());
+        cardPanel.add(loginView, LoginView.getViewName());
         return this;
     }
 
     public ReciperSearchBuilder addFavouritesView() {
         favouritesViewModel = new FavouritesViewModel();
+
         favouritesView = new FavouritesView(favouritesViewModel);
-        cardPanel.add(favouritesView, favouritesView.getName());
+        cardPanel.add(favouritesView, FavouritesView.getViewName());
         return this;
     }
 
@@ -152,25 +152,6 @@ public class ReciperSearchBuilder {
     }
 
 
-
-    /**
-     * Adds the Profile View to the application.
-     * @return this builder
-     */
-//    public ReciperSearchBuilder addProfileView(String username) {
-//        profileView = new ProfileView(username);
-//
-//        // Add action for navigating to favourites
-//
-//        return this;
-//    }
-//
-//    /**
-//     * Adds the Favourites View to the application.
-//     * @return this builder
-//     */
-
-
     /**
      * Adds the Recipe Search Use Case to the application.
      * @return this builder
@@ -189,7 +170,7 @@ public class ReciperSearchBuilder {
 
     public ReciperSearchBuilder addPopularRecipesUseCase() {
         final PopularRecipesOutputBoundary outputBoundary = new PopularRecipesPresenter(popularRecipesViewModel,
-                viewManagerModel);
+                getSearchParametersViewModel, viewManagerModel);
         final PopularRecipesInputBoundary popularRecipesInteractor = new PopularRecipesInteractor(dataAccessObject,
                 outputBoundary);
 
@@ -212,14 +193,14 @@ public class ReciperSearchBuilder {
     }
 
     public JFrame build() {
-        final JFrame application = new JFrame("Recipe Login");
+        final JFrame application = new JFrame("Recipe Search");
         Dimension d = new Dimension(300, 300);
         application.setSize(d);
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(SignupView.getViewName());
+        viewManagerModel.setState(LoginView.getViewName());
         viewManagerModel.firePropertyChanged();
 
         return application;

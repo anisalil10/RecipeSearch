@@ -11,6 +11,7 @@ public class FavouritesState {
     private List<Recipe> favoriteRecipes;
     private String errorMessage;
     private boolean openFavourites;
+    private String favouritesErrorMessage;
 
 
     public List<Recipe> getFavoriteRecipes() {
@@ -52,4 +53,13 @@ public class FavouritesState {
     public void setOpenFavourites(boolean openFavourites) {
         this.openFavourites = openFavourites;
     }
+
+    public String getFavouritesErrorMessage() {
+        return this.favouritesErrorMessage;
+    }
+
+    public void setFavouritesErrorMessage(String message) {
+        this.favouritesErrorMessage = message;
+    }
+
 }

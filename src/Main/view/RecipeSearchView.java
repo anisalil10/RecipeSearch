@@ -6,11 +6,7 @@ import interface_adapter.get_search_parameters.GetSearchParametersState;
 import interface_adapter.get_search_parameters.GetSearchParametersViewModel;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
@@ -25,17 +21,11 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
     private final JComboBox<String> cuisineDropdown;
     private final JComboBox<String> mealTypeDropdown;
     private GetSearchParametersController getSearchParametersController;
-    private UISettingsState uiSettingsState;
-
-    private DefaultListModel<String> recipeListModel; // Dynamic list model for recipes
 
     private final JButton search;
     private final JButton favouriteRecipes;
     private final JButton popularRecipes;
     private final JButton cancel;
-    private JButton toggleDarkMode;
-
-    private boolean darkMode = false; // Flag for dark mode
 
     private static final String[] CUISINE_OPTIONS = { " ",
             "American", "Asian", "British", "Caribbean", "Central Europe",
@@ -101,9 +91,6 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
         cancel = new JButton("Cancel");
         buttons.add(cancel);
 
-//        toggleDarkMode = new JButton("Toggle Dark Mode");
-//        buttons.add(toggleDarkMode);
-
         search.addActionListener(evt -> {
                 final GetSearchParametersState currentState = getSearchParametersViewModel.getState();
                 box.removeAll();
@@ -112,7 +99,7 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
                 currentState.setCuisine(Objects.requireNonNull(
                         cuisineDropdown.getSelectedItem()).toString().toLowerCase());
                 currentState.setMealType(Objects.requireNonNull(
-                        mealTypeDropdown.getSelectedItem().toString().toLowerCase()));
+                        Objects.requireNonNull(mealTypeDropdown.getSelectedItem()).toString().toLowerCase()));
 
                 getSearchParametersController.execute(
                         currentState.getQuery(),
@@ -135,9 +122,8 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
 
                     final Recipe[] selectedRecipe = new Recipe[1];
 
-                    recipes.addListSelectionListener(e -> {
-                        selectedRecipe[0] = recipeNames.get(recipes.getSelectedValue());
-                    });
+                    recipes.addListSelectionListener(e -> selectedRecipe[0] =
+                            recipeNames.get(recipes.getSelectedValue()));
 
                     JButton selectRecipe = new JButton("select recipe");
 
@@ -155,7 +141,6 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
                         getSearchParametersController.openRecipe(selectedRecipe[0], currentState.getUsername());
                         currentState.setSelectedRecipe(selectedRecipe[0]);
                     });
-                    this.revalidate();
                 }
                 this.revalidate();
         });
@@ -169,17 +154,6 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
             final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
             getSearchParametersController.openFavourites(getSearchParametersState.getUsername());
         });
-
-
-
-//        toggleDarkMode = new JButton("Toggle Dark Mode");
-//        toggleDarkMode.setAlignmentX(Component.CENTER_ALIGNMENT);
-//
-//        toggleDarkMode.addActionListener(evt -> {
-//            boolean isDarkMode = uiSettingsState.isDarkMode();
-//            uiSettingsState.setDarkMode(!isDarkMode); // Toggle dark mode
-//            this.applyDarkMode();
-//        });
 
         cancel.addActionListener(evt -> {
             searchInputField.setText(" "); // Clear the search field
@@ -206,7 +180,7 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
         if(state.getQueryError() != null) {
             JOptionPane.showMessageDialog(this, state.getQueryError());
         }
-        else if(state.getAddToFavouritesMessage() != "") {
+        else if(!Objects.equals(state.getAddToFavouritesMessage(), "")) {
             JOptionPane.showMessageDialog(this, state.getAddToFavouritesMessage());
             state.setAddToFavouritesMessage("");
         }
@@ -216,9 +190,8 @@ public class RecipeSearchView extends JPanel implements PropertyChangeListener {
                     selectedRecipe.getMealType() + "\nCalories: " + selectedRecipe.getCalories() + "\nIngredients:\n"
                     + selectedRecipe.getIngredientsToString() + "\n\nAdd to Favourites?";
 
-            JOptionPane jop = new JOptionPane();
-            int option = jop.showConfirmDialog(this, message,
-                    selectedRecipe.getName(), 1, 3);
+            int option = JOptionPane.showConfirmDialog(this, message,
+                    selectedRecipe.getName(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if(option == 0) {
                 getSearchParametersController.addToFavourites(state.getSelectedRecipe(), state.getUsername());

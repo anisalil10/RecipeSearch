@@ -8,7 +8,9 @@ public interface PopularRecipeDataAccess {
 
     List<Recipe> getTopRecipes();
 
-    public void updateFavourites(String username, String recipeId);
+    void updateFavourites(String username, String recipeId);
 
     boolean recipeInFavourites(String username, String recipeID);
+
+    String getDiet(String username);
 }

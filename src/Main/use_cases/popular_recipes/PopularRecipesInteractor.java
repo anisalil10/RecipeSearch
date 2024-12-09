@@ -33,4 +33,11 @@ public class PopularRecipesInteractor implements PopularRecipesInputBoundary{
             recipesPresenter.addToFavouritesSuccess("");
         }
     }
+
+    @Override
+    public void back(String username) {
+        String diet = popularRecipeDataAccess.getDiet(username);
+
+        recipesPresenter.back(username, diet);
+    }
 }

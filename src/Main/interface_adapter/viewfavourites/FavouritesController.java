@@ -21,4 +21,9 @@ public class FavouritesController {
 
         interactor.openRecipe(recipe, inputData.getUsername());
     }
+
+    public void addToFavourites(Recipe recipe, String username) {
+        interactor.addToFavourites(recipe, username);
+    }
+
 }

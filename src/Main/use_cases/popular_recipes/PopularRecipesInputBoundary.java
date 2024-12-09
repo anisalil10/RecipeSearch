@@ -9,4 +9,6 @@ public interface PopularRecipesInputBoundary {
     void openRecipe(Recipe recipe, String username);
 
     void addToFavourites(Recipe recipe, String username);
+
+    void back(String username);
 }

@@ -3,6 +3,7 @@ package interface_adapter.popular_recipes;
 import entity.Recipe;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.get_search_parameters.GetSearchParametersState;
+import interface_adapter.get_search_parameters.GetSearchParametersViewModel;
 import use_cases.popular_recipes.PopularRecipesOutputBoundary;
 
 import java.util.List;
@@ -10,10 +11,12 @@ import java.util.List;
 public class PopularRecipesPresenter implements PopularRecipesOutputBoundary {
 
     private final PopularRecipesViewModel popularRecipesViewModel;
+    private final GetSearchParametersViewModel getSearchParametersViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public PopularRecipesPresenter(PopularRecipesViewModel popularRecipesViewModel, ViewManagerModel viewManagerModel) {
+    public PopularRecipesPresenter(PopularRecipesViewModel popularRecipesViewModel, GetSearchParametersViewModel getSearchParametersViewModel, ViewManagerModel viewManagerModel) {
         this.popularRecipesViewModel = popularRecipesViewModel;
+        this.getSearchParametersViewModel = getSearchParametersViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
@@ -46,6 +49,22 @@ public class PopularRecipesPresenter implements PopularRecipesOutputBoundary {
         final PopularRecipesState popularRecipesState = popularRecipesViewModel.getState();
         popularRecipesState.setFavouritesErrorMessage(s);
         popularRecipesViewModel.firePropertyChanged();
+    }
+
+    @Override
+    public void back(String username, String diet) {
+        final GetSearchParametersState getSearchParametersState = getSearchParametersViewModel.getState();
+        getSearchParametersState.setUsername(username);
+        getSearchParametersState.setDiet(diet);
+        getSearchParametersState.setQuery(null);
+        getSearchParametersState.setMealType(null);
+        getSearchParametersState.setCuisine(null);
+        getSearchParametersState.setRecipeList(null);
+
+        this.getSearchParametersViewModel.setState(getSearchParametersState);
+        getSearchParametersViewModel.firePropertyChanged();
+        viewManagerModel.setState(getSearchParametersViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
 }

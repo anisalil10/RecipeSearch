@@ -1,7 +1,5 @@
 package use_cases.signup;
 
-import entity.UserPreferences;
-
 /**
  * The Input Data for the Signup Use Case.
  */

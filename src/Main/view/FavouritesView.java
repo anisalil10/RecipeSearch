@@ -1,7 +1,6 @@
 package view;
 
 import entity.Recipe;
-import interface_adapter.popular_recipes.PopularRecipesState;
 import interface_adapter.viewfavourites.FavouritesController;
 import interface_adapter.viewfavourites.FavouritesState;
 import interface_adapter.viewfavourites.FavouritesViewModel;
@@ -12,22 +11,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class FavouritesView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private static final String viewName = "Favorite Recipes";
+    private static final String viewName = "Favourite Recipes";
 
     private final FavouritesViewModel favouritesViewModel;
     private FavouritesController favouritesController;
 
     private final JPanel display;
-    private final JPanel buttons;
-
-    private final JButton backButton;
 
     public FavouritesView(FavouritesViewModel favouritesViewModel) {
         this.favouritesViewModel = favouritesViewModel;
@@ -36,28 +30,16 @@ public class FavouritesView extends JPanel implements ActionListener, PropertyCh
         final JLabel title = new JLabel("Favourite Recipes");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        buttons = new JPanel();
-
-        // Create a Back button
-        backButton = new JButton("Back");
-        buttons.add(backButton);
-        backButton.setFont(new Font("Arial", Font.BOLD, 14));
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(backButton);
-        add(buttonPanel, BorderLayout.SOUTH);
-
         display = new JPanel();
         // Add action listener for the Back button
-        backButton.addActionListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(buttons);
+        this.add(title);
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Handle Back button action
+        System.out.println("Click " + e.getActionCommand());
     }
 
     @Override
@@ -69,7 +51,7 @@ public class FavouritesView extends JPanel implements ActionListener, PropertyCh
             favouritesController.getFavoriteRecipes(state.getUsername());
         }
 
-        if(state.getFavoriteRecipes() != null) {
+        else if(state.getFavoriteRecipes() != null) {
             final FavouritesState currentState = favouritesViewModel.getState();
 
             List<String> recipesList = new ArrayList<>(List.of());
@@ -85,9 +67,7 @@ public class FavouritesView extends JPanel implements ActionListener, PropertyCh
 
             final Recipe[] selectedRecipe = new Recipe[1];
 
-            recipes.addListSelectionListener(e -> {
-                selectedRecipe[0] = recipeNames.get(recipes.getSelectedValue());
-            });
+            recipes.addListSelectionListener(e -> selectedRecipe[0] = recipeNames.get(recipes.getSelectedValue()));
 
             JButton selectRecipe = new JButton("select recipe");
 
@@ -111,6 +91,25 @@ public class FavouritesView extends JPanel implements ActionListener, PropertyCh
             });
             this.revalidate();
             state.setFavoriteRecipes(null);
+        }
+
+        else if(state.getSelectedRecipe() != null & state.getFavouritesErrorMessage() == null){
+            Recipe selectedRecipe = state.getSelectedRecipe();
+            String message = "\nCuisine: " + selectedRecipe.getCuisine() + "\nMeal Type: " +
+                    selectedRecipe.getMealType() + "\nCalories: " + selectedRecipe.getCalories() + "\nIngredients: "
+                    + selectedRecipe.getIngredientsToString();
+
+            int option = JOptionPane.showConfirmDialog(this, message,
+                    selectedRecipe.getName(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if(option == 0) {
+                favouritesController.addToFavourites(state.getSelectedRecipe(), state.getUsername());
+            }
+            state.setSelectedRecipe(null);
+        }
+        else if(!Objects.equals(state.getFavouritesErrorMessage(), "")) {
+            JOptionPane.showMessageDialog(this, state.getFavouritesErrorMessage());
+            state.setFavouritesErrorMessage("");
         }
 
     }

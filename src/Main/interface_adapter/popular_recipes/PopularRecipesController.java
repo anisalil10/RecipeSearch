@@ -12,10 +12,6 @@ public class PopularRecipesController {
         this.popularRecipesInteractor = popularRecipesInputBoundary;
     }
 
-    public void viewTopRecipes() {
-        popularRecipesInteractor.viewPopularRecipes();
-    }
-
     public void openRecipe(Recipe recipe, String username) {
         PopularRecipesInputData inputData = new PopularRecipesInputData(recipe, username);
 
@@ -26,5 +22,9 @@ public class PopularRecipesController {
         PopularRecipesInputData inputData = new PopularRecipesInputData(recipe, username);
 
         popularRecipesInteractor.addToFavourites(inputData.getRecipe(), inputData.getUsername());
+    }
+
+    public void back(String username) {
+        popularRecipesInteractor.back(username);
     }
 }

@@ -13,4 +13,6 @@ public interface PopularRecipesOutputBoundary {
     void addToFavouritesFail(String message);
 
     void addToFavouritesSuccess(String s);
+
+    void back(String username, String diet);
 }

@@ -42,4 +42,11 @@ public class PopularRecipesState {
     public void setFavouritesErrorMessage(String favouritesErrorMessage) {
         this.favouritesErrorMessage = favouritesErrorMessage;
     }
+
+    public void setAllNull() {
+        this.topRecipes = null;
+        this.selectedRecipe = null;
+        this.username = null;
+        this.favouritesErrorMessage = null;
+    }
 }

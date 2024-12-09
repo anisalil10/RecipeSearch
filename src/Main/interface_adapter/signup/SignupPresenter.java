@@ -3,7 +3,6 @@ package interface_adapter.signup;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.get_search_parameters.GetSearchParametersState;
 import interface_adapter.get_search_parameters.GetSearchParametersViewModel;
-import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import use_cases.signup.SignupOutputBoundary;
 import use_cases.signup.SignupOutputData;
@@ -18,9 +17,8 @@ public class SignupPresenter implements SignupOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final GetSearchParametersViewModel getSearchParametersViewModel;
 
-    public SignupPresenter(ViewManagerModel viewManagerModel,
-                           SignupViewModel signupViewModel, LoginViewModel loginViewModel,
-                           GetSearchParametersViewModel getSearchParametersViewModel) {
+    public SignupPresenter(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel,
+                           LoginViewModel loginViewModel, GetSearchParametersViewModel getSearchParametersViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
         this.loginViewModel = loginViewModel;

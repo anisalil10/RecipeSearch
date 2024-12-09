@@ -19,6 +19,17 @@ public class FavouritesInteractor implements FavouritesInputBoundary {
     }
 
     @Override
+    public void addToFavourites(Recipe recipe, String username) {
+        if(dataAccessObject.recipeInFavourites(username, recipe.getRecipeID())) {
+            outputBoundary.addToFavouritesFail("recipe already in favourites");
+        }
+        else {
+            dataAccessObject.updateFavourites(username, recipe.getRecipeID());
+            outputBoundary.addToFavouritesSuccess("");
+        }
+    }
+
+    @Override
     public void fetchFavoriteRecipes(FavouritesInputData inputData) {
         String username = inputData.getUsername();
 

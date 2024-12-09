@@ -1,7 +1,6 @@
 package use_cases.signup;
 
 import entity.User;
-import entity.UserFactory;
 
 import java.io.IOException;
 
