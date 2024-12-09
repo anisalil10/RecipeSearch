@@ -1,8 +1,6 @@
 package Main.interface_adapter.login;
 
 import Main.interface_adapter.ViewManagerModel;
-import Main.interface_adapter.change_password.LoggedInState;
-import Main.interface_adapter.change_password.LoggedInViewModel;
 import Main.interface_adapter.get_search_parameters.GetSearchParametersState;
 import Main.interface_adapter.get_search_parameters.GetSearchParametersViewModel;
 import Main.interface_adapter.signup.SignupState;
