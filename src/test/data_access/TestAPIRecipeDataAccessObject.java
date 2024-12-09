@@ -1,7 +1,7 @@
 package data_access;
 
-import Main.data_access.DataAccessObject;
-import Main.entity.User;
+import data_access.DataAccessObject;
+import entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -76,8 +76,7 @@ public class TestAPIRecipeDataAccessObject {
     void testUpdateFavourites_AddNewRecipe() {
         dataAccessObject.updateFavourites("testuser", "recipe123");
 
-        User user = dataAccessObject.finduser("testuser");
-        assertTrue(user.getUserpreferences().contains("recipe123"));
+        assertTrue(dataAccessObject.recipeInFavourites("testuser", "recipe123"));
     }
 
     @Test
@@ -86,8 +85,8 @@ public class TestAPIRecipeDataAccessObject {
         dataAccessObject.updateFavourites("testuser", "recipe456");
 
         User user = dataAccessObject.finduser("testuser");
-        assertTrue(user.getUserpreferences().contains("recipe123"));
-        assertTrue(user.getUserpreferences().contains("recipe456"));
+        assertTrue(dataAccessObject.recipeInFavourites("testuser", "recipe123"));
+        assertTrue(dataAccessObject.recipeInFavourites("testuser", "recipe456"));
     }
 
     @Test
